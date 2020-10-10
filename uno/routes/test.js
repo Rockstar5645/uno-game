@@ -2,6 +2,11 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 
+/*
+const pgp = require('pg-promise')(); 
+const db = pgp('postgres://akhil:apples@192.168.1.102:5432/uno'); 
+*/
+
 router.get("/", (request, response) => {
   db.any(
     `INSERT INTO test_table ("testString") VALUES ('Hello at $
