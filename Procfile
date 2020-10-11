@@ -1,1 +1,1 @@
-web: npm --prefix ./uno run start
+web: npm run start
