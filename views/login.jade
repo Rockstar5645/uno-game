@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/login.css')
+    link(rel='stylesheet', href='/stylesheets/buttons.css')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap')
+  body
+    block content
+        form.login-container
+            legend.legend Login to play!
+            input(
+                type='text'
+                name='username'
+                placeholder='Username'
+            )
+            input(
+                type='text'
+                name='Password'
+                placeholder='Password'
+            )
+            button.login.btn-darkblue(
+                type='submit'
+                name='login'
+            ) Log in
+            div.flex-row
+                div
+                    p Forget your password?
+                    a(
+                        href='#'
+                    ) Click Here
+                a.signup.btn-green(
+                    href='/signup'
+                ) Sign up

@@ -1,0 +1,41 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/login.css')
+    link(rel='stylesheet', href='/stylesheets/buttons.css')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap')
+  body
+    block content
+        form.login-container
+            legend.legend Sign up now!
+            input(
+                type='text'
+                name='username'
+                placeholder='Username'
+            )
+            input(
+                type='text'
+                name='email'
+                placeholder='Email'
+            )
+            input(
+                type='text'
+                name='Password'
+                placeholder='Password'
+            )
+            input(
+                type='text'
+                name='confirmPassword'
+                placeholder='Confirm Password'
+            )
+            button.login.btn-darkblue(
+                type='submit'
+                name='signUp'
+            ) Log in
+            div.flex-row
+                p Already have an account?
+                a(
+                    href='/login'
+                ) Log in
