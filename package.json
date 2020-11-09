@@ -9,6 +9,9 @@
     "db:create:migration": "npx sequelize migration:generate --name ",
     "db:migrate": "npx sequelize db:migrate",
     "db:rollback": "npx sequelize db:migrate:undo",
+    "db:create:seed": "npx sequelize seed:generate --name ",
+    "db:seed": "npx sequelize-cli db:seed:all",
+    "db:undo:seed": "npx sequelize-cli db:seed:undo",
     "heroku-postbuild": "npx sequelize db:migrate"
   },
   "dependencies": {

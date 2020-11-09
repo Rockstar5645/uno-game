@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: (queryInterface, Sequelize) => {
     return queryInterface.createTable(
       'deck',
       {
@@ -9,11 +9,6 @@ module.exports = {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true
-        },
-        createdAt: {
-          type: Sequelize.DATE,
-          defaultValue: Sequelize.literal('NOW()'),
-          allowNull: false
         },
         name: {
           type: Sequelize.STRING,
@@ -31,7 +26,7 @@ module.exports = {
     );
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('deck');
   }
 };

@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    queryInterface.createTable(
+    return queryInterface.createTable(
       'test_table',
       {
         id: {
@@ -21,30 +21,6 @@ module.exports = {
         }
       }
     );
-    queryInterface.createTable(
-      'Cards',
-      {
-        id: {
-          type: Sequelize.INTEGER,
-          primaryKey: true,
-          autoIncrement: true
-        },
-        name: {
-          type: Sequelize.STRING,
-          allowNull: false
-        },
-        color: {
-          type: Sequelize.STRING,
-          allowNull: false
-        },
-        count: {
-          type: Sequelize.INTEGER,
-          allowNull: false
-        }
-      }
-    );
-
-    return 1;
 
   },
 
