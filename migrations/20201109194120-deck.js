@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    queryInterface.createTable(
-      'test_table',
+  up: async (queryInterface, Sequelize) => {
+    return queryInterface.createTable(
+      'deck',
       {
         id: {
           type: Sequelize.INTEGER,
@@ -14,20 +14,6 @@ module.exports = {
           type: Sequelize.DATE,
           defaultValue: Sequelize.literal('NOW()'),
           allowNull: false
-        },
-        testString: {
-          type: Sequelize.STRING,
-          allowNull: false
-        }
-      }
-    );
-    queryInterface.createTable(
-      'Cards',
-      {
-        id: {
-          type: Sequelize.INTEGER,
-          primaryKey: true,
-          autoIncrement: true
         },
         name: {
           type: Sequelize.STRING,
@@ -43,12 +29,9 @@ module.exports = {
         }
       }
     );
-
-    return 1;
-
   },
 
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('test_table');
+  down: async (queryInterface, Sequelize) => {
+    return queryInterface.dropTable('deck');
   }
 };
