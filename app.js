@@ -14,12 +14,13 @@ var usersRouter = require('./routes/users');
 var testRouter = require('./routes/test');
 var loginRouter = require('./routes/login');
 var signupRouter = require('./routes/signup');
+const deckRouter = require('./routes/deck');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -32,6 +33,7 @@ app.use('/users', usersRouter);
 app.use('/tests', testRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
+app.use('/deck', deckRouter);
 
 
 // catch 404 and forward to error handler
