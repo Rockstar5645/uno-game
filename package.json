@@ -9,6 +9,9 @@
     "db:create:migration": "npx sequelize migration:generate --name ",
     "db:migrate": "npx sequelize db:migrate",
     "db:rollback": "npx sequelize db:migrate:undo",
+    "db:create:seed": "npx sequelize seed:generate --name ",
+    "db:seed": "npx sequelize-cli db:seed:all",
+    "db:undo:seed": "npx sequelize-cli db:seed:undo",
     "heroku-postbuild": "npx sequelize db:migrate"
   },
   "dependencies": {
@@ -17,9 +20,9 @@
     "dotenv": "^8.2.0",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
     "morgan": "~1.9.1",
     "pg-promise": "^10.7.0",
+    "pug": "^3.0.0",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0"
   },

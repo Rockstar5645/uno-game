@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h1 Game Landing Page - #{id} - #{createdAt}
+
+  h2 Game Users
+  each user in users
+    dl
+      dt Username
+      dd= user.username
+
+      dt Email
+      dd= user.email
+
+      dt User Id
+      dd= user.id
+
+  h2 Game Deck
+  ul
+    each card in deck
+      li #{card.color} #{card.name} #{card.action}
+
