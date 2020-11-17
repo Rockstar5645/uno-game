@@ -7,6 +7,8 @@ const LOOKUP_CARDS = `SELECT * FROM deck`;
 const INSERT_CARD = `INSERT INTO game_deck (game_id, card_id, "order") VALUES ($1, $2, $3)`;
 const GET_DECK =
   "SELECT * FROM game_deck, deck WHERE game_id=$1 AND game_deck.card_id=deck.id";
+const GET_OPEN_GAMES =
+  "SELECT games.*, COUNT(game_users.user_id) AS player_count FROM games, game_users WHERE games.id=game_users.game_id GROUP BY games.id";
 
 const shuffleCards = (deck) => {
   let currentIndex = deck.length,
@@ -70,8 +72,11 @@ const addUser = (gameId, userId) =>
     .one(GET_LAST_USER, [gameId])
     .then((lastUser) => db.one(ADD_USER, [gameId, userId, lastUser.order + 1]));
 
+const getLobbyListing = () => db.any(GET_OPEN_GAMES);
+
 module.exports = {
   create,
   addUser,
   getGameInfo,
+  getLobbyListing,
 };

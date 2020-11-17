@@ -14,4 +14,12 @@ router.get("/:id", (request, response) => {
     });
 });
 
+router.get("/join/:id", (request, response) => {
+  const { id: gameId } = request.params;
+
+  Game.addUser(gameId, 36).then((_) => {
+    response.redirect(`/games/${gameId}`);
+  });
+});
+
 module.exports = router;
