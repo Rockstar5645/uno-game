@@ -1,8 +1,24 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}, some change
-  a(href='/login') login
-  p
-  a(href='/signup') signup
+  link(rel='stylesheet', href='/stylesheets/index.css')
+
+  div(class="demo-layout-transparent mdl-layout mdl-js-layout")
+    header(class="mdl-layout__header mdl-layout__header--transparent")
+      div(class="mdl-layout__header-row")
+        // Title 
+        span(class="mdl-layout-title") #{title}
+        // Add spacer, to align navigation to the right 
+        div(class="mdl-layout-spacer")
+        // Navigation 
+        nav(class="mdl-navigation")  
+          a(class="mdl-navigation__link", href="/login") Login
+          a(class="mdl-navigation__link", href="/signup") Signup
+      
+    div(class="mdl-layout__drawer")
+      span(class="mdl-layout-title") #{title}
+      nav(class="mdl-navigation")
+        a(class="mdl-navigation__link", href="/login") Login
+        a(class="mdl-navigation__link", href="/signup") Signup
+
+    main(class="mdl-layout__content")
