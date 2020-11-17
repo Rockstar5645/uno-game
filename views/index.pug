@@ -2,7 +2,16 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}, some change
+  p Welcome to #{title}
   a(href='/login') login
-  p
-  a(href='/signup') signup
+  p 
+    a(href='/signup') signup
+
+  - 
+    var list = ["Uno", "Dos", "Tres", 
+        "Cuatro", "Cinco", "Seis"]
+
+    
+  
+  each item in list
+    li= item
