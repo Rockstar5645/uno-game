@@ -21,30 +21,14 @@ const lobbyRouter = require("./routes/lobby");
 var app = express();
 
 // view engine setup
-<<<<<<< HEAD
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-=======
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
->>>>>>> origin/main
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-<<<<<<< HEAD
-
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/tests', testRouter);
-app.use('/login', loginRouter);
-app.use('/signup', signupRouter);
-=======
 app.use(express.static(path.join(__dirname, "public")));
->>>>>>> origin/main
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
