@@ -1,41 +1,78 @@
-doctype html
-html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/stylesheets/login.css')
-    link(rel='stylesheet', href='/stylesheets/buttons.css')
-    link(rel='stylesheet', href='https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap')
-  body
-    block content
-        form.login-container
-            legend.legend Sign up now!
-            input(
-                type='text'
-                name='username'
-                placeholder='Username'
+extends layout
+
+block content
+    div(class="mdl-grid")
+        div(class="mdl-cell mdl-cell--4-col")
+        div(class="mdl-cell mdl-cell--4-col")
+            form(
+                action="/signup"
+                target="_self"
+                method="post"
+                id="login_form"
+                autocomplete="on"
             )
-            input(
-                type='text'
-                name='email'
-                placeholder='Email'
-            )
-            input(
-                type='text'
-                name='Password'
-                placeholder='Password'
-            )
-            input(
-                type='text'
-                name='confirmPassword'
-                placeholder='Confirm Password'
-            )
-            button.login.btn-darkblue(
-                type='submit'
-                name='signUp'
-            ) Sign up
-            div.flex-row
-                p Already have an account?
-                a(
-                    href='/login'
-                ) Log in
+                ul(class="mdl-list")
+                    li(class="mdl-list__item")
+                        span(class="mdl-list__item-primary-content") Sign up now!
+                    li(class="mdl-list__item")
+                        div(class="mdl-textfield mdl-js-textfield")
+                            input(
+                                class="mdl-textfield__input"
+                                type="text" 
+                                name="username"
+                                id="username"
+                            )
+                            label(
+                                class="mdl-textfield__label" 
+                                for="username"
+                            ) Username 
+                    li(class="mdl-list__item")
+                        div(class="mdl-textfield mdl-js-textfield")
+                            input(
+                                class="mdl-textfield__input"
+                                type="text" 
+                                name="email"
+                                id="email"
+                            )
+                            label(
+                                class="mdl-textfield__label" 
+                                for="username"
+                            ) Email 
+                    li(class="mdl-list__item")
+                        div(class="mdl-textfield mdl-js-textfield")
+                            input(
+                                class="mdl-textfield__input"
+                                type="password" 
+                                name="password"
+                                id="password"
+                            )
+                            label(
+                                class="mdl-textfield__label" 
+                                for="password"
+                            ) Password 
+                    li(class="mdl-list__item")
+                        div(class="mdl-textfield mdl-js-textfield")
+                            input(
+                                class="mdl-textfield__input"
+                                type="password" 
+                                name="confirmPassword"
+                                id="confirmPassword"
+                            )
+                            label(
+                                class="mdl-textfield__label" 
+                                for="password"
+                            ) Confirm Password 
+                    li(class="mdl-list__item")
+                        button(
+                            type="submit"
+                            value="Submit"
+                            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                        ) Sign Up
+            ul(class="mdl-list")
+                li(class="mdl-list__item")
+                    div
+                        p Already have an account? 
+                        a(href='#') Login 
+
+        div(class="mdl-cell mdl-cell--4-col")
+    

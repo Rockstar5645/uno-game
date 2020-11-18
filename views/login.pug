@@ -1,35 +1,57 @@
-doctype html
-html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/stylesheets/login.css')
-    link(rel='stylesheet', href='/stylesheets/buttons.css')
-    link(rel='stylesheet', href='https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap')
-  body
-    block content
-        form.login-container
-            legend.legend Login to play!
-            input(
-                type='text'
-                name='username'
-                placeholder='Username'
+extends layout
+
+block content
+    div(class="mdl-grid")
+        div(class="mdl-cell mdl-cell--4-col")
+        div(class="mdl-cell mdl-cell--4-col")
+            form(
+                action="/login"
+                target="_self"
+                method="post"
+                id="login_form"
+                autocomplete="on"
             )
-            input(
-                type='text'
-                name='Password'
-                placeholder='Password'
-            )
-            button.login.btn-darkblue(
-                type='submit'
-                name='login'
-            ) Log in
-            div.flex-row
-                div
-                    p Forget your password?
-                    a(
-                        href='#'
-                    ) Click Here
-                a.signup.btn-green(
-                    href='/signup'
-                ) Sign up
+                ul(class="mdl-list")
+                    li(class="mdl-list__item")
+                        span(class="mdl-list__item-primary-content") Login to play!
+                    li(class="mdl-list__item")
+                        div(class="mdl-textfield mdl-js-textfield")
+                            input(
+                                class="mdl-textfield__input"
+                                type="text" 
+                                name="username"
+                                id="username"
+                            )
+                            label(
+                                class="mdl-textfield__label" 
+                                for="username"
+                            ) Username 
+                    li(class="mdl-list__item")
+                        div(class="mdl-textfield mdl-js-textfield")
+                            input(
+                                class="mdl-textfield__input"
+                                type="password" 
+                                name="password"
+                                id="password"
+                            )
+                            label(
+                                class="mdl-textfield__label" 
+                                for="password"
+                            ) Password 
+                    li(class="mdl-list__item")
+                        button(
+                            type="submit"
+                            value="Submit"
+                            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                        ) Login 
+            ul(class="mdl-list")
+                li(class="mdl-list__item")
+                    div
+                        p Forget your password?
+                        a(href='#') Click Here
+                li(class="mdl-list__item")
+                    a(href='/signup') Sign up
+
+        div(class="mdl-cell mdl-cell--4-col")
+
+    
