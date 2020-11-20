@@ -1,6 +1,10 @@
 extends layout
 
 block content
+    style(type='text/css').
+        .mdl-list__item {
+            padding: 0px;
+        }
     div(class="mdl-grid")
         div(class="mdl-cell mdl-cell--4-col")
         div(class="mdl-cell mdl-cell--4-col")
@@ -14,6 +18,8 @@ block content
                 ul(class="mdl-list")
                     li(class="mdl-list__item")
                         span(class="mdl-list__item-primary-content") Sign up now!
+
+                    // USERNAME INPUT FIELD 
                     li(class="mdl-list__item")
                         div(class="mdl-textfield mdl-js-textfield")
                             input(
@@ -21,11 +27,24 @@ block content
                                 type="text" 
                                 name="username"
                                 id="username"
+                                value=(username ? username : false)
                             )
                             label(
                                 class="mdl-textfield__label" 
                                 for="username"
                             ) Username 
+                    if status == 'username_error'
+                        li(class="mdl-list__item")
+                            case msg   
+                                when 'empty_username'
+                                    span(style="color:#ff0000;") Please enter a username. 
+                                when 'username_too_long'
+                                    span(style="color:#ff0000;") Username must be less than 50 characters long. 
+                                when 'username_already_exists'
+                                    span(style="color:#ff0000;").
+                                        Username already exists, please choose a different one. 
+                    
+                    // EMAIL INPUT FIELD 
                     li(class="mdl-list__item")
                         div(class="mdl-textfield mdl-js-textfield")
                             input(
@@ -33,11 +52,23 @@ block content
                                 type="text" 
                                 name="email"
                                 id="email"
+                                value=(email ? email : false) 
                             )
                             label(
                                 class="mdl-textfield__label" 
                                 for="username"
                             ) Email 
+                    if status == 'email_error'
+                        li(class="mdl-list__item")
+                            case msg  
+                                when 'invalid_email'
+                                    span(style="color:#ff0000;") Please enter a valid email address
+                                when 'email_already_exists'
+                                    span(style="color:#ff0000;").
+                                        An account with this email address already exists, please 
+                                        choose another one. 
+
+                    // PASSWORD INPUT FIELD 
                     li(class="mdl-list__item")
                         div(class="mdl-textfield mdl-js-textfield")
                             input(
@@ -45,11 +76,23 @@ block content
                                 type="password" 
                                 name="password"
                                 id="password"
+                                value=(password ? password : false)
                             )
                             label(
                                 class="mdl-textfield__label" 
                                 for="password"
                             ) Password 
+                    if status == 'password_error'
+                        li(class="mdl-list__item")
+                            case msg
+                                when 'password_mismatch'
+                                    span(style="color:#ff0000;") The passwords do not match.
+                                when 'empty_password'
+                                    span(style="color:#ff0000;") Please enter a password
+                                when 'password_too_long'
+                                    span(style="color:#ff0000;") Password must be less than 50 characters long
+                    
+                    // CONFIRM PASSWORD INPUT FIELD 
                     li(class="mdl-list__item")
                         div(class="mdl-textfield mdl-js-textfield")
                             input(
@@ -57,22 +100,26 @@ block content
                                 type="password" 
                                 name="confirmPassword"
                                 id="confirmPassword"
+                                value=(confirmPassword ? confirmPassword : false)
                             )
                             label(
                                 class="mdl-textfield__label" 
                                 for="password"
                             ) Confirm Password 
+
+                    // SIGNUP FORM SUBMISSION BUTTON 
                     li(class="mdl-list__item")
                         button(
                             type="submit"
                             value="Submit"
                             class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                         ) Sign Up
+
             ul(class="mdl-list")
                 li(class="mdl-list__item")
                     div
                         p Already have an account? 
-                        a(href='#') Login 
+                        a(href='/login') Login 
 
         div(class="mdl-cell mdl-cell--4-col")
     
