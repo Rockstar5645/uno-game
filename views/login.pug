@@ -14,6 +14,19 @@ block content
                 ul(class="mdl-list")
                     li(class="mdl-list__item")
                         span(class="mdl-list__item-primary-content") Login to play!
+
+                    // AUTHENTICATION ERROR 
+                    if status == 'error'
+                        li(class="mdl-list__item")
+                            case msg   
+                                when 'authentication_error'
+                                    span(style="color:#ff0000;"). 
+                                        The username or password you entered is not correct, please try again. 
+                                when 'datebase_error'
+                                    span(style="color:#ff0000;"). 
+                                        There was an internal server error, please try again later. 
+
+                    // USERNAME INPUT FIELD 
                     li(class="mdl-list__item")
                         div(class="mdl-textfield mdl-js-textfield")
                             input(
@@ -21,11 +34,19 @@ block content
                                 type="text" 
                                 name="username"
                                 id="username"
+                                value=(username ? username : false)
                             )
                             label(
                                 class="mdl-textfield__label" 
                                 for="username"
                             ) Username 
+                    if status == 'username_error'
+                        li(class="mdl-list__item")
+                            case msg   
+                                when 'empty_username'
+                                    span(style="color:#ff0000;") Please enter a username. 
+
+                    // PASSWORD INPUT FIELD 
                     li(class="mdl-list__item")
                         div(class="mdl-textfield mdl-js-textfield")
                             input(
@@ -33,17 +54,27 @@ block content
                                 type="password" 
                                 name="password"
                                 id="password"
+                                value=(password ? password : false)
                             )
                             label(
                                 class="mdl-textfield__label" 
                                 for="password"
                             ) Password 
+                    if status == 'password_error'
+                        li(class="mdl-list__item")
+                            case msg
+                                when 'empty_password'
+                                    span(style="color:#ff0000;") Please enter a password.
+
+                    // SIGNUP FORM SUBMISSION BUTTON 
                     li(class="mdl-list__item")
                         button(
                             type="submit"
                             value="Submit"
                             class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                         ) Login 
+            
+            
             ul(class="mdl-list")
                 li(class="mdl-list__item")
                     div

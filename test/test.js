@@ -1,39 +1,13 @@
-'use strict'
+let assert = require('assert');
 
-const { Sequelize, DataTypes, Model } = require('sequelize');
-const sequelize = new Sequelize('postgres://akhil:apples@192.168.1.102:5432/uno', {logging: false}); 
+describe('Array', function() {
+  describe('#indexOf()', function() {
+    it('should return -1 when the value is not present', function(){
+      assert.equal(-1, [1,2,3].indexOf(4));
+    });
 
-class User extends Model {}
-
-(async ()=> {
-
-User.init({
-  // Model attributes are defined here
-  firstName: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  lastName: {
-    type: DataTypes.STRING
-    // allowNull defaults to true
-  }
-}, {
-  // Other model options go here
-  sequelize, // We need to pass the connection instance
-  tableName: 'users'    // make it lowercase 
+    it('should return -1 when the value is not present', function(){
+      assert.equal(-1, [1,2,3].indexOf(10));
+    });
+  });
 });
-
-await User.sync({ force: true });
-
-const users = await User.bulkCreate([
-  {firstName: 'akhil', lastName: 'gandu'},
-  {firstName: 'john', lastName: 'nash'},
-  {firstName: 'harold', lastName: 'ford'},
-]); 
-
-console.log(users); 
-
-})(); 
-
-
-  
