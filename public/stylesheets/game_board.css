@@ -1,6 +1,10 @@
 body {
   background-color: black;
 }
+ul {
+  list-style-type: none;
+  margin: 0;
+}
 .grid {
   display: grid;
   grid-template-columns: 12% 12% 12% 12% 12% 12% 12% 12%;
@@ -10,8 +14,8 @@ body {
 }
 .grid > div {
   background: #ede7f6;
-  padding: 1.5rem;
-  border-radius: 1rem;
+  /* padding: 1.5rem; */
+  /* border-radius: 1rem; */
 }
 
 .horizontal-hand {
@@ -25,10 +29,8 @@ body {
   white-space: nowrap;
 }
 #deck {
-  max-width: 100%;
+  max-width: 70%;
   max-height: auto;
-  /* max-height: 200px; */
-  /* max-width: 200px; */
   vertical-align: middle;
 }
 /* Helps vertically center images (inline blocks) */
@@ -36,4 +38,53 @@ body {
   display: inline-block;
   height: 100%;
   vertical-align: middle;
+}
+
+/* Player A's Hand */
+.user-cards {
+  padding-top: 2rem;
+  overflow-x: scroll;
+  overflow-y: visible;
+  white-space: nowrap;
+}
+.user-card {
+  max-width: 20%;
+  display: inline-block;
+}
+.user-card img {
+  width: 80%;
+  display: block;
+}
+.user-card:not(:last-child) {
+  margin-left: -40px;
+}
+.user-card:last-child {
+  margin-left: -40px;
+}
+
+/* Vertical hands */
+.vertical-hand {
+  overflow-x: visible;
+  overflow-y: scroll;
+}
+.user-cards-vertical {
+  height: 100%;
+  width: fit-content;
+}
+.user-card-vertical {
+  /* max-width: 20%; */
+  /* max-height: fit-content; */
+  /* max-height: 20%; */
+}
+.user-card-vertical:not(:last-child) {
+  transform: rotate(90deg);
+  margin-top: -80px;
+}
+.user-card-vertical:last-child {
+  transform: rotate(90deg);
+  margin-top: -80px;
+}
+.user-card-vertical img {
+  width: 80%;
+  display: block;
 }
