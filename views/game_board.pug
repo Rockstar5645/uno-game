@@ -1,0 +1,30 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='../stylesheets/game_board.css')
+  title UNO Game Board
+.grid
+  // first row
+  .player-a Player A
+  .buffer
+  .horizontal-hand Player B Hand
+  .player-b Player B
+  .menu-btn &mldr;
+  // second row
+  .vertical-hand Player A Hand
+  .buffer
+  .deck
+    // Helper to help align image vertically centered
+    span.helper
+    img#deck(src='../images/deck_images/card_back.png' alt='card back')
+  .played-stack Played Stack
+  .uno-btn UNO btn
+  .buffer
+  .vertical-hand Player C Hand
+  // third row
+  .buffer
+  .player-c Player D
+  .horizontal-hand Player D Hand
+  .buffer
+  .player-d Player C

@@ -1,0 +1,39 @@
+body {
+  background-color: black;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 12% 12% 12% 12% 12% 12% 12% 12%;
+  grid-template-rows: 25% 50% 25% 25%;
+  gap: 1px;
+  height: 95vh;
+}
+.grid > div {
+  background: #ede7f6;
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.horizontal-hand {
+  grid-column: 3 / 7;
+}
+.played-stack {
+  grid-column: 4 / 6;
+}
+
+.deck {
+  white-space: nowrap;
+}
+#deck {
+  max-width: 100%;
+  max-height: auto;
+  /* max-height: 200px; */
+  /* max-width: 200px; */
+  vertical-align: middle;
+}
+/* Helps vertically center images (inline blocks) */
+.helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
