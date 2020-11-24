@@ -12,7 +12,8 @@
     "db:create:seed": "npx sequelize seed:generate --name ",
     "db:seed": "npx sequelize-cli db:seed:all",
     "db:undo:seed": "npx sequelize-cli db:seed:undo",
-    "heroku-postbuild": "npx sequelize db:migrate"
+    "heroku-postbuild": "npx sequelize db:migrate", 
+    "test": "mocha"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",

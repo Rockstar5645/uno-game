@@ -1,10 +1,6 @@
 extends layout
 
 block content
-    style(type='text/css').
-        .mdl-list__item {
-            padding: 0px;
-        }
     div(class="mdl-grid")
         div(class="mdl-cell mdl-cell--4-col")
         div(class="mdl-cell mdl-cell--4-col")
@@ -88,9 +84,9 @@ block content
                                 when 'password_mismatch'
                                     span(style="color:#ff0000;") The passwords do not match.
                                 when 'empty_password'
-                                    span(style="color:#ff0000;") Please enter a password
+                                    span(style="color:#ff0000;") Please enter a password.
                                 when 'password_too_long'
-                                    span(style="color:#ff0000;") Password must be less than 50 characters long
+                                    span(style="color:#ff0000;") Password must be less than 50 characters long.
                     
                     // CONFIRM PASSWORD INPUT FIELD 
                     li(class="mdl-list__item")

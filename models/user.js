@@ -1,69 +1,47 @@
 let db = require('../db'); 
-const bcrypt = require('bcrypt');
-const saltRounds = 12;
 
 class User {
 
-    constructor(username, password, email) {
+    constructor(username, email) {
 
+        this.username = username; 
+        this.email = email; 
     }
 
-    static async createPassword(password) {
-        const myPlaintextPassword = password;
-        
-        console.log(myPlaintextPassword); 
-
-        let hash = await bcrypt.hash(myPlaintextPassword, saltRounds)
-    
-        return hash;
-    }
-
-    static async create(username, password, confirmPassword, email) {
-     
-        let res = {};
-
-        if (password !== confirmPassword) {
-            res.status = 'password_error';
-            res.msg = 'password_mismatch'; 
-            return res; 
-        }
-
-        if (username.length == 0) {
-            res.status = 'username_error';
-            res.msg = 'empty_username'; 
-            return res; 
-        }
-
-        if (username.length > 50) {
-            res.status = 'username_error';
-            res.msg = 'username_too_long';
-            return res; 
-        }
-
-        if (password.length == 0) {
-            res.status = 'password_error';
-            res.msg = 'empty_password';
-            return res; 
-        }
-
-        if (password.length > 50) {
-            res.status = 'password_error';
-            res.msg = 'password_too_long';
-            return res; 
-        }
-
-        email = email.toLowerCase(); 
-
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!re.test(String(email)) || email.length == 0 || email.length > 255) {
-            res.status = 'email_error'; 
-            res.msg = 'invalid_email'; 
-            return res;    
-        }
-    
+    static async find_user(username) {
         try {
 
-            let hash = await User.createPassword(password); 
+            let result = await db.oneOrNone(`SELECT * FROM users 
+                                    WHERE username = $1`, username); 
+
+            if (result == null) {
+                return {
+                    status: 'no_user'
+                }; 
+            } else {
+                return {
+                    status: 'success',
+                    username: result.username, 
+                    hash: result.password, 
+                    email: result.email,
+                    user_id: result.user_id
+                }; 
+            }
+
+        } catch (e) {
+            console.log('something went wrong when finding the user');
+            console.log(e); 
+
+            return {
+                status: 'error',
+                msg: 'database_error'
+            }
+        }
+    }
+
+    static async create(username, hash, email) {
+
+        try {
 
             let result = await db.one(`INSERT INTO users(username, password, email) 
                     VALUES($1, $2, $3) RETURNING user_id`, [username, hash, email]); 
