@@ -46,11 +46,10 @@ class User {
             let result = await db.one(`INSERT INTO users(username, password, email) 
                     VALUES($1, $2, $3) RETURNING user_id`, [username, hash, email]); 
 
-            console.log(result); 
-
             return {
                 status: 'success', 
-                msg: 'user_created'
+                msg: 'user_created',
+                user_id: result.user_id
             }; 
 
         } catch (e) {

@@ -8,6 +8,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var sessions = require('client-sessions'); 
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -17,6 +18,8 @@ var signupRouter = require("./routes/signup");
 const deckRouter = require("./routes/deck");
 const gamesRouter = require("./routes/games");
 const lobbyRouter = require("./routes/lobby");
+
+const authenticate = require("./middleware/auth.js")
 
 var app = express();
 
@@ -30,19 +33,28 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(sessions({
+  cookieName: 'mySession', // cookie name dictates the key name added to the request object
+  secret: process.env.SESSION_SECRET, // should be a large unguessable string
+  duration: 60 * 1000, // how long the session will stay valid in ms
+}));
+
+// unauthenticated routes 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/tests', testRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
-app.use('/deck', deckRouter);
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/tests", testRouter);
-app.use("/login", loginRouter);
-app.use("/signup", signupRouter);
-app.use("/deck", deckRouter);
+app.use(function(req, res, next) {
+  if (req.mySession.user_id) {
+      next(); 
+  } else {
+      res.redirect('/login'); 
+  }
+}); 
+
+// authenticated routes 
+app.use('/users', usersRouter);
+app.use('/deck', deckRouter);
 app.use("/games", gamesRouter);
 app.use("/lobby", lobbyRouter);
 

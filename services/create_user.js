@@ -110,7 +110,10 @@ module.exports = async function(req) {
     let result = await User.create(username, hash, email); 
     if (result.status === 'success') {
         // user was created successfully in the database
-        return 'success'; 
+        return {
+            status: 'success', 
+            user_id: result.user_id
+        }; 
     } else {
         // there was a problem registering the user 
         

@@ -2,16 +2,16 @@ const express = require("express");
 const router = express.Router();
 const Game = require("../db/games");
 
-router.get("/", function (request, response, next) {
+router.get("/", function (req, res, next) {
+  console.log('got a request for user with id: ' + req.mySession.user_id);
   Game.getLobbyListing()
     .then((games) => {
-      response.render("lobby", { games });
+      res.render("lobby", { games });
     })
     .catch((error) => {
-      response.render("lobby", { games: [] });
+      res.render("lobby", { games: [] });
     });
 });
-
 
 
 module.exports = router;

@@ -47,7 +47,10 @@ module.exports = async function(req) {
         const match = await bcrypt.compare(password, hash);
  
         if(match) {
-            return 'success'; 
+            return {
+                status: 'success',
+                user_id: db_result.user_id
+            }; 
         } else {
             return prepare_response_template({
                 status: 'error', 
