@@ -2,6 +2,12 @@ const express = require("express");
 const router = express.Router();
 const Game = require("../db/games");
 
+// simple route to test the game_board.pug
+router.get("/", (request, response) => {
+  // const { id: gameId } = request.params;
+  response.render("game_board", {});
+});
+
 router.get("/:id", (request, response) => {
   const { id: gameId } = request.params;
 

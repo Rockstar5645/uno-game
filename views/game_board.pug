@@ -1,0 +1,103 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='../stylesheets/game_board.css')
+  title UNO Game Board
+.grid
+  // first row
+  .player-b Player B
+  .buffer
+  .horizontal-hand
+    | Player C Hand
+    ul.user-cards
+      li.user-card
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card
+        img(src='../images/deck_images/card_back.png' alt='')
+  .player-c Player C
+  .menu-btn Menu Button
+  // second row
+  .vertical-hand
+    | Player B Hand
+    ul.user-cards-vertical
+      li.user-card-vertical
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card-vertical
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card-vertical
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card-vertical
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card-vertical
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card-vertical
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card-vertical
+        img(src='../images/deck_images/card_back.png' alt='')
+  .buffer
+  .deck
+    // Helper to help align image vertically centered
+    span.helper
+    img#deck(src='../images/deck_images/card_back.png' alt='card back')
+  .played-stack Played Stack
+  .uno-btn UNO btn
+  .buffer
+  .vertical-hand
+    | Player D Hand
+    ul.user-cards-vertical
+      li.user-card-vertical
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card-vertical
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card-vertical
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card-vertical
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card-vertical
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card-vertical
+        img(src='../images/deck_images/card_back.png' alt='')
+      li.user-card-vertical
+        img(src='../images/deck_images/card_back.png' alt='')
+  // third row
+  .buffer
+  .player-a Player A
+  .horizontal-hand
+    ul.user-cards
+      li.user-card
+        img(src='../images/deck_images/blue_0.png' alt='')
+      li.user-card
+        img(src='../images/deck_images/blue_1.png' alt='')
+      li.user-card
+        img(src='../images/deck_images/blue_2.png' alt='')
+      li.user-card
+        img(src='../images/deck_images/blue_3.png' alt='')
+      li.user-card
+        img(src='../images/deck_images/blue_4.png' alt='')
+      li.user-card
+        img(src='../images/deck_images/blue_5.png' alt='')
+      li.user-card
+        img(src='../images/deck_images/blue_6.png' alt='')
+      li.user-card
+        img(src='../images/deck_images/blue_7.png' alt='')
+      li.user-card
+        img(src='../images/deck_images/blue_8.png' alt='')
+      li.user-card
+        img(src='../images/deck_images/blue_9.png' alt='')
+  .buffer
+  .player-d Player D
