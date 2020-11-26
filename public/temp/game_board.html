@@ -12,77 +12,107 @@
 <body>
     <div class="grid">
         <!-- first row -->
-        <div class="player-b">Player B</div>
-        <div class="buffer"></div>
-        <div class="horizontal-hand">Player C Hand
-            <ul class="user-cards">
-                <li class="user-card"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card"><img src="../images/deck_images/card_back.png" alt=""></li>
+        <div class="player-b-container">
+            <div class="name">Player B</div>
+        </div>
 
+        <div class="buffer"></div>
+
+        <div class="player-c horizontal-hand">
+            <ul class="user-cards">
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
             </ul>
         </div>
-        <div class="player-c">Player C</div>
-        <div class="menu-btn">Menu Button</div>
+
+        <div class="player-c-container">
+            <div class="name">
+                Player C
+            </div>
+        </div>
+        <div class="menu-btn">
+            <img src="../images/menu_icon.png" alt="">
+        </div>
 
         <!-- second row -->
-        <div class="vertical-hand">Player B Hand
-            <ul class="user-cards-vertical">
-                <li class="user-card-vertical"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card-vertical"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card-vertical"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card-vertical"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card-vertical"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card-vertical"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card-vertical"><img src="../images/deck_images/card_back.png" alt=""></li>
+        <div class="player-b vertical-hand">
+            <ul class="user-cards">
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
             </ul>
         </div>
+
         <div class="buffer"></div>
         <div class="deck">
             <!-- Helper to help align image vertically centered -->
             <span class="helper"></span>
-            <img id="deck" src="../images/deck_images/card_back.png" alt="card back">
+            <img id="deck" src="../images/Uno_deck/uno_deck.png" alt="card back">
         </div>
-        <div class="played-stack">Played Stack</div>
-        <div class="uno-btn">UNO btn</div>
-        <div class="buffer"></div>
-        <div class="vertical-hand">Player D Hand
-            <ul class="user-cards-vertical">
-                <li class="user-card-vertical"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card-vertical"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card-vertical"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card-vertical"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card-vertical"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card-vertical"><img src="../images/deck_images/card_back.png" alt=""></li>
-                <li class="user-card-vertical"><img src="../images/deck_images/card_back.png" alt=""></li>
+
+        <div class="played-stack">
+            <span class="helper"></span>
+            <img class="played-card" src="../images/uno_deck/blue_0.png" alt="">
+        </div>
+
+        <div class="btn-container">
+            <div class="uno-btn">UNO</div>
+        </div>
+
+        <div class="player-d vertical-hand">
+            <ul class="user-cards">
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/card_back.png" alt=""></li>
             </ul>
         </div>
 
         <!-- third row -->
         <div class="buffer"></div>
-        <div class="player-a">Player A</div>
-        <div class="horizontal-hand">
+        <div class="player-a-container">
+            <div class="name">
+                Player A
+            </div>
+        </div>
+
+        <div class="player-a horizontal-hand">
             <ul class="user-cards">
-                <li class="user-card"><img src="../images/deck_images/blue_0.png" alt=""></li>
-                <li class="user-card"><img src="../images/deck_images/blue_1.png" alt=""></li>
-                <li class="user-card"><img src="../images/deck_images/blue_2.png" alt=""></li>
-                <li class="user-card"><img src="../images/deck_images/blue_3.png" alt=""></li>
-                <li class="user-card"><img src="../images/deck_images/blue_4.png" alt=""></li>
-                <li class="user-card"><img src="../images/deck_images/blue_5.png" alt=""></li>
-                <li class="user-card"><img src="../images/deck_images/blue_6.png" alt=""></li>
-                <li class="user-card"><img src="../images/deck_images/blue_7.png" alt=""></li>
-                <li class="user-card"><img src="../images/deck_images/blue_8.png" alt=""></li>
-                <li class="user-card"><img src="../images/deck_images/blue_9.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/blue_0.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/blue_0.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/blue_0.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/blue_0.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/blue_0.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/blue_0.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/blue_0.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/blue_0.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/blue_0.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/blue_0.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/blue_0.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/blue_0.png" alt=""></li>
+                <li class="user-card"><img src="../images/uno_deck/blue_0.png" alt=""></li>
+
             </ul>
         </div>
+
         <div class="buffer"></div>
-        <div class="player-d">Player D</div>
+        <div class="player-d-container">
+            <div class="name">
+                Player D
+            </div>
+        </div>
 
     </div>
 
