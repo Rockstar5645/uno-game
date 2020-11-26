@@ -1,6 +1,6 @@
 
 // Default Avatar path
-const DEFAULT_AVATAR = "default_avatar.png";
+const DEFAULT_AVATAR = "/images/avatar/default_avatar.png";
 // migration to create user table 
 module.exports = async (db) => {
     
