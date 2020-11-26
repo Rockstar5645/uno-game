@@ -1,12 +1,15 @@
 // Create dummy user
-const User = require("./user");
+let User = require("../models/user");
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 12;
 
-module.exports = (n) => {
+module.exports = async function (n) {
     // Generate n users with random wins and losses
     let usernameTemp = "TestUser";
     for(i = 0; i < n; i++) {
         let username = usernameTemp + i;
         let password = username;
+        let hash = await bcrypt.hash(password, SALT_ROUNDS); 
         let email= username + "@gmail.com";
         // generate random wins in range (0, 100)
         let wins = Math.floor(Math.random() * 100);
@@ -16,13 +19,13 @@ module.exports = (n) => {
         let scores = wins * 5 + losses;
         User.create(
             username=username, 
-            password=password, 
-            confirmPassword=password, 
+            password=hash, 
             email=email, 
             wins=wins, 
             losses=losses,
             scores=scores
             );
+        console.log(`Created user: ${username}, scores: ${scores}`);
     }
 }
 

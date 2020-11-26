@@ -43,19 +43,13 @@ class User {
         }
     }
 
-    static async create(username, hash, email) {
+    static async create(username, hash, email, wins=0, losses=0, scores=0) {
 
         try {
-            let result = await db.one(`INSERT INTO users(username, password, email) 
-                    VALUES($1, $2, $3) RETURNING user_id`, 
-                    [username, hash, email]); 
-
-            // let hash = await User.createPassword(password); 
-            // let avatar = User.getAvatar();
-            // let result = await db.one(`INSERT INTO users(username, password, email, avatar, wins, losses, scores) 
-            //         VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING user_id`, 
-            //         [username, hash, email, avatar, wins, losses, scores]); 
-
+            let avatar = User.getAvatar();
+            let result = await db.one(`INSERT INTO users(username, password, email, avatar, wins, losses, scores) 
+                    VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING user_id`, 
+                    [username, hash, email, avatar, wins, losses, scores]); 
 
             return {
                 status: 'success', 
@@ -99,9 +93,9 @@ class User {
 
     // Return a random avatar
     static getAvatar() {
-        // fetch all avatar files in the folder avatarFolder
         const AVATAR_PATH = "/images/avatars/"
-        let avatarsFolder = './public/images/avatars/'; 
+        // fetch all avatar files from the folder avatarFolder
+        let avatarsFolder = "./public/images/avatars/"; 
         let avatars = fs.readdirSync(avatarsFolder);
         // get a random avatar
         let avatar = AVATAR_PATH + avatars[Math.floor(Math.random() * avatars.length)];
