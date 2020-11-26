@@ -1,4 +1,8 @@
 let db = require('../db'); 
+const bcrypt = require('bcrypt');
+const saltRounds = 12;
+// file system
+const fs = require('fs');
 
 class User {
 
@@ -43,8 +47,12 @@ class User {
 
         try {
 
-            let result = await db.one(`INSERT INTO users(username, password, email) 
-                    VALUES($1, $2, $3) RETURNING user_id`, [username, hash, email]); 
+            let hash = await User.createPassword(password); 
+            let avatar = User.getAvatar();
+            let result = await db.one(`INSERT INTO users(username, password, email, avatar, wins, losses, scores) 
+                    VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING user_id`, 
+                    [username, hash, email, avatar, wins, losses, scores]); 
+
 
             return {
                 status: 'success', 
@@ -84,6 +92,17 @@ class User {
             // rethrow the error 
             throw new Error('Somethings wrong with the database');  
         }
+    }
+
+    // Return a random avatar
+    static getAvatar() {
+        // fetch all avatar files in the folder avatarFolder
+        const AVATAR_PATH = "/images/avatars/"
+        let avatarsFolder = './public/images/avatars/'; 
+        let avatars = fs.readdirSync(avatarsFolder);
+        // get a random avatar
+        let avatar = AVATAR_PATH + avatars[Math.floor(Math.random() * avatars.length)];
+        return avatar
     }
 }
 
