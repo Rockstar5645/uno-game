@@ -46,12 +46,15 @@ class User {
     static async create(username, hash, email) {
 
         try {
+            let result = await db.one(`INSERT INTO users(username, password, email) 
+                    VALUES($1, $2, $3) RETURNING user_id`, 
+                    [username, hash, email]); 
 
-            let hash = await User.createPassword(password); 
-            let avatar = User.getAvatar();
-            let result = await db.one(`INSERT INTO users(username, password, email, avatar, wins, losses, scores) 
-                    VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING user_id`, 
-                    [username, hash, email, avatar, wins, losses, scores]); 
+            // let hash = await User.createPassword(password); 
+            // let avatar = User.getAvatar();
+            // let result = await db.one(`INSERT INTO users(username, password, email, avatar, wins, losses, scores) 
+            //         VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING user_id`, 
+            //         [username, hash, email, avatar, wins, losses, scores]); 
 
 
             return {

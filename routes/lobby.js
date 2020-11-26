@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db"); 
-const RANKINGS = "SELECT username, avatar, scores FROM users ORDER BY scores DESC LIMIT 10";
-const AVATAR_PATH = "/images/avatars/"
+// const RANKINGS = "SELECT username, avatar, scores FROM users ORDER BY scores DESC LIMIT 10";
 
 // TODO - Create a table for lobby chatting.
 // dummy messages
@@ -26,13 +25,17 @@ var messages = [
 ]
 
 router.get("/", (req, res) => {
-    db.any(RANKINGS)
-    .then(users =>{
-        res.render("lobby", {
-            users: users,
-            messages: messages
-        });
-    })
+    res.render("lobby", {
+        users: "",
+        messages: messages
+    });
+    // db.any(RANKINGS)
+    // .then(users =>{
+    //     res.render("lobby", {
+    //         users: users,
+    //         messages: messages
+    //     });
+    // })
 });
 
 
