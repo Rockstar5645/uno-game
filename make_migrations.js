@@ -2,25 +2,37 @@ require('dotenv').config();
 
 let db = require('./db');
 
+// careful when adding routes. order matters for tables referencing other tables
 
-// create user table 
-require('./migrations/create-users')(db);
+(async function () {
+    console.log(">>> Creating migrations...");
+    try {
+
+        await require('./clean_db')(db);
+        // create user table 
+        await require('./migrations/create-users')(db);
+
+        // create deck table
+        await require('./migrations/create-deck')(db);
+
+        // create games table 
+        await require('./migrations/create-games')(db);
+
+        // creat games_deck table
+        await require("./migrations/create-game_deck")(db); // child of games
+
+        // create players table
+        await require('./migrations/create-players')(db); // child of users and games
+
+        // create 10 dummy users
+        await require("./migrations/dummy_users")(10);
+    }
+    catch (e) {
+        console.log("Error creating migrations:", e);
+    }
+})().then(() => console.log(">>> Migrations created successfully!"));
 
 
-// create deck table
-require('./migrations/create-deck')(db);
-
-// create games table 
-require('./migrations/create-games')(db);
-
-// creat games_deck table
-require("./migrations/create-game_deck")(db);
-
-// create players table
-// require('./migrations/create-players')(db);
-
-// create 10 dummy users
-// require("./migrations/dummy_users")(10);
 
 // create draw stacks table
 

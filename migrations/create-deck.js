@@ -3,8 +3,8 @@
 module.exports = async (db) => {
 
     try {
-        await db.none(`DROP TABLE IF EXISTS deck`);
-        console.log('dropped deck table if it existed');
+        // await db.none(`DROP TABLE IF EXISTS deck`);
+        // console.log('dropped deck table if it existed');
 
         await db.any(`CREATE TABLE deck (
                 id SERIAL PRIMARY KEY, 
