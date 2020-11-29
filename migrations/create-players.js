@@ -12,7 +12,8 @@ module.exports = async (db) => {
                 user_a_id INT references users (user_id),
                 user_b_id INT references users (user_id),
                 user_c_id INT references users (user_id),
-                user_d_id INT references users (user_id),
+                user_d_id INT references users (user_id)
+                )
             `);
         console.log('created players table');
 

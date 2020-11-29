@@ -3,7 +3,7 @@
 const DEFAULT_AVATAR = "/images/avatar/default_avatar.png";
 // migration to create user table 
 module.exports = async (db) => {
-    
+
     try {
         await db.none(`DROP TABLE IF EXISTS users`);
         console.log('dropped the table if it existed');
@@ -18,12 +18,9 @@ module.exports = async (db) => {
                 losses INT DEFAULT 0,
                 scores INT DEFAULT 0)
             `);
-<<<<<<< HEAD
         console.log('created user table');
 
-=======
-        
->>>>>>> 147c2085987d24e3a54ca68320ee3181f39b43b5
+
     } catch (e) {
         console.log('some sort of error in setting up user table');
         console.log(e);
