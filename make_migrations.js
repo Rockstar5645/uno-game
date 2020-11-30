@@ -7,8 +7,9 @@ let db = require('./db');
 (async function () {
     console.log(">>> Creating migrations...");
     try {
-
+        // DROP all TABLES before creating new migrations
         await require('./clean_db')(db);
+
         // create user table 
         await require('./migrations/create-users')(db);
 

@@ -8,11 +8,9 @@ module.exports = async (db) => {
 
         await db.any(`CREATE TABLE players (
                 id SERIAL PRIMARY KEY, 
-                game_id INT references games (id),
-                user_a_id INT references users (user_id),
-                user_b_id INT references users (user_id),
-                user_c_id INT references users (user_id),
-                user_d_id INT references users (user_id)
+                game_id INT references games (id) NOT NULL,
+                user_id INT references users (user_id) NOT NULL,
+                uno_status VARCHAR(20)
                 )
             `);
         console.log('created players table');

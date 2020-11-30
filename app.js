@@ -8,7 +8,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-var sessions = require('client-sessions'); 
+var sessions = require('client-sessions');
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -44,13 +44,13 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   if (req.mySession.user_id) {
-      next(); 
+    next();
   } else {
-      res.redirect('/login'); 
+    res.redirect('/login');
   }
-}); 
+});
 
 // authenticated routes 
 app.use('/users', usersRouter);

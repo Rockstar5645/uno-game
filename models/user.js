@@ -28,7 +28,10 @@ class User {
                     username: result.username,
                     hash: result.password,
                     email: result.email,
-                    user_id: result.user_id
+                    user_id: result.user_id,
+                    games_won: result.wins,
+                    games_lost: result.losses,
+                    score: result.scores
                 };
             }
 
