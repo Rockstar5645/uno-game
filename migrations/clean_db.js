@@ -1,5 +1,3 @@
-"use strict"
-
 
 module.exports = async (db) => {
     // order matters, careful when modifying this file. Children must be dropped first

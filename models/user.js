@@ -1,6 +1,4 @@
 let db = require('../db');
-const bcrypt = require('bcrypt');
-const saltRounds = 12;
 // file system
 const fs = require('fs');
 
@@ -104,6 +102,6 @@ class User {
         let avatar = AVATAR_PATH + avatars[Math.floor(Math.random() * avatars.length)];
         return avatar
     }
-}
+}; 
 
 module.exports = User; 

@@ -1,26 +1,14 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+let db = require('../db');
 
-module.exports = (sequelize, DataTypes) => {
-  class deck extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
+class Deck {
+    
+    static async insert_card(name, color, action) {
+
+        console.log(`Inserting card ${name} with color ${color} into deck`); 
+        await db.one(`INSERT INTO deck(name, color, action) 
+                        VALUES($1, $2, $3) RETURNING id`,
+                    [name, color, action]);
     }
-  };
-  deck.init({
-    game_id: DataTypes.INTEGER,
-    user_id: DataTypes.INTEGER,
-    order: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'deck',
-  });
-  return deck;
-};
+}; 
+
+module.exports = Deck; 

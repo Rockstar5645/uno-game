@@ -19,6 +19,7 @@ const ACTION_MAP = [
 const COLORS = ["red", "yellow", "green", "blue"];
 const ACTIONS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     const deck = COLORS.reduce((accumulator, color) => {

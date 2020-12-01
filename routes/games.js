@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Game = require("../models/games");
+let add_user = require('../services/gq.js'); 
 
 // simple route to test the game_board.pug
 router.get("/", (request, response) => {
@@ -21,18 +22,41 @@ router.get("/", (request, response) => {
 // });
 
 router.post("/", (req, res) => {
-  console.log("the body", req.body);
-  const { userA, userB, userC, userD } = req.body;
-  let userIds = [userA, userB, userC, userD];
-  // let userIds = req.params.split(",");
-  console.log("The user ids gotten from the URL:", userIds)
-  Game.create(userIds)
-    .then(({ gameId }) => {
+  console.log("the user_id received: ", req.body);
+  const { user_id } = req.body;
+ 
+  let q_status = add_user(user_id); 
+  console.log(q_status); 
+  if (q_status.status === 'added') {
+
+    //res.redirect('/games'); 
+    console.log('executing this');     
+    res.json({
+      status: 'success', 
+      msg: 'added to queue'
+    }); 
+    
+  } else {
+
+    Game.create(q_status.players)
+    .then((gameId) => {
       console.log("Game created. Game ID: ", gameId)
+      res.json({
+        status: 'success',
+        gameId: gameId
+      }); 
     })
     .catch((error) => {
-      response.json({ error });
+      console.log(error); 
+      console.log('getting some sorrt of error'); 
+      res.json({
+        status: 'error', 
+        error: error
+      });
     });
+  }
+
+  
 })
 
 router.get("/join/:id", (request, response) => {

@@ -14,14 +14,17 @@ function createNewGame(userIds) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            userA: 1,
-            userB: 2,
-            userC: 3,
-            userD: 4
+            user_id: 1
         })
     })
+        .then(res => console.log(res))
         .then(res => res.json())
-        .then(gameId => console.log("Game created. Game ID:", gameId))
+        .then(res => {
+            console.log("response status: ", res.status); 
+            if (res.status === 'success') {
+                
+            }
+        })
         .catch(e => console.log("Error creating a new game.", e));
 }
 

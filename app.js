@@ -19,8 +19,6 @@ const deckRouter = require("./routes/deck");
 const gamesRouter = require("./routes/games");
 const lobbyRouter = require("./routes/lobby");
 
-const authenticate = require("./middleware/auth.js")
-
 var app = express();
 
 // view engine setup
@@ -33,11 +31,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/*
 app.use(sessions({
   cookieName: 'mySession', // cookie name dictates the key name added to the request object
   secret: process.env.SESSION_SECRET, // should be a large unguessable string
-  duration: 60 * 1000, // how long the session will stay valid in ms
+  duration: 6000 * 1000, // how long the session will stay valid in ms
 }));
+*/
+
+if (process.env.NODE_ENV === 'development') {
+  app.use('/test', testRouter); 
+}
 
 // unauthenticated routes 
 app.use('/', indexRouter);
@@ -45,7 +49,7 @@ app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
 
 app.use(function (req, res, next) {
-  if (req.mySession.user_id) {
+  if (req.cookies.user_id) {
     next();
   } else {
     res.redirect('/login');
@@ -55,8 +59,8 @@ app.use(function (req, res, next) {
 // authenticated routes 
 app.use('/users', usersRouter);
 app.use('/deck', deckRouter);
-app.use("/games", gamesRouter);
-app.use("/lobby", lobbyRouter);
+app.use('/games', gamesRouter);
+app.use('/lobby', lobbyRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -65,6 +69,7 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
+  console.log(err); 
   // set locals, only providing error in development
   res.locals.message = err.message;
   // res.local.something is creating a local variable for use in our view engine for this request.

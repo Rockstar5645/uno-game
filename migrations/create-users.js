@@ -5,9 +5,7 @@ const DEFAULT_AVATAR = "/images/avatar/default_avatar.png";
 module.exports = async (db) => {
 
     try {
-        // await db.none(`DROP TABLE IF EXISTS users`);
-        // console.log('dropped the table if it existed');
-
+        
         await db.any(`CREATE TABLE users (
                 user_id SERIAL PRIMARY KEY, 
                 username VARCHAR (50) UNIQUE NOT NULL, 

@@ -5,7 +5,7 @@ let create_user = require('../services/create_user.js');
 
 // localhost/signup/
 router.get('/', function (req, res, next) {
-    if (req.mySession.user_id) {
+    if (req.cookies.user_id) {
         res.redirect('/lobby');
     } else {
         res.render('signup', { title: 'UNO' });
@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
 router.post('/', function(req, res, next) {
     create_user(req).then((result) => {
         if (result.status === 'success') {
-            req.mySession.user_id = result.user_id; 
+            res.cookie('user_id', result.user_id);
             res.redirect('/lobby');
         } else {
             result.title = 'UNO'; 

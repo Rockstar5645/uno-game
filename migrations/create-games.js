@@ -3,8 +3,6 @@
 module.exports = async (db) => {
 
     try {
-        // await db.none(`DROP TABLE IF EXISTS games`);
-        // console.log('dropped games table if it existed');
 
         await db.any(`CREATE TABLE games (
             id SERIAL PRIMARY KEY, 

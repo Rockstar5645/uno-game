@@ -8,7 +8,7 @@ let db = require('./db');
     console.log(">>> Creating migrations...");
     try {
         // DROP all TABLES before creating new migrations
-        await require('./clean_db')(db);
+        await require('./migrations/clean_db')(db);
 
         // create user table 
         await require('./migrations/create-users')(db);
@@ -26,13 +26,15 @@ let db = require('./db');
         await require('./migrations/create-players')(db); // child of users and games
 
         // create 10 dummy users
-        await require("./migrations/dummy_users")(10);
+        await require("./seeders/dummy_users")(10);
+
+        // initialize the deck
+        await require("./seeders/deck.js")(); 
     }
     catch (e) {
         console.log("Error creating migrations:", e);
     }
 })().then(() => console.log(">>> Migrations created successfully!"));
-
 
 
 // create draw stacks table
