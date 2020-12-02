@@ -1,5 +1,4 @@
 const newGameBtn = document.getElementById("new-game-btn");
-console.log("In lobby script!");
 // dummy userIds
 const userIds = {
     userA: 1,
@@ -8,16 +7,23 @@ const userIds = {
     userD: 4
 }
 
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
 function createNewGame(userIds) {
-    console.log("Fetching a new game with dummy userIds");
+    let user_id = getCookie('user_id'); 
+
     fetch(`http://localhost:3000/games`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            user_id: 1
+            user_id: user_id
         })
     })
-        .then(res => console.log(res))
         .then(res => res.json())
         .then(res => {
             console.log("response status: ", res.status); 

@@ -5,8 +5,9 @@ let db = require('./db');
 // careful when adding routes. order matters for tables referencing other tables
 
 (async function () {
-    console.log(">>> Creating migrations...");
     try {
+        console.log(">>> Creating migrations...");
+
         // DROP all TABLES before creating new migrations
         await require('./migrations/clean_db')(db);
 
@@ -25,6 +26,9 @@ let db = require('./db');
         // create players table
         await require('./migrations/create-players')(db); // child of users and games
 
+
+        console.log(">>> Seeding tables...");
+
         // create 10 dummy users
         await require("./seeders/dummy_users")(10);
 
@@ -34,7 +38,7 @@ let db = require('./db');
     catch (e) {
         console.log("Error creating migrations:", e);
     }
-})().then(() => console.log(">>> Migrations created successfully!"));
+})().then(() => console.log(">>> Initialization complete!"));
 
 
 // create draw stacks table
