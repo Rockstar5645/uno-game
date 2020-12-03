@@ -6,7 +6,7 @@ $colorGameBtn: #F7A738;
 
 .container {
     // width: 100%;
-    min-height: 70vh;
+    min-height: 60vh;
     font-size: 20px;
     display: grid;
     padding: 1rem;
@@ -54,6 +54,8 @@ $colorGameBtn: #F7A738;
                         display: flex;
                         flex-direction: column;
                         flex-grow: 1;
+                        height: 60vh;
+                        overflow:scroll; 
                         li {
                             display: flex;
                             flex-direction: row;
@@ -74,16 +76,18 @@ $colorGameBtn: #F7A738;
                     // Message send
                     #message-send-block {
                         background: $colorBg;
+                        // height: 5rem;
+                        margin: 1rem 0;
                         #message-send-block-form {
                             display: flex;
                             flex-direction: row;
                             background: lightgray;
                             padding: $marginMinor;
                             border-radius: 5px;
+                            height: 100%;
                             input[type=textarea]#input-message-send-textarea {
                                 flex-grow: 1;
                                 margin-right: $marginMinor;
-                                resize: none;
                                 border-radius: 5px;
                                 padding: $marginMinor;
                                 border: none;
@@ -211,14 +215,14 @@ $colorGameBtn: #F7A738;
                 filter: brightness(90%);
             }
             .center-game-btn {
-                display: block;
+                display: none;
                 width: 25rem;
-                height: auto;
+                line-height: 3.5rem;
+                display: block;
+                text-align: center;
                 border-radius: 1.5rem;
                 margin: 1rem 0;
                 font-size: 2rem;
-                padding: 1rem;
-                text-align: center;
                 outline: none;
                 border: none;
                 background: $colorMajor;

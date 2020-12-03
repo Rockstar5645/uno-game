@@ -1,5 +1,5 @@
 .container {
-  min-height: 70vh;
+  min-height: 60vh;
   font-size: 20px;
   display: -ms-grid;
   display: grid;
@@ -80,6 +80,8 @@
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  height: 60vh;
+  overflow: scroll;
 }
 
 .container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li {
@@ -102,6 +104,7 @@
 
 .container .lobby-section-block.side-block .side-block-box#message-block #message-send-block {
   background: #f6f8f8;
+  margin: 1rem 0;
 }
 
 .container .lobby-section-block.side-block .side-block-box#message-block #message-send-block #message-send-block-form {
@@ -115,6 +118,7 @@
   background: lightgray;
   padding: 0.5rem;
   border-radius: 5px;
+  height: 100%;
 }
 
 .container .lobby-section-block.side-block .side-block-box#message-block #message-send-block #message-send-block-form input[type=textarea]#input-message-send-textarea {
@@ -122,7 +126,6 @@
       -ms-flex-positive: 1;
           flex-grow: 1;
   margin-right: 0.5rem;
-  resize: none;
   border-radius: 5px;
   padding: 0.5rem;
   border: none;
@@ -306,14 +309,14 @@
 }
 
 .container .lobby-section-block#center-block .center-game-btn {
-  display: block;
+  display: none;
   width: 25rem;
-  height: auto;
+  line-height: 3.5rem;
+  display: block;
+  text-align: center;
   border-radius: 1.5rem;
   margin: 1rem 0;
   font-size: 2rem;
-  padding: 1rem;
-  text-align: center;
   outline: none;
   border: none;
   background: #FEC93E;
