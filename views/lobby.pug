@@ -1,6 +1,7 @@
 extends layout
 block stylesheets
     link(rel="stylesheet", href="/stylesheets/lobby.css")
+    script(src="/socket.io/socket.io.min.js")
     script(defer, src="/javascripts/lobby.js")
 block content
     div(class="container")

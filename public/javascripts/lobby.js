@@ -14,6 +14,11 @@ function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
+let socket = io(); 
+socket.emit('chat message', {
+    user_id: getCookie('user_id')
+}); 
+
 function createNewGame(userIds) {
     let user_id = getCookie('user_id'); 
 
