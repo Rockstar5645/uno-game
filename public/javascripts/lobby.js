@@ -1,3 +1,6 @@
+
+import {getCookie} from './util.js';
+
 const newGameBtn = document.getElementById("new-game-btn");
 // dummy userIds
 const userIds = {
@@ -7,22 +10,19 @@ const userIds = {
     userD: 4
 }
 
-function getCookie(name) {
-    let matches = document.cookie.match(new RegExp(
-        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-}
-
 let socket = io(); 
-socket.emit('chat message', {
-    user_id: getCookie('user_id')
-}); 
+// socket.emit('chat message', {
+//     user_id: getCookie('user_id')
+// }); 
+
+socket.emit("update item", "1", { name: "updated" }, (response) => {
+    console.log(response.status); // ok
+});
 
 function createNewGame(userIds) {
     let user_id = getCookie('user_id'); 
 
-    fetch(`http://localhost:3000/games`, {
+    fetch(`http://localhost:3000/lobby`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -31,15 +31,17 @@ function createNewGame(userIds) {
     })
         .then(res => res.json())
         .then(res => {
-            console.log("response status: ", res.status); 
+
+            console.log('redirecting to games'); 
+            console.log(res); 
+
             if (res.status === 'success') {
-                
+                window.location.href = "games/stage";
             }
         })
         .catch(e => console.log("Error creating a new game.", e));
 }
 
 newGameBtn.addEventListener('click', (userIds) => {
-    console.log("in the event listner");
     createNewGame(userIds);
 });

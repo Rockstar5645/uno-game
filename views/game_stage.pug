@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    script(src="/socket.io/socket.io.min.js")
+    script(defer, type='module', src="/javascripts/util.js")
+    script(defer, type='module', src="/javascripts/game_stage.js")
+    div(class="mdl-grid")
+        div(class="mdl-cell mdl-cell--4-col")
+        div(class="mdl-cell mdl-cell--4-col")
+            div(id='p2', class='mdl-progress mdl-js-progress mdl-progress__indeterminate')
+            h3(id='status').
+                Finding other players
+        div(class="mdl-cell mdl-cell--4-col")

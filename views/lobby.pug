@@ -2,7 +2,8 @@ extends layout
 block stylesheets
     link(rel="stylesheet", href="/stylesheets/lobby.css")
     script(src="/socket.io/socket.io.min.js")
-    script(defer, src="/javascripts/lobby.js")
+    script(defer, type='module', src="/javascripts/util.js")
+    script(defer, type='module', src="/javascripts/lobby.js")
 block content
     div(class="container")
         //- Left Section Chatting
@@ -30,10 +31,10 @@ block content
             //- p(id="center-title") WITH FRIENDS
             //- TODO 
             //- ADD user authentication
-            a(href="#" id="new-game-btn" class="center-game-btn") NEW GAME
+            button(id="new-game-btn" class="center-game-btn") NEW GAME
             //- TODO 
             //- ADD user authentication
-            a(href="#" id="join-game-btn" class="center-game-btn") JOIN GAME
+            button(id="join-game-btn" class="center-game-btn") JOIN GAME
 
             
         //- Right Section Ranking
