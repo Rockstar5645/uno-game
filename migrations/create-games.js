@@ -11,6 +11,7 @@ module.exports = async (db) => {
             player_turn VARCHAR(1),
             turn_direction VARCHAR(3),
             current_card VARCHAR(10),
+            top_card INT,
             turn_timer INT,
             status VARCHAR(10)
         )`);
