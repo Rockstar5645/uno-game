@@ -8,18 +8,22 @@ module.exports = async (user_id) => {
     // if there are active sessions but they are already full, create a new session 
 
     let latest_session = await get_players_in_queue(); 
-    console.log('latest session ', latest_session); 
 
     if (latest_session.count === 0 || latest_session.count === 4) {
         // there are no current game sessions or they're all full, create a new one and
-        console.log('creating a new game session'); 
         let game_id = await create_game(); 
         await insert_into_session(game_id, user_id); 
     } else {
         // there is an active session, add player to that game_id
         let game_id = latest_session.game_id; 
-        console.log('there is already a game waiting for players ', game_id); 
         await insert_into_session(game_id, user_id); 
+    }
+
+    latest_session = await get_players_in_queue(); 
+
+    if (latest_session.count === 4) {
+        // start dealing the cards
+        
     }
 
     return 'success'; 

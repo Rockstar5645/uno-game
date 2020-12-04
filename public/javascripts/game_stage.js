@@ -15,5 +15,11 @@ socket.on('room-joined', (msg) => {
     let elem = document.getElementById('status');
     let players_left = 4 - count; 
 
-    elem.innerHTML = "Waiting for " + players_left + " more players."; 
+    if (players_left === 0) {
+
+        elem.innerHTML = "Starting the game..."; 
+        window.location.href = "/games";
+    } else {
+        elem.innerHTML = "Waiting for " + players_left + " more players."; 
+    }
 }); 

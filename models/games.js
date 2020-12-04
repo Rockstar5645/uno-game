@@ -70,7 +70,6 @@ let get_player_count = async (game_id) => {
 
     const GET_PLAYER_COUNT = `SELECT COUNT(*) FROM players WHERE game_id=($1)`; 
     let player_count = await db.one(GET_PLAYER_COUNT, game_id);
-    console.log('the number of players in game ', game_id, ' is ', player_count); 
     return parseInt(player_count.count, 10); 
 }
 
@@ -78,8 +77,6 @@ let get_players_in_queue = async () => {
 
     const GET_LATEST_GAME = `SELECT id FROM games ORDER BY id DESC LIMIT 1`;
     let game_id = await db.oneOrNone(GET_LATEST_GAME); 
-
-    console.log('latest game id', game_id); 
     
     if (game_id) {
         // a game session exists
@@ -91,7 +88,6 @@ let get_players_in_queue = async () => {
         }; 
     } else {
         // it doesnt exist
-        console.log('no games exist yet'); 
         return {count: 0};
     }
 }

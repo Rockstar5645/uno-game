@@ -42,7 +42,6 @@ router.post("/", async (req, res) => {
     const { user_id } = req.body;
 
     let q_status = await add_user(user_id); 
-    console.log('status', q_status); 
 
     if (q_status === 'success') {
       res.json({
