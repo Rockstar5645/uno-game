@@ -1,9 +1,7 @@
 extends layout
 block stylesheets
     link(rel="stylesheet", href="/stylesheets/lobby.css")
-    script(src="/socket.io/socket.io.min.js")
-    script(defer, type='module', src="/javascripts/util.js")
-    script(defer, type='module', src="/javascripts/lobby.js")
+
 block content
     div(class="container")
         //- Left Section Chatting
@@ -15,14 +13,13 @@ block content
                     //- Messages from db
                     each message, i in messages
                         li(class="li-message-display-item")
-                            p(class="message-display-user") #[strong #{message.username}: ] #{message.text}
+                            p(class="message-display-user") #[strong #{message.username}: ] #{message.message}
                 //- TODO 
                 //- ADD user authentication
                 form(action="/lobby", method="post" id="message-send-block")
-                    fieldset
-                        div(id="message-send-block-form")
-                            input(type="textarea" name="new-message" placeholder="Your message here..." rows="4" id="input-message-send-textarea")
-                            input(type="submit" value="send" id="input-message-send-submit")
+                    div(id="message-send-block-form")
+                        input(type="textarea" required name="new_message" placeholder="Your message here..." rows="4" id="input-message-send-textarea")
+                        input(type="submit" value="send" id="input-message-send-submit")
 
         //- Center Section New Game
         div(id="center-block" class="lobby-section-block")
@@ -31,10 +28,10 @@ block content
             //- p(id="center-title") WITH FRIENDS
             //- TODO 
             //- ADD user authentication
-            button(id="new-game-btn" class="center-game-btn") NEW GAME
+            a(href="#" id="new-game-btn" class="center-game-btn") NEW GAME
             //- TODO 
             //- ADD user authentication
-            button(id="join-game-btn" class="center-game-btn") JOIN GAME
+            a(href="#" id="join-game-btn" class="center-game-btn") JOIN GAME
 
             
         //- Right Section Ranking
@@ -57,3 +54,10 @@ block content
                                 //- div(class="ranking-user-score-block")
                                 p(class="ranking-user-score")= user.scores
                                 img(src="/images/lobby/ranking_star.png", alt="")
+
+    
+    script(src="/js/lobby.js")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+    //- Message scroll to the bottom
+    script. 
+        $('#ul-message-display-block').scrollTop($('#ul-message-display-block')[0].scrollHeight)

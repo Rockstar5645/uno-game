@@ -16,7 +16,10 @@ module.exports = async (db) => {
         console.log('dropped games_deck table if it existed');
 
         await db.none(`DROP TABLE IF EXISTS deck CASCADE`);
-        console.log('dropped deck table if it existed');        
+        console.log('dropped deck table if it existed');      
+        
+        await db.none(`DROP TABLE IF EXISTS lobby_messages CASCADE`); // child of users
+        console.log('dropped lobby_messages table if it existed');      
 
     } catch (e) {
         console.log('some sort of error while cleaning up the tables');

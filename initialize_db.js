@@ -26,11 +26,16 @@ let db = require('./db');
         // create players table
         await require('./migrations/create-players')(db); // child of users and games
 
+        // create lobby message
+        await require("./migrations/create-lobby_messages")(db);
 
         console.log(">>> Seeding tables...");
 
         // create 10 dummy users
         await require("./seeders/dummy_users")(10);
+
+        // create 10 dummy messages
+        await require("./seeders/dummy_lobby_messages")(db, 20);
 
         // initialize the deck
         await require("./seeders/deck.js")(); 
