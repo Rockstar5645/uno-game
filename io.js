@@ -13,14 +13,20 @@ module.exports = async (io) => {
             // console.log('socket id', socket.id); 
         });
 
-        socket.on('game-board', (msg) => {
+        socket.on('game-board', (msg, cb) => {
             console.log('game-board', msg); 
-            console.log('socket id', socket.id); 
+            
+            cb('card updated to played'); 
         }); 
 
         socket.on('game-stage', async (msg) => {
             console.log('game-stage', msg); 
             await game_stage(msg, socket, io); 
+        }); 
+
+        socket.on('deal', (msg, callback) => {
+            console.log(msg); 
+            callback('calling you back'); 
         }); 
     });
 }
