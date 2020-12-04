@@ -1,0 +1,115 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='../stylesheets/game_board.css')
+  script(src="/socket.io/socket.io.min.js")
+  script(defer, type='module', src="/javascripts/util.js")
+  script(defer, type='module', src="/javascripts/games.js")
+  title UNO Game Board
+.grid
+  // first row
+  .player-b-container
+    .name Player B
+  .buffer
+  .player-c.horizontal-hand
+    ul.user-cards
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+  .player-c-container
+    .name
+      | Player C
+  .menu-btn
+    img(src='../images/menu_icon.png' alt='')
+  // second row
+  .player-b.vertical-hand
+    ul.user-cards
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+  .buffer
+  .deck
+    // Helper to help align image vertically centered
+    span.helper
+    img#deck(src='../images/Uno_deck/uno_deck.png' alt='card back')
+  .played-stack
+    span.helper
+    img.played-card(src='../images/uno_deck/blue_0.png' alt='')
+  .btn-container
+    .uno-btn UNO
+  .player-d.vertical-hand
+    ul.user-cards
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+  // third row
+  .buffer
+  .player-a-container
+    .name
+      | Player A
+  .player-a.horizontal-hand
+    ul.user-cards
+      li.user-card
+        img(src='../images/uno_deck/blue_0.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/blue_0.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/blue_0.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/blue_0.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/blue_0.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/blue_0.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/blue_0.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/blue_0.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/blue_0.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/blue_0.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/blue_0.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/blue_0.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/blue_0.png' alt='')
+  .buffer
+  .player-d-container
+    .name
+      | Player D

@@ -1,0 +1,242 @@
+$marginMinor: 0.5rem;
+$colorMajor: #FEC93E;
+$colorMinor: rgb(255, 207, 84);
+$colorBg: #f6f8f8;
+$colorGameBtn: #F7A738;
+
+.container {
+    // width: 100%;
+    min-height: 60vh;
+    font-size: 20px;
+    display: grid;
+    padding: 1rem;
+    grid-template-columns: 3fr 5fr 3fr;
+    grid-gap: 2rem;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0 5%;
+    // each section
+    .lobby-section-block {
+        // border: 1px black solid;
+        padding: 1rem;
+        min-height: 0;
+        overflow: hidden;
+        // SIDE BLOCK on the left and right
+        &.side-block {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 4rem 1rem 1rem 1rem;
+            // both top icon
+            img.side-block-icon {
+                position: absolute;
+                top: 0;
+                height: 6rem;
+                margin-top: 1rem;
+                width: auto;
+                left: 50%;
+                transform: translateX(-50%)
+            }
+            .side-block-box {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                border-radius: 10px;
+                padding: 4rem 1rem 1rem 1rem;
+                background: white;
+                box-shadow: 10px 10px 5px grey;
+                // left Chatting main block
+                &#message-block {
+                    display: flex;
+                    flex-direction: column;
+                    // Message display
+                    #ul-message-display-block {
+                        display: flex;
+                        flex-direction: column;
+                        flex-grow: 1;
+                        height: 60vh;
+                        overflow:scroll; 
+                        li {
+                            display: flex;
+                            flex-direction: row;
+                            border-radius: 5px;
+                            margin-bottom: $marginMinor;
+                            padding: $marginMinor;
+                            background: $colorMinor;
+                            // box-shadow: 2px 2px $colorMajor;
+                            .message-display-user {
+                                // font-weight: bolder;
+                                margin: 0 $marginMinor 0 0;
+                            }
+                            // .message-display-text {
+                            //     margin: 0;
+                            // }
+                        }
+                    }
+                    // Message send
+                    #message-send-block {
+                        background: $colorBg;
+                        // height: 5rem;
+                        margin: 1rem 0;
+                        #message-send-block-form {
+                            display: flex;
+                            flex-direction: row;
+                            background: lightgray;
+                            padding: $marginMinor;
+                            border-radius: 5px;
+                            height: 100%;
+                            input[type=textarea]#input-message-send-textarea {
+                                flex-grow: 1;
+                                margin-right: $marginMinor;
+                                border-radius: 5px;
+                                padding: $marginMinor;
+                                border: none;
+                            }
+                            input[type=submit]#input-message-send-submit {
+                                color: white;
+                                border: none;
+                                background: $colorMajor;
+                                border-radius: 5px;
+                                padding: $marginMinor 1rem;
+                                outline: none;
+                                box-shadow: none;
+                                &:hover {
+                                    cursor: pointer;
+                                    filter: brightness(90%);
+                                    // opacity: 90%;
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+                // Right Ranking main block
+                &#ranking-main-block {
+                    #ul-ranking-users {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        height: 100%;
+                        li {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            background: $colorBg;
+                            padding: 0.5rem;
+                            height: 2.5rem;
+                            border-radius: 5px;
+                            .ranking-user-rank {
+                                float: left;
+                                margin: 0;
+                                border-radius: 50%;
+                                width: auto;
+                                height: 100%;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                img {
+                                    max-width: 100%;
+                                    max-height: 100%;
+                                }
+                            }
+                            .ranking-user-name-avatar {
+                                display: flex;
+                                flex-direction: row;
+                                margin: 0 $marginMinor;
+                                align-items: center;
+                                height: 100%;
+                                flex-grow: 1;
+                                img.ranking-user-avatar {
+                                    margin: 0 0.5rem;
+                                    max-height: 100%;
+                                    max-width: 100%;
+                                }
+                                p.ranking-user-name {
+                                    margin: 0;
+                                    font-size: 1.5rem;
+                                }
+                            }
+                            .ranking-user-record {
+                                float: right;
+                                margin: 0;
+                                height: 100%;
+                                display: flex;
+                                flex-direction: row;
+                                align-items: center;
+                                p {
+                                    font-size: 1.5rem;
+                                    margin: 0 0.5rem 0 0;
+                                }
+                                img {
+                                    height: 1.5rem;
+                                    width: auto;
+                                }
+
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
+
+        // MAIN CENTER block
+        &#center-block {
+            display: flex;
+            flex-direction: column;
+            // justify-content: center;
+            align-items: center;
+            #center-icon {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                max-width: 100%;
+                height: auto;
+                margin-bottom: 2rem;
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+
+            }
+            #center-title {
+                display: block;
+                width: 15rem;
+                height: auto;
+                border-radius: 1.5rem;
+                font-size: 1.5rem;
+                padding: 0.5rem;
+                color: white;
+                background: gray;
+                opacity: 50%;
+                text-align: center;
+                filter: brightness(90%);
+            }
+            .center-game-btn {
+                display: none;
+                width: 25rem;
+                line-height: 3.5rem;
+                display: block;
+                text-align: center;
+                border-radius: 1.5rem;
+                margin: 1rem 0;
+                font-size: 2rem;
+                outline: none;
+                border: none;
+                background: $colorMajor;
+                cursor: pointer;
+                color: white;
+                box-shadow: 0 5px 2px $colorGameBtn;
+                transition: .2s;
+                margin: 1rem;
+                &:hover {
+                    background-position: right;
+                    transform: scale(1.2);
+                }
+            }
+        }
+
+    }
+}
