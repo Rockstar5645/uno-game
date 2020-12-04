@@ -1,6 +1,9 @@
 extends layout
 block stylesheets
     link(rel="stylesheet", href="/stylesheets/lobby.css")
+    script(src="/socket.io/socket.io.min.js")
+    script(defer, type='module', src="/javascripts/util.js")
+    script(defer, type='module', src="/javascripts/lobby.js")
 
 block content
     div(class="container")
@@ -55,8 +58,6 @@ block content
                                 p(class="ranking-user-score")= user.scores
                                 img(src="/images/lobby/ranking_star.png", alt="")
 
-    
-    script(src="/js/lobby.js")
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js")
     //- Message scroll to the bottom
     script. 

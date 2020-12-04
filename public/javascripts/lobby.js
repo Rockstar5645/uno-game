@@ -1,5 +1,5 @@
 
-import {getCookie} from './util.js';
+import { getCookie } from './util.js';
 
 const newGameBtn = document.getElementById("new-game-btn");
 // dummy userIds
@@ -10,7 +10,7 @@ const userIds = {
     userD: 4
 }
 
-let socket = io(); 
+let socket = io();
 // socket.emit('chat message', {
 //     user_id: getCookie('user_id')
 // }); 
@@ -18,11 +18,12 @@ let socket = io();
 socket.emit("deal", {
     abc: 123
 }, (res) => {
-    console.log(res); 
+    console.log(res);
 });
 
 function createNewGame(userIds) {
-    let user_id = getCookie('user_id'); 
+    let user_id = getCookie('user_id');
+    console.log(">> Creating new game. Adding userId:", user_id);
 
     fetch(`http://localhost:3000/lobby`, {
         method: 'POST',
@@ -34,8 +35,8 @@ function createNewGame(userIds) {
         .then(res => res.json())
         .then(res => {
 
-            console.log('redirecting to games'); 
-            console.log(res); 
+            console.log('redirecting to games');
+            console.log(res);
 
             if (res.status === 'success') {
                 window.location.href = "games/stage";

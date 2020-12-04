@@ -32,9 +32,9 @@ server.on('listening', onListening);
 /**
  * Set up socket io server
  */
-let io = require('socket.io')(server); 
+var io = require('socket.io')(server);
 
-require('../io.js')(io); 
+require('../io.js')(io);
 
 /**
  * Normalize a port into a number, string, or false.
