@@ -9,12 +9,13 @@ module.exports = async (db) => {
             created_at DATE,
             timer INT,
             player_turn VARCHAR(1),
-            turn_direction VARCHAR(3),
-            current_card VARCHAR(10),
+            turn_direction VARCHAR(1),
+            current_card INT,
             top_card INT,
             turn_timer INT,
             status VARCHAR(10)
         )`);
+
         console.log('created games table');
 
     } catch (e) {

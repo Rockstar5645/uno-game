@@ -51,7 +51,9 @@ const createGameDeck = async (game_id) => {
 const create_game = async () => {
     //console.log("Creating a game. UserIds:", userIds);
 
-    const CREATE_GAME = `INSERT INTO games ("created_at", "top_card") VALUES (now(), 0) RETURNING id`;
+    const CREATE_GAME = `INSERT INTO games 
+        ("created_at", "top_card", "player_turn", "turn_direction") 
+        VALUES (now(), 0, 'A', 'F') RETURNING id`;
     let game = await db.one(CREATE_GAME); 
     let game_id = game.id; 
     await createGameDeck(game_id); 
@@ -63,14 +65,14 @@ let get_game_id = async (player_id) => {
     const GET_GAME_ID = `SELECT game_id FROM players WHERE user_id=($1)`; 
     let res = await db.one(GET_GAME_ID, player_id); 
     return res.game_id; 
-}
+}; 
 
 let get_player_count = async (game_id) => {
 
     const GET_PLAYER_COUNT = `SELECT COUNT(*) FROM players WHERE game_id=($1)`; 
     let player_count = await db.one(GET_PLAYER_COUNT, game_id);
     return parseInt(player_count.count, 10); 
-}
+}; 
 
 let get_players_in_queue = async () => {
 
@@ -89,7 +91,7 @@ let get_players_in_queue = async () => {
         // it doesnt exist
         return {count: 0};
     }
-}
+}; 
 
 let insert_into_session = async(game_id, user_id, player_tag) => {
     
@@ -111,20 +113,44 @@ let set_top = async (top, game_id) => {
 
     const SET_TOP = `UPDATE games SET top_card=($1) WHERE id=($2)`;
     await db.none(SET_TOP, [top, game_id]);
-}
+}; 
 
-let get_player_tag = async (user_id) => {
+let get_player_tag = async (user_id, game_id) => {
 
-    const GET_TAG = `SELECT player_tag FROM players WHERE user_id=($1)`;
-    let res = await db.one(GET_TAG, user_id); 
+    const GET_TAG = `SELECT player_tag FROM players WHERE user_id=($1) AND game_id=($2)`;
+    let res = await db.one(GET_TAG, [user_id, game_id]); 
     return res.player_tag; 
-}
+}; 
 
 let get_top = async (game_id) => {
 
     const GET_TOP = `SELECT top_card FROM games WHERE id=($1)`;
     let res = await db.one(GET_TOP, game_id);
     return res.top_card; 
+}; 
+
+
+let update_current_card = async (game_id, card_id) => {
+
+    const UCC = `UPDATE games SET current_card=($1) WHERE id=($2)`; 
+    await db.none(UCC, [card_id, game_id]);  
+}; 
+
+let get_turn_direction = async (game_id) => {
+    const GTD = `SELECT turn_direction FROM games WHERE id=($1)`;
+    let res = await db.one(GTD, game_id); 
+    return res.turn_direction; 
+}; 
+
+let get_player_turn = async (game_id) => {
+    const GPT = `SELECT player_turn FROM games WHERE id=($1)`; 
+    let res = await db.one(GPT, game_id); 
+    return res.player_turn; 
+}; 
+
+let set_player_turn = async (game_id, next_player) => {
+    const SPT = `UPDATE games SET player_turn=($1) WHERE id=($2)`;
+    await db.none(SPT, [next_player, game_id]);    
 }
 
 module.exports = {
@@ -137,6 +163,11 @@ module.exports = {
     set_top, 
     get_player_tag,
     get_top, 
+    update_current_card, 
+    get_turn_direction, 
+    get_player_turn, 
+    set_player_turn, 
+
     // addUser,
     // getGameInfo,
     // getLobbyListing,
