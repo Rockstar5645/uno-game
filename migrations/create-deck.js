@@ -8,7 +8,7 @@ module.exports = async (db) => {
                 CREATE TABLE deck (
                 id SERIAL PRIMARY KEY, 
                 name VARCHAR (20) NOT NULL, 
-                color VARCHAR (10) NOT NULL, 
+                color VARCHAR (20) NOT NULL, 
                 action INT NOT NULL)
             `);
         console.log('created deck table');

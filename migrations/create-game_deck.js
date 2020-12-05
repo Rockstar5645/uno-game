@@ -3,13 +3,13 @@
 module.exports = async (db) => {
 
     try {
-        
+
         // location should have a default of draw_stack
         await db.any(`CREATE TABLE game_deck (
             id SERIAL PRIMARY KEY, 
             game_id INT references games (id) ON DELETE CASCADE,
-            name VARCHAR (10) NOT NULL, 
-            color VARCHAR (10) NOT NULL, 
+            name VARCHAR (20) NOT NULL, 
+            color VARCHAR (20) NOT NULL, 
             location VARCHAR(20) NOT NULL,
             "order" INT NOT NULL
             )`);

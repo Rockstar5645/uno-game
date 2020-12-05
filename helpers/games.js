@@ -7,7 +7,8 @@ const GET_GAME_DECK = `SELECT * FROM game_deck`;
 const GET_PLAYERS = `SELECT * FROM players`;
 // /games/:game_id
 exports.startGame = async (req, res) => {
-    var { game_id, user_id } = req.params;
+    var { game_id } = req.params;
+    var user_id = req.cookies.user_id;
     console.log("helpers/games: startGame: Rendering game. ID:", game_id);
 
     // need to render player names
@@ -37,34 +38,35 @@ exports.startGame = async (req, res) => {
     }
 
     // get the data for the main player (to be displayed at bottom of screen)
+    console.log("Creating main_player object");
     var main_player = {
-        id,
+        id: 0,
         game_id: game_id,
         user_id: user_id,
-        uno_status,
-        player,
-        username,
-        avatar,
-        cards =[]
+        uno_status: "unavailable",
+        player_tag: "",
+        username: "",
+        avatar: "",
+        cards: []
     }
-
+    console.log("users for each");
     users.forEach(user => {
         if (user.id === user_id) {
             main_player.avatar = user.avatar;
             main_player.username = user.username;
         }
     });
-
+    console.log("players, for each");
     players.forEach(player => {
         if (player.user_id == user_id) {
             main_player.id = player.id;
             main_player.uno_status = player.uno_status;
-            main_player.player = player.player;
+            main_player.player_tag = player.player_tag;
         }
     });
-
+    console.log("cards for each");
     cards.forEach(card => {
-        if (card.location === `player_${main_player.player}_hand`) {
+        if (card.location === `${main_player.player_tag}`) {
             main_player.cards.push(card);
         }
     });

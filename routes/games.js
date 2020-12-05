@@ -8,7 +8,7 @@ router.get('/stage', (req, res) => {
 });
 
 // simple route to test the game_board.pug
-router.route("/:game_id/:user_id")
+router.route("/:game_id")
   .get(helper.startGame)
 
 // router.get("/:id", (request, response) => {

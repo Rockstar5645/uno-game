@@ -13,7 +13,7 @@ module.exports = async (db) => {
             current_card INT,
             top_card INT,
             turn_timer INT,
-            status VARCHAR(10)
+            status VARCHAR(20)
         )`);
 
         console.log('created games table');

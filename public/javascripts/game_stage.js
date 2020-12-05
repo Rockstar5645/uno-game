@@ -19,7 +19,8 @@ socket.on('room-joined', (msg) => {
     if (players_left === 0) {
 
         elem.innerHTML = "Starting the game...";
-        window.location.href = `/games/${game_id}/${user_id}`;
+
+        window.location.href = `/games/${game_id}`;
     } else {
         elem.innerHTML = "Waiting for " + players_left + " more players.";
     }
