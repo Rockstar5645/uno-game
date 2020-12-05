@@ -1,3 +1,4 @@
+const { errors } = require('pg-promise');
 const db = require('../db');
 
 
@@ -60,8 +61,8 @@ const create_game = async () => {
 let get_game_id = async (player_id) => {
 
     const GET_GAME_ID = `SELECT game_id FROM players WHERE user_id=($1)`; 
-    let game_id = await db.one(GET_GAME_ID, player_id); 
-    return game_id.game_id; 
+    let res = await db.one(GET_GAME_ID, player_id); 
+    return res.game_id; 
 }
 
 let get_player_count = async (game_id) => {
@@ -119,6 +120,13 @@ let get_player_tag = async (user_id) => {
     return res.player_tag; 
 }
 
+let get_top = async (game_id) => {
+
+    const GET_TOP = `SELECT top_card FROM games WHERE id=($1)`;
+    let res = await db.one(GET_TOP, game_id);
+    return res.top_card; 
+}
+
 module.exports = {
     create_game,
     get_game_id,
@@ -128,6 +136,7 @@ module.exports = {
     get_players,
     set_top, 
     get_player_tag,
+    get_top, 
     // addUser,
     // getGameInfo,
     // getLobbyListing,

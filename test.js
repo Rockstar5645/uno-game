@@ -1,16 +1,16 @@
 require("dotenv").config();
 
 let { create_game_test, delete_game_test } = require('./test/games.js'); 
-let { change_card_location, get_cards_for_players } = require('./models/cards.js'); 
-let { get_players, set_top, get_player_tag } = require('./models/games.js');
+let { change_card_location, get_cards_for_players, get_card_with_order } = require('./models/cards.js'); 
+let { get_players, set_top, get_top, get_player_tag } = require('./models/games.js');
 
 let { get_cards } = require('./services/cards'); 
 
-let { deal_cards } = require('./services/cards'); 
+let { deal_cards, draw_cards } = require('./services/cards'); 
 
 (async () => {
 
-    // await create_game_test(); 
+    //await create_game_test(); 
 
     // await delete_game_test(1); 
     
@@ -26,6 +26,9 @@ let { deal_cards } = require('./services/cards');
 
     // await deal_cards(2); 
 
-    let res = await get_cards(6); 
+    // let res = await get_card_with_order(10); 
+    // console.log(res); 
+
+    let res = await draw_cards(7, 10);
     console.log(res); 
 })(); 

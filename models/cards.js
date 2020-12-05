@@ -13,8 +13,15 @@ let get_cards_for_players = async (player_tag) => {
     return res;
 }
 
+let get_card_with_order = async (order) => {
+
+    const GET_CARD = `SELECT * FROM game_deck WHERE "order"=($1)`;
+    let res = await db.one(GET_CARD, order); 
+    return res; 
+}
 
 module.exports  = {
     change_card_location, 
     get_cards_for_players,
+    get_card_with_order, 
 }
