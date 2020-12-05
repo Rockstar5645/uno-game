@@ -83,32 +83,9 @@ head
       | Player A
   .player-a.horizontal-hand
     ul.user-cards
-      li.user-card
-        img(src='../images/uno_deck/blue_0.png' alt='')
-      li.user-card
-        img(src='../images/uno_deck/blue_0.png' alt='')
-      li.user-card
-        img(src='../images/uno_deck/blue_0.png' alt='')
-      li.user-card
-        img(src='../images/uno_deck/blue_0.png' alt='')
-      li.user-card
-        img(src='../images/uno_deck/blue_0.png' alt='')
-      li.user-card
-        img(src='../images/uno_deck/blue_0.png' alt='')
-      li.user-card
-        img(src='../images/uno_deck/blue_0.png' alt='')
-      li.user-card
-        img(src='../images/uno_deck/blue_0.png' alt='')
-      li.user-card
-        img(src='../images/uno_deck/blue_0.png' alt='')
-      li.user-card
-        img(src='../images/uno_deck/blue_0.png' alt='')
-      li.user-card
-        img(src='../images/uno_deck/blue_0.png' alt='')
-      li.user-card
-        img(src='../images/uno_deck/blue_0.png' alt='')
-      li.user-card
-        img(src='../images/uno_deck/blue_0.png' alt='')
+      each card in main_player.cards
+        li.user-card
+          img(src=`../images/uno_deck/${card.color}_${card.name}.png` alt='')
   .buffer
   .player-d-container
     .name
