@@ -15,8 +15,10 @@ module.exports = async (msg, socket, io) => {
             console.log('room id', room_id); 
 
             let player_count = await get_player_count(game_id);
+            console.log('player count', player_count); 
             
             socket.join(room_id); 
+            console.log(socket.rooms); 
             io.to(room_id).emit('room-joined', {
                 player_count: player_count
             }); 

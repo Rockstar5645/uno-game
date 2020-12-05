@@ -1,19 +1,16 @@
+const { errors } = require('pg-promise');
 const db = require('../db');
-
-const CREATE_GAME = `INSERT INTO games ("created_at") VALUES (now()) RETURNING id`;
-const ADD_USER = `INSERT INTO players (game_id, user_id) VALUES ($1, $2) RETURNING game_id`;
-const LOOKUP_CARDS = `SELECT * FROM deck`;
-const INSERT_CARD = `INSERT INTO game_deck (game_id, name, color, "order", location) VALUES ($1, $2, $3, $4, $5)`;
 
 
 const insertCards = async (deck, gameId) => {
     //console.log(">>>Inserting shuffled cards into game deck...");
     //console.log("The shuffled deck:\n", deck);
 
+    const INSERT_CARD = `INSERT INTO game_deck (game_id, name, color, "order", location) VALUES ($1, $2, $3, $4, $5)`;
     for (let index = 0; index < deck.length; index++) {
         let card = deck[index]; 
         await db.any(INSERT_CARD, [gameId, card.name, card.color, index, "draw_stack"]); 
-    }
+    } 
     return; 
 };
 
@@ -44,6 +41,7 @@ const createGameDeck = async (game_id) => {
     //console.log(game_id); 
     //console.log(">>>Creating a game deck...");
     
+    const LOOKUP_CARDS = `SELECT * FROM deck`;
     let cards = await db.any(LOOKUP_CARDS); 
     let deck = shuffleCards(cards);
     await insertCards(deck, game_id); 
@@ -53,6 +51,9 @@ const createGameDeck = async (game_id) => {
 const create_game = async () => {
     //console.log("Creating a game. UserIds:", userIds);
 
+    const CREATE_GAME = `INSERT INTO games 
+        ("created_at", "top_card", "player_turn", "turn_direction") 
+        VALUES (now(), 0, 'A', 'F') RETURNING id`;
     let game = await db.one(CREATE_GAME); 
     let game_id = game.id; 
     await createGameDeck(game_id); 
@@ -62,24 +63,21 @@ const create_game = async () => {
 let get_game_id = async (player_id) => {
 
     const GET_GAME_ID = `SELECT game_id FROM players WHERE user_id=($1)`; 
-    let game_id = await db.one(GET_GAME_ID, player_id); 
-    return game_id.game_id; 
-}
+    let res = await db.one(GET_GAME_ID, player_id); 
+    return res.game_id; 
+}; 
 
 let get_player_count = async (game_id) => {
 
     const GET_PLAYER_COUNT = `SELECT COUNT(*) FROM players WHERE game_id=($1)`; 
     let player_count = await db.one(GET_PLAYER_COUNT, game_id);
-    console.log('the number of players in game ', game_id, ' is ', player_count); 
     return parseInt(player_count.count, 10); 
-}
+}; 
 
 let get_players_in_queue = async () => {
 
     const GET_LATEST_GAME = `SELECT id FROM games ORDER BY id DESC LIMIT 1`;
     let game_id = await db.oneOrNone(GET_LATEST_GAME); 
-
-    console.log('latest game id', game_id); 
     
     if (game_id) {
         // a game session exists
@@ -91,15 +89,73 @@ let get_players_in_queue = async () => {
         }; 
     } else {
         // it doesnt exist
-        console.log('no games exist yet'); 
         return {count: 0};
     }
+}; 
+
+let insert_into_session = async(game_id, user_id, player_tag) => {
+    
+    const ADD_USER = `INSERT INTO players (game_id, user_id, player_tag) 
+                        VALUES ($1, $2, $3) RETURNING game_id`;
+    let res = await db.one(ADD_USER, [game_id, user_id, player_tag]); 
+    return res; 
 }
 
-let insert_into_session = async(game_id, user_id) => {
-    
-    let res = await db.one(ADD_USER, [game_id, user_id]); 
-    return res; 
+let get_players = async (game_id) => {
+
+    const GET_PLAYERS = `SELECT * FROM players WHERE game_id=($1)`; 
+    let res = await db.manyOrNone(GET_PLAYERS, game_id);
+    return res;    
+}; 
+
+
+let set_top = async (top, game_id) => {
+
+    const SET_TOP = `UPDATE games SET top_card=($1) WHERE id=($2)`;
+    await db.none(SET_TOP, [top, game_id]);
+}; 
+
+let get_player_tag = async (user_id, game_id) => {
+
+    const GET_TAG = `SELECT player_tag FROM players WHERE user_id=($1) AND game_id=($2)`;
+    let res = await db.one(GET_TAG, [user_id, game_id]); 
+    return res.player_tag; 
+}; 
+
+let get_top = async (game_id) => {
+
+    const GET_TOP = `SELECT top_card FROM games WHERE id=($1)`;
+    let res = await db.one(GET_TOP, game_id);
+    return res.top_card; 
+}; 
+
+
+let update_current_card = async (game_id, card_id) => {
+
+    const UCC = `UPDATE games SET current_card=($1) WHERE id=($2)`; 
+    await db.none(UCC, [card_id, game_id]);  
+}; 
+
+let get_turn_direction = async (game_id) => {
+    const GTD = `SELECT turn_direction FROM games WHERE id=($1)`;
+    let res = await db.one(GTD, game_id); 
+    return res.turn_direction; 
+}; 
+
+let set_turn_direction = async(game_id, next_turn_direction) => {
+    const STD = `UPDATE games SET turn_direction=($1) WHERE id=($2)`;
+    await db.none(STD, [next_turn_direction, game_id]); 
+}
+
+let get_player_turn = async (game_id) => {
+    const GPT = `SELECT player_turn FROM games WHERE id=($1)`; 
+    let res = await db.one(GPT, game_id); 
+    return res.player_turn; 
+}; 
+
+let set_player_turn = async (game_id, next_player) => {
+    const SPT = `UPDATE games SET player_turn=($1) WHERE id=($2)`;
+    await db.none(SPT, [next_player, game_id]);    
 }
 
 module.exports = {
@@ -108,6 +164,16 @@ module.exports = {
     get_player_count,
     get_players_in_queue, 
     insert_into_session, 
+    get_players,
+    set_top, 
+    get_player_tag,
+    get_top, 
+    update_current_card, 
+    get_turn_direction, 
+    set_turn_direction, 
+    get_player_turn, 
+    set_player_turn, 
+
     // addUser,
     // getGameInfo,
     // getLobbyListing,

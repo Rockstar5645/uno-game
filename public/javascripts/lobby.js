@@ -15,8 +15,10 @@ let socket = io();
 //     user_id: getCookie('user_id')
 // }); 
 
-socket.emit("update item", "1", { name: "updated" }, (response) => {
-    console.log(response.status); // ok
+socket.emit("deal", {
+    abc: 123
+}, (res) => {
+    console.log(res); 
 });
 
 function createNewGame(userIds) {
