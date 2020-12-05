@@ -142,6 +142,11 @@ let get_turn_direction = async (game_id) => {
     return res.turn_direction; 
 }; 
 
+let set_turn_direction = async(game_id, next_turn_direction) => {
+    const STD = `UPDATE games SET turn_direction=($1) WHERE id=($2)`;
+    await db.none(STD, [next_turn_direction, game_id]); 
+}
+
 let get_player_turn = async (game_id) => {
     const GPT = `SELECT player_turn FROM games WHERE id=($1)`; 
     let res = await db.one(GPT, game_id); 
@@ -165,6 +170,7 @@ module.exports = {
     get_top, 
     update_current_card, 
     get_turn_direction, 
+    set_turn_direction, 
     get_player_turn, 
     set_player_turn, 
 
