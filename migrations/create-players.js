@@ -7,8 +7,8 @@ module.exports = async (db) => {
                 id SERIAL PRIMARY KEY, 
                 game_id INT NOT NULL references games (id) ON DELETE CASCADE,
                 user_id INT NOT NULL references users (user_id) ON DELETE CASCADE,
-                player VARCHAR(1),
                 uno_status VARCHAR(20) DEFAULT 'unavailable'
+                player_tag VARCHAR(1) 
                 )
             `);
         console.log('created players table');
