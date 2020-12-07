@@ -16,8 +16,22 @@ block content
                     //- TODO 
                     //- Messages from db
                     each message, i in messages
-                        li(class="li-message-display-item")
-                            p(class="message-display-user") #[strong #{message.username}: ] #{message.message}
+                        if message.user_id == user_id
+                            li(class="li-message-display-item li-message-right")
+                                div(class="message-display-user-name-message message-user-name-message-right")
+                                    p(class="message-display-user-name message-user-name-right")= message.username
+                                    div(class="message-display-user-message-block message-user-message-block-right")
+                                        p(class="message-display-user-message message-user-message-right")= message.message
+                                div(class="message-display-user-avatar message-avatar-right")
+                                    img(src=message.avatar, alt="" class="message-display-user-avatar-img message-display-user-avatar-img-right")
+                        else
+                            li(class="li-message-display-item li-message-left")
+                                div(class="message-display-user-avatar message-avatar-left")
+                                    img(src=message.avatar, alt="" class="message-display-user-avatar-img message-display-user-avatar-img-right")
+                                div(class="message-display-user-name-message message-user-name-message-left")
+                                    p(class="message-display-user-name message-user-name-left")= message.username
+                                    div(class="message-display-user-message-block message-user-message-block-left")
+                                        p(class="message-display-user-message message-user-message-left")= message.message
                 //- TODO 
                 //- ADD user authentication
                 form(action="/lobby", method="post" id="message-send-block")

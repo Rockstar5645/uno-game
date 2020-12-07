@@ -50,7 +50,8 @@ module.exports = async function(req) {
             return {
                 status: 'success',
                 user_id: db_result.user_id,
-                username: username
+                username: db_result.username,
+                avatar: db_result.avatar
             }; 
         } else {
             return prepare_response_template({

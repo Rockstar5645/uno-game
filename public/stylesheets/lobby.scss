@@ -56,21 +56,82 @@ $colorGameBtn: #F7A738;
                         flex-grow: 1;
                         height: 60vh;
                         overflow:scroll; 
-                        li {
+                        background: $colorBg;
+                        border-radius: 5px;
+                        li.li-message-display-item {
                             display: flex;
                             flex-direction: row;
-                            border-radius: 5px;
-                            margin-bottom: $marginMinor;
                             padding: $marginMinor;
-                            background: $colorMinor;
+                            margin-bottom: $marginMinor;
                             // box-shadow: 2px 2px $colorMajor;
-                            .message-display-user {
-                                // font-weight: bolder;
-                                margin: 0 $marginMinor 0 0;
+                            .message-display-user-avatar {
+                                float: left;
+                                height: 2rem;
+                                width: 2rem;
+                                min-width: 2rem;
+                                min-height: 2rem;
+                                img.message-display-user-avatar-img {
+                                    max-width: 100%;
+                                    max-height: 100%;
+                                }
                             }
-                            // .message-display-text {
-                            //     margin: 0;
-                            // }
+                            .message-display-user-name-message {
+                                display: flex;
+                                flex-direction: column;
+                                flex-grow: 1;
+                                margin: 0 $marginMinor;
+
+                                .message-display-user-name {
+                                    font-size: 1rem;
+                                    color: gray;
+                                    margin: 0 0 0.2rem 0;
+                                    &.message-user-name-right {
+                                        text-align: right;
+                                    }
+                                }
+                                .message-display-user-message-block {
+                                    &.message-user-message-block-right {
+                                        margin-left: auto;
+                                    }
+                                    .message-display-user-message {
+                                        flex-grow: 1;
+                                        margin: 0;
+                                        position: relative;
+                                        width: fit-content;
+                                        border-radius: 5px;
+                                        background: $colorMinor;
+                                        padding: $marginMinor;
+                                        overflow-wrap: break-word;
+                                        word-break: break-all;
+                                        &:after,
+                                        ::after {
+                                            position: absolute;
+                                            top: 5px;
+                                            content: '';
+                                            width: 0;
+                                            height: 0;
+                                            border-bottom: solid 10px transparent;
+                                            // border-top: solid 5px transparent;
+                                        }
+                                        &.message-user-message-right {
+                                            margin-left: 2rem;
+                                            &:after,
+                                            ::after {
+                                                right: -5px;
+                                                border-left: solid 5px $colorMajor;
+                                            }
+                                        }
+                                        &.message-user-message-left {
+                                            margin-right: 2rem;
+                                            &:after,
+                                            ::after {
+                                                left: -5px;
+                                                border-right: solid 5px $colorMajor;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                     // Message send
