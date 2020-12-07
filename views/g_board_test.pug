@@ -8,21 +8,10 @@ head
   //- script(defer, type='module', src="/javascripts/games.js")
   title UNO Game Board
 .grid
-
   // first row
-
   .left-player-container
-    .name
-      if (main_player_tag === player_a.player_tag)
-        | #{player_b.username}
-      else if (main_player_tag === player_b.player_tag)
-        | #{player_c.username}
-      else if (main_player_tag === player_c.player_tag)
-        | #{player_d.username}
-      else
-        | #{player_a.username}
+    .name Player B
   .buffer
-
   .top-player.horizontal-hand
     ul.user-cards
       li.user-card
@@ -41,19 +30,10 @@ head
         img(src='../images/uno_deck/card_back.png' alt='')
   .top-player-container
     .name
-      if (main_player_tag === player_a.player_tag)
-        | #{player_c.username}
-      else if (main_player_tag === player_b.player_tag)
-        | #{player_d.username}
-      else if (main_player_tag === player_c.player_tag)
-        | #{player_a.username}
-      else
-        | #{player_b.username}
+      | Player C
   .menu-btn
     img(src='../images/menu_icon.png' alt='')
-
   // second row
-
   .left-player.vertical-hand
     ul.user-cards
       li.user-card
@@ -68,20 +48,14 @@ head
         img(src='../images/uno_deck/card_back.png' alt='')
       li.user-card
         img(src='../images/uno_deck/card_back.png' alt='')
-      li.user-card
-        img(src='../images/uno_deck/card_back.png' alt='')
-
   .buffer
-
   .deck
     // Helper to help align image vertically centered
     span.helper
     img#deck(src='../images/Uno_deck/uno_deck.png' alt='card back')
-
   .played-stack
     span.helper
-    img.played-card(src=`../images/uno_deck/${cur_card.color}_${cur_card.name}.png` alt='')
-    
+    img.played-card(src='../images/uno_deck/blue_0.png' alt='')
   .btn-container
     .uno-btn UNO
   .right-player.vertical-hand
@@ -101,48 +75,29 @@ head
       li.user-card
         img(src='../images/uno_deck/card_back.png' alt='')
       li.user-card
-
+        img(src='../images/uno_deck/card_back.png' alt='')
   // third row
   .buffer
   .bottom-player-container
     .name
-      if (main_player_tag === player_a.player_tag)
-        | #{player_a.username}
-      else if (main_player_tag === player_b.player_tag)
-        | #{player_b.username}
-      else if (main_player_tag === player_c.player_tag)
-        | #{player_c.username}
-      else
-        | #{player_d.username}
+      | Player A
   .bottom-player.horizontal-hand
     ul.user-cards
-      if (main_player_tag === player_a.player_tag)
-        each card in player_a.cards
-          li.user-card
-            img(src=`../images/uno_deck/${card.color}_${card.name}.png` alt='')
-        
-      else if (main_player_tag === player_b.player_tag)
-        each card in player_b.cards
-          li.user-card
-            img(src=`../images/uno_deck/${card.color}_${card.name}.png` alt='')
-
-      else if (main_player_tag === player_c.player_tag)
-        each card in player_c.cards
-          li.user-card
-            img(src=`../images/uno_deck/${card.color}_${card.name}.png` alt='')
-
-      else
-        each card in player_d.cards
-          li.user-card
-            img(src=`../images/uno_deck/${card.color}_${card.name}.png` alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
+      li.user-card
+        img(src='../images/uno_deck/card_back.png' alt='')
   .buffer
   .right-player-container
     .name
-      if (main_player_tag === player_a.player_tag)
-        | #{player_d.username}
-      else if (main_player_tag === player_b.player_tag)
-        | #{player_a.username}
-      else if (main_player_tag === player_c.player_tag)
-        | #{player_b.username}
-      else
-        | #{player_c.username}
+      | Player D

@@ -3,7 +3,7 @@
 module.exports = async (db) => {
 
     try {
-        await db.any(`CREATE TABLE players (
+        await db.any(`CREATE TABLE players(
                 id SERIAL PRIMARY KEY, 
                 game_id INT NOT NULL references games (id) ON DELETE CASCADE,
                 user_id INT NOT NULL references users (user_id) ON DELETE CASCADE,

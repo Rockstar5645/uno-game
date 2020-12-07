@@ -7,7 +7,10 @@ router.get('/stage', (req, res) => {
   res.render('game_stage', {});
 });
 
-// simple route to test the game_board.pug
+router.route("/test")
+  .get(helper.testGame)
+
+// CAUTION: the order of these routes matter
 router.route("/:game_id")
   .get(helper.startGame)
 
@@ -22,6 +25,7 @@ router.route("/:game_id")
 //       response.json({ error });
 //     });
 // });
+
 
 
 router.get("/join/:id", (request, response) => {
