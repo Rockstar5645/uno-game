@@ -1,18 +1,15 @@
 const express = require("express");
 const router = express.Router();
+const helper = require('../helpers/games');
 
 // /games  - endpoint 
-
-// simple route to test the game_board.pug
-router.get("/", (request, response) => {
-  // const { id: gameId } = request.params;
-  response.render("game_board", {});
+router.get('/stage', (req, res) => {
+  res.render('game_stage', {});
 });
 
-router.get('/stage', (req, res) => {
-
-  res.render('game_stage', {}); 
-}); 
+// simple route to test the game_board.pug
+router.route("/:game_id")
+  .get(helper.startGame)
 
 // router.get("/:id", (request, response) => {
 //   const { id: gameId } = request.params;

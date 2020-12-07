@@ -11,15 +11,15 @@ const userIds = {
 }
 
 let socket = io();
-// socket.emit('chat message', {
-//     user_id: getCookie('user_id')
-// }); 
-
-socket.emit("deal", {
-    abc: 123
-}, (res) => {
-    console.log(res);
+socket.emit('chat message', {
+    user_id: getCookie('user_id')
 });
+
+// socket.emit("deal", {
+//     abc: 123
+// }, (res) => {
+//     console.log(res);
+// });
 
 function createNewGame(userIds) {
     let user_id = getCookie('user_id');
@@ -35,7 +35,7 @@ function createNewGame(userIds) {
         .then(res => res.json())
         .then(res => {
 
-            console.log('redirecting to games');
+            console.log('redirecting to games/stage');
             console.log(res);
 
             if (res.status === 'success') {

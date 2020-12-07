@@ -5,7 +5,7 @@ module.exports = async (io) => {
     io.on('connection', (socket) => {
 
         socket.on('player_added', async (msg) => {
-            await add_player(msg, socket, io);
+            await add_player(msg, socket, io); // where is add_player coming from????
         });
 
         socket.on('chat message', (msg) => {
@@ -24,9 +24,9 @@ module.exports = async (io) => {
             await game_stage(msg, socket, io);
         });
 
-        socket.on('deal', (msg, callback) => {
-            console.log(msg);
-            callback('calling you back');
-        });
+        // socket.on('deal', (msg, callback) => {
+        //     console.log(msg);
+        //     callback('calling you back');
+        // });
     });
 }
