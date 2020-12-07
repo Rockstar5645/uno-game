@@ -19,6 +19,7 @@ module.exports = async (msg, socket, io) => {
 
             socket.join(room_id);
             console.log(socket.rooms);
+            // responds to call in javascripts/game_stage.js
             io.to(room_id).emit('room-joined', {
                 player_count: player_count,
                 game_id: game_id,
