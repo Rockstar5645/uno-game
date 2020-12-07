@@ -1,6 +1,6 @@
 import { getCookie } from './util.js';
 
-let socket = io();
+const socket = io();
 
 socket.emit('game-stage', {
     // goes to services/game_stage.js

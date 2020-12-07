@@ -1,107 +1,68 @@
 const db = require('../db');
+// import { get_player_info, get_player_tag } from '../models/games.js';
+const Game = require('../models/games');
+const Cards = require('../models/cards');
+const CardServices = require('../services/cards');
 
-const GET_USER_IDS = `SELECT user_id FROM players WHERE game_id=$1`;
-const GET_USER_DATA = `SELECT * FROM users WHERE user_id=$1 or user_id=$2 or user_id=$3 or user_id=$4;`
-// const GET_PLAYER_A_CARDS = `SELECT * FROM game_deck WHERE user_id=$1 and game_id=$2 and location=$3`;
-const GET_GAME_DECK = `SELECT * FROM game_deck`;
-const GET_PLAYERS = `SELECT * FROM players`;
 // /games/:game_id
 exports.startGame = async (req, res) => {
     var { game_id } = req.params;
-    var user_id = req.cookies.user_id;
-    console.log("helpers/games: startGame: Rendering game. ID:", game_id);
-
-    // need to render player names
+    var { user_id } = req.cookies;
+    console.log("helpers/games: startGame: Game ID:", game_id, 'User ID:', user_id);
 
     try {
-        // get user id's so we can get the player data
-        console.log("...Getting user IDs");
-        var user_ids = await db.any(GET_USER_IDS, game_id);
-        // console.log("user_ids:", user_ids);
+        // get all players's data
+        var player_a = await Game.get_player_info('A', game_id);
+        var player_b = await Game.get_player_info('B', game_id);
+        var player_c = await Game.get_player_info('C', game_id);
+        var player_d = await Game.get_player_info('D', game_id);
 
-        // get player data to render each player's name and avatar (from users table)
-        console.log("...Getting users' data");
-        var users = await db.any(GET_USER_DATA, [user_ids[0].user_id, user_ids[1].user_id, user_ids[2].user_id, user_ids[3].user_id]);
-        // console.log("players:", players);
+        player_a.cards = await Cards.get_cards_for_players('A', game_id);
+        player_b.cards = await Cards.get_cards_for_players('B', game_id);
+        player_c.cards = await Cards.get_cards_for_players('C', game_id);
+        player_d.cards = await Cards.get_cards_for_players('D', game_id);
 
-        // get the players (from players table)
-        console.log("...Getting players");
-        var players = await db.any(GET_PLAYERS)
+        // console.log("players:", player_a, player_b, player_c, player_d);
 
-        // render player cards
-        console.log("...Getting player's initial cards");
-        // var cards = await db.any(GET_PLAYER_A_CARDS, [user_ids[0].user_id, game_id, "player_a_hand"]);
-        var cards = await db.any(GET_GAME_DECK);
+        // find who main player is
+        var main_player_tag = await Game.get_player_tag(user_id, game_id);
+        // console.log("main player tag:", main_player_tag);
+
+        // get currrent card and pass it to view
+        var cur_card = await Game.get_starting_card(game_id);
+        // console.log("current card in play:", cur_card);
+
+        await Game.update_current_card(game_id, cur_card.id);
+
     } catch (e) {
         console.log("Error in route /games/:game_id, startGame() helper.");
         console.log(e);
     }
 
-    // get the data for the main player (to be displayed at bottom of screen)
-    console.log("Creating main_player object");
-    var main_player = {
-        id: 0,
-        game_id: game_id,
-        user_id: user_id,
-        uno_status: "unavailable",
-        player_tag: "",
-        username: "",
-        avatar: "",
-        cards: []
-    }
-    console.log("users for each");
-    users.forEach(user => {
-        if (user.id === user_id) {
-            main_player.avatar = user.avatar;
-            main_player.username = user.username;
-        }
+    res.render("game_board", {
+        player_a,
+        player_b,
+        player_c,
+        player_d,
+        main_player_tag,
+        cur_card
     });
-    console.log("players, for each");
-    players.forEach(player => {
-        if (player.user_id == user_id) {
-            main_player.id = player.id;
-            main_player.uno_status = player.uno_status;
-            main_player.player_tag = player.player_tag;
-        }
-    });
-    console.log("cards for each");
-    cards.forEach(card => {
-        if (card.location === `${main_player.player_tag}`) {
-            main_player.cards.push(card);
-        }
-    });
+}
 
-    console.log("Main player info:", main_player);
-    // render current_card
-    res.render("game_board", { players, cards, main_player });
+exports.testGame = (req, res) => {
+    res.render("g_board_test", {});
 }
 
 module.exports = exports;
 
-// user_ids example:
-// user_ids: [ { user_id: 1 }, { user_id: 2 }, { user_id: 3 }, { user_id: 4 } ]
-
 // players example:
-// players: [
-//     {
-//       user_id: 1,
-//       username: 'tu0',
-//       password: '$2b$12$/eLcdQxV31jZhwikJV25V.yL5uAv5qHT4ZeLbROHRTbtB.fHQmPgu',
-//       email: 'tu0@gmail.com',
-//       avatar: '/images/avatars/avatar-flat-32.png',
-//       wins: 0,
-//       losses: 0,
-//       scores: 0
-//     },
-//          ....
-//     {
-//       user_id: 4,
-//       username: 'tu3',
-//       password: '$2b$12$122vRAmIA2inw/dKnJGmmejP0x8FTZafsgjGNH9DiWpQgt/COVrJG',
-//       email: 'tu3@gmail.com',
-//       avatar: '/images/avatars/avatar-flat-8.png',
-//       wins: 47,
-//       losses: 50,
-//       scores: 285
-//     }
-//   ]
+// players: 
+// {
+//     id: 9,
+//     game_id: 3,
+//     user_id: 1,
+//     uno_status: 'unavailable',
+//     player_tag: 'A',
+//     username: 'tu0',
+//     avatar: '/images/avatars/avatar-flat-9.png'
+// }
