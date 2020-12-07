@@ -11,7 +11,7 @@ const userIds = {
 }
 
 let socket = io(); 
-// socket.emit('chat message', {
+// socket.emit('chat-message', {
 //     user_id: getCookie('user_id')
 // }); 
 
