@@ -1,5 +1,7 @@
 
-let game_stage = require('./services/game_stage.js');
+let game_stage = require('./services/game_stage');
+let { handle_socket } = require('./services/game_board'); 
+
 
 module.exports = async (io) => {
     io.on('connection', (socket) => {
@@ -13,10 +15,10 @@ module.exports = async (io) => {
             // console.log('socket id', socket.id); 
         });
 
-        socket.on('game-board', (msg, cb) => {
-            console.log('game-board', msg);
+        socket.on('game-board-cb', async (msg, cb) => {
+            // console.log('game-board', msg);
 
-            cb('card updated to played');
+            await handle_socket(msg, cb); 
         });
 
         socket.on('game-stage', async (msg) => {
