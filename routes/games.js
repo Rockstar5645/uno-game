@@ -1,3 +1,4 @@
+const { response } = require("express");
 const express = require("express");
 const router = express.Router();
 const helper = require("../helpers/games");
@@ -29,6 +30,7 @@ router.get("/test/:game_id", async (req, res) => {
   let player_data = await game_board_init(game_id, user_id);
 
   if (player_data.status === "success") {
+    response.redirect(`/games/${gameId}`);
     res.render("game_board", { game_id, ...player_data.res });
   } else {
     throw Error("something went wrong");
