@@ -37,9 +37,11 @@ let display_usernames = (res) => {
     top_player.innerHTML = player_display[1].username; 
 
     let main_player = document.getElementById('main_player_name'); 
+    player_map[res.main_player] = 'main_player_nam'; 
     main_player.innerHTML = res[res.main_player].username; 
 
     let right_player = document.getElementById('right_player_name'); 
+    player_map[player_display[2].player_tag] = 'right_player_name'; 
     right_player.innerHTML = player_display[2].username; 
 }
 
