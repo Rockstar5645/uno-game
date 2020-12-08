@@ -76,6 +76,8 @@ let setup_main_player = (res) => {
   });
 };
 
+
+
 socket.emit(
   "game-board-cb",
   {

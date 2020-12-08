@@ -5,6 +5,28 @@ const helper = require("../helpers/games");
 
 let { game_board_init } = require("../services/game_board");
 
+
+router.get('/game_board', (req, res) => {
+
+  // get the current state of the game and put it in object game_state; 
+
+  /*
+
+  game_state = {
+    'A': player_info, 
+    'B': player_info, 
+    'C': player_info, 
+    'D': player_info 
+    main_player: '
+  }
+
+  */ 
+  
+
+  // return that state 
+}); 
+
+
 // /games  - endpoint
 router.get("/stage", (req, res) => {
   res.render("game_stage", {});
