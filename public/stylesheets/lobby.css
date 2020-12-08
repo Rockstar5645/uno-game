@@ -127,7 +127,7 @@
 
 .container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-name {
   font-size: 1rem;
-  color: gray;
+  font-weight: bolder;
   margin: 0 0 0.2rem 0;
 }
 

@@ -28,22 +28,10 @@ const lobbySendMessage = (userId, message) =>
 const lobbyInfo = (req) =>
     Promise.all([db.any(RANKINGS), db.any(LOBBY_MESSAGES)]).then(
         ([users, lobbyMessages]) => {
-            let user = parseCookies(req.headers.cookie);
-            // let messages = lobbyMessages.map(getLobbyMessage);
-            return { users, lobbyMessages, user };
+            let { user_id, avatar, username } = req.cookies;
+            return { users, lobbyMessages, user_id, avatar, username };
         }
     );
-
-// Parse strings to dictionary
-function parseCookies(cookies) {
-    let rawCookies = cookies.split("; ").map(cookie => cookie.split("="));
-    var cookiesJson = {};
-    for (var i in rawCookies) {
-        cookie = rawCookies[i]
-        cookiesJson[cookie[0]] = cookie[1];
-    }
-    return cookiesJson;
-}
 
 module.exports = {
     lobbyInfo,

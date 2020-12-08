@@ -1,9 +1,10 @@
-import { getCookie } from "./util.js";
-
 const socket = io();
 let messageContainer = document.querySelector("#ul-message-display-block");
 let messageForm = document.querySelector("#message-send-block");
 let messageInput = document.querySelector("#input-message-send-textarea");
+let userId = document.querySelector("#cur_user_id");
+let username = document.querySelector("#cur_username");
+let userAvatar = document.querySelector("#cur_user_avatar");
 
 // message from server
 socket.on("lobby-chat-message", (data) => {
@@ -16,13 +17,10 @@ socket.on("lobby-chat-message", (data) => {
 messageForm.addEventListener("submit", (e) => {
     e.preventDefault();
     let message = messageInput.value;
-    let user_id = getCookie("user_id");
-    let username = getCookie("username");
-    let avatar = getCookie("avatar");
     let data = {
-        user_id: user_id,
-        username: username,
-        avatar: avatar,
+        user_id: userId.value,
+        username: username.value,
+        avatar: userAvatar.value,
         message: message,
     };
     // Append to current user

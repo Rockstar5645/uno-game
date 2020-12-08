@@ -8,9 +8,11 @@ let add_user = require('../services/gq.js');
 let Lobby = require("../models/lobby");
 router.get("/", (req, res) => {
     Lobby.lobbyInfo(req)
-        .then(({ users, lobbyMessages, user }) => {
+        .then(({ users, lobbyMessages, user_id, avatar, username }) => {
             res.render("lobby", {
-                user_id: user.user_id,
+                user_id: user_id,
+                avatar: avatar,
+                username: username,
                 users: users,
                 messages: lobbyMessages,
             });

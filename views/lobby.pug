@@ -7,6 +7,9 @@ block stylesheets
     script(defer, type='module', src="/javascripts/lobby_chat.js")
 
 block content
+    input(name="user_id" value=user_id id="cur_user_id" hidden)
+    input(name="username" value=username id="cur_username" hidden)
+    input(name="avatar" value=avatar id="cur_user_avatar" hidden)
     div(class="container")
         //- Left Section Chatting
         div(id="chatting-block" class="side-block lobby-section-block")
