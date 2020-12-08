@@ -168,10 +168,13 @@ let set_player_turn = async (game_id, next_player) => {
     await db.none(SPT, [next_player, game_id]);
 }
 
-let get_starting_card = async (game_id) => {
+let get_current_card = async (game_id) => {
     // only works if called when initializing the game. it's useless afterwards
-    const GET_STARTING_CARD = `SELECT * FROM game_deck WHERE location=$1 and game_id=$2`;
-    var cur_card = await db.one(GET_STARTING_CARD, ['played', game_id]);
+    const GET_CURRENT_CARD_ID = `SELECT current_card from games WHERE id=($1)`; 
+    let curr_card_id = db.one(GET_CURRENT_CARD_ID, game_id); 
+    
+    const GET_STARTING_CARD = `SELECT * FROM game_deck WHERE id=($1)`;
+    var cur_card = await db.one(GET_STARTING_CARD, curr_card_id);
     return cur_card;
 }
 
@@ -204,7 +207,7 @@ module.exports = {
     get_player_turn,
     set_player_turn,
     get_player_info,
-    get_starting_card
+    get_current_card, 
 
     // addUser,
     // getGameInfo,

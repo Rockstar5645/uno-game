@@ -7,60 +7,63 @@ head
   script(defer, type='module', src='/javascripts/util.js')
   script(defer, type='module', src='/javascripts/game_board.js')
   title UNO Game Board
-.grid
 
-  // first row
+body
+  input#gameId(type='hidden', value=game_id)
+  .grid
 
-  .left-player-container
-    .name#left_player_name
-  .buffer
+    // first row
 
-  .top-player.horizontal-hand
-    ul.user-cards#top_player_deck
-      - for (var x = 0; x < 7; x++)
-        li.user-card
-          img(src='/images/uno_deck/card_back.png' alt='')
-  .top-player-container
-    .name#top_player_name
-  .menu-btn
-    img(src='/images/menu_icon.png' alt='')
+    .left-player-container
+      .name#left_player_name
+    .buffer
 
-  // second row
+    .top-player.horizontal-hand
+      ul.user-cards#top_player_deck
+        - for (var x = 0; x < 7; x++)
+          li.user-card
+            img(src='/images/uno_deck/card_back.png' alt='')
+    .top-player-container
+      .name#top_player_name
+    .menu-btn
+      img(src='/images/menu_icon.png' alt='')
 
-  .left-player.vertical-hand
-    ul.user-cards
-      - for (var x = 0; x < 7; x++)
-        li.user-card
-          img(src='/images/uno_deck/card_back.png' alt='')
+    // second row
 
-  .buffer
+    .left-player.vertical-hand
+      ul.user-cards
+        - for (var x = 0; x < 7; x++)
+          li.user-card
+            img(src='/images/uno_deck/card_back.png' alt='')
 
-  .deck
-    // Helper to help align image vertically centered
-    span.helper
-    img#deck(src='/images/Uno_deck/uno_deck.png' alt='card back')
+    .buffer
 
-  .played-stack
-    span.helper
-    img.played-card#played-card-id
-    //- img.played-card(src=`/images/uno_deck/${cur_card.color}_${cur_card.name}.png` alt='')
-    
-  .btn-container
-    .uno-btn UNO
-  .right-player.vertical-hand
-    ul.user-cards
-      - for (var x = 0; x < 7; x++)
-        li.user-card
-          img(src='/images/uno_deck/card_back.png' alt='')
+    .deck
+      // Helper to help align image vertically centered
+      span.helper
+      img#deck(src='/images/Uno_deck/uno_deck.png' alt='card back')
 
-  // third row
-  .buffer
-  .bottom-player-container
-    .name#main_player_name
+    .played-stack
+      span.helper
+      img.played-card#played-card-id
+      //- img.played-card(src=`/images/uno_deck/${cur_card.color}_${cur_card.name}.png` alt='')
 
-  .bottom-player.horizontal-hand
-    ul.user-cards#main_cards
-    
-  .buffer
-  .right-player-container
-    .name#right_player_name
+    .btn-container
+      .uno-btn UNO
+    .right-player.vertical-hand
+      ul.user-cards
+        - for (var x = 0; x < 7; x++)
+          li.user-card
+            img(src='/images/uno_deck/card_back.png' alt='')
+
+    // third row
+    .buffer
+    .bottom-player-container
+      .name#main_player_name
+
+    .bottom-player.horizontal-hand
+      ul.user-cards#main_cards
+
+    .buffer
+    .right-player-container
+      .name#right_player_name

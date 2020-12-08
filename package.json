@@ -12,7 +12,7 @@
     "db:create:seed": "npx sequelize seed:generate --name ",
     "db:seed": "npx sequelize-cli db:seed:all",
     "db:undo:seed": "npx sequelize-cli db:seed:undo",
-    "test": "mocha"
+    "test": "jest"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -33,6 +33,7 @@
     "socket.io": "^3.0.3"
   },
   "devDependencies": {
+    "jest": "^26.6.3",
     "nodemon": "^2.0.4"
   }
 }

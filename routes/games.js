@@ -1,43 +1,75 @@
+const { response } = require("express");
 const express = require("express");
 const router = express.Router();
-const helper = require('../helpers/games');
+const helper = require("../helpers/games");
 
-let { game_board_init } = require('../services/game_board'); 
+let { game_board_init } = require("../services/game_board");
 
-// /games  - endpoint 
-router.get('/stage', (req, res) => {
-  res.render('game_stage', {});
+
+router.get('/game_board', (req, res) => {
+
+  // get the current state of the game and put it in object game_state; 
+
+  /*
+
+  game_state = {
+    'A': player_info, 
+    'B': player_info, 
+    'C': player_info, 
+    'D': player_info 
+    main_player: '
+  }
+
+  */ 
+  
+
+  // return that state 
+}); 
+
+
+// /games  - endpoint
+router.get("/stage", (req, res) => {
+  res.render("game_stage", {});
 });
 
-router.route('/test')
-  .get(helper.testGame)
+router.route("/test").get(helper.testGame);
 
 // CAUTION: the order of these routes matter
 // router.route("/:game_id")
 //   .get(helper.startGame)
 
-router.get('/:game_id', async (req, res) => {
-
+router.get("/:game_id", async (req, res) => {
   let { game_id } = req.params;
   let { user_id } = req.cookies;
 
-  res.render('game_board');
-}); 
+  res.render("game_board");
+});
 
-router.get('/test/:game_id', async (req, res) => {
-
+router.get("/test/:game_id", async (req, res) => {
   let { game_id } = req.params;
   let { user_id } = req.cookies;
-  
-  let player_data = await game_board_init(game_id, user_id); 
 
-  if (player_data.status === 'success') {
-    res.render('game_board', player_data.res);
+  let player_data = await game_board_init(game_id, user_id);
+
+  if (player_data.status === "success") {
+    response.redirect(`/games/${gameId}`);
+    res.render("game_board", { game_id, ...player_data.res });
   } else {
-    throw Error('something went wrong'); 
+    throw Error("something went wrong");
   }
-}); 
+});
 
+router.post("/:game_id/playCard", (request, response) => {
+  const { card } = request.body;
+  const { user_id } = request.cookies;
+  const io = request.app.get("io");
+
+  console.log(card, user_id);
+
+  response.json({ ok: true });
+
+  io.emit("GAME_STATE_UPDATED", { card, user_id });
+});
 
 // router.get("/:id", (request, response) => {
 //   const { id: gameId } = request.params;
@@ -51,9 +83,7 @@ router.get('/test/:game_id', async (req, res) => {
 //     });
 // });
 
-
-
-router.get('/join/:id', (request, response) => {
+router.get("/join/:id", (request, response) => {
   const { id: gameId } = request.params;
 
   Game.addUser(gameId, 36).then((_) => {
