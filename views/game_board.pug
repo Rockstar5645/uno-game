@@ -20,9 +20,7 @@ body
 
     .top-player.horizontal-hand
       ul.user-cards#top_player_deck
-        - for (var x = 0; x < 7; x++)
-          li.user-card
-            img(src='/images/uno_deck/card_back.png' alt='')
+
     .top-player-container
       .name#top_player_name
     .menu-btn
@@ -31,10 +29,7 @@ body
     // second row
 
     .left-player.vertical-hand
-      ul.user-cards
-        - for (var x = 0; x < 7; x++)
-          li.user-card
-            img(src='/images/uno_deck/card_back.png' alt='')
+      ul.user-cards#left_player_deck
 
     .buffer
 
@@ -51,10 +46,7 @@ body
     .btn-container
       .uno-btn UNO
     .right-player.vertical-hand
-      ul.user-cards
-        - for (var x = 0; x < 7; x++)
-          li.user-card
-            img(src='/images/uno_deck/card_back.png' alt='')
+      ul.user-cards#right_player_deck
 
     // third row
     .buffer

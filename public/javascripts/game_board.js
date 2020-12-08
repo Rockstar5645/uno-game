@@ -3,19 +3,50 @@ import { getCookie } from "./util.js";
 const gameId = document.querySelector("#gameId").value;
 
 let socket = io();
+let user_id = getCookie('user_id'); 
 
-document.querySelector("#main_cards").addEventListener("click", (event) => {
-  const card = event.target.dataset;
+socket.emit('join-game-room', { user_id }, (res) => {
+  console.log('response from join room', res); 
+}); 
 
-  fetch(`/games/${gameId}/playCard`, {
-    method: "post",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-    body: JSON.stringify({ card }),
-  })
-    .then((result) => console.log(result))
-    .catch((error) => console.log(error));
+socket.on(`game-update`, (res) => {
+  console.log("state received:", res);
+
+  let played_card = document.getElementById("played-card-id"); 
+  let cur_card = res.played_card; 
+  player_turn = res.next_player; 
+  played_card.src = `/images/uno_deck/${cur_card.color}_${cur_card.name}.png`;
+
+  if (res.player_tag !== player_tag) {
+
+    // we'll remove the back card from their set 
+  }
 });
+
+document.getElementById("main_cards").addEventListener("click", async (event) => {
+  const card = event.target.dataset;
+  console.log(card.id); 
+
+  if (main_player === player_turn) {
+    player_turn = 'Z'; 
+
+    event.target.remove(); 
+
+    let res_head = await fetch(`/games/play-card`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ card, player_tag }),
+      }); 
+
+    let res = await res_head.json(); 
+    console.log(res);
+
+  } else {
+    console.log('not your turn!!!'); 
+  }
+});
+
 
 function get_next(player_tag) {
   switch (player_tag) {
@@ -47,15 +78,28 @@ let display_usernames = (res) => {
   player_map[player_display[0].player_tag] = "left_player_name";
   left_player.innerHTML = player_display[0].username;
 
+  for (let i = 0; i < player_display[0].card_count; i++) 
+    add_card('left_player_deck'); 
+
+
   let top_player = document.getElementById("top_player_name");
   player_map[player_display[1].player_tag] = "top_player_name";
   top_player.innerHTML = player_display[1].username;
 
+  for (let i = 0; i < player_display[1].card_count; i++) 
+    add_card('top_player_deck'); 
+
+
   let main_player = document.getElementById("main_player_name");
   main_player.innerHTML = res[res.main_player].username;
 
+
+
   let right_player = document.getElementById("right_player_name");
   right_player.innerHTML = player_display[2].username;
+
+  for (let i = 0; i < player_display[2].card_count; i++) 
+    add_card('right_player_deck'); 
 };
 
 let setup_main_player = (res) => {
@@ -67,8 +111,10 @@ let setup_main_player = (res) => {
 
     let card_img = document.createElement("img");
     card_img.src = `/images/uno_deck/${card.color}_${card.name}.png`;
-    card_img.dataset.color = card.color;
-    card_img.dataset.name = card.name;
+    card_img.dataset.id = card.id; 
+
+    // card_img.dataset.color = card.color;
+    // card_img.dataset.name = card.name;
 
     card_item.append(card_img);
 
@@ -76,46 +122,62 @@ let setup_main_player = (res) => {
   });
 };
 
+let add_card = (target) => {
+
+  let player_deck = document.getElementById(target);
+  let back_card = document.createElement("li");
+  back_card.className = "user-card";
+
+  let card_img = document.createElement("img");
+  card_img.src = `/images/uno_deck/card_back.png`;
+
+  back_card.append(card_img); 
+
+  player_deck.append(back_card); 
+}
+
+let player_turn; 
+let main_player; 
+
+(async () => {
+
+let res = await fetch(`/games/game-state`, {
+  method: 'GET',
+  credentials: 'include', 
+}); 
+
+res = await res.json(); 
+
+console.log(res);
+
+let cur_card = res.cur_card;
+let played_card = document.getElementById("played-card-id"); 
+played_card.src = `/images/uno_deck/${cur_card.color}_${cur_card.name}.png`;
+// played_card.setAttribute('id', target); // just added this. target is a cardId right? should be added after removing from the player's hand first?
 
 
-socket.emit(
-  "game-board-cb",
-  {
-    op: "get_main",
-    user_id: getCookie("user_id"),
-  },
-  (res) => {
-    console.log(res);
+display_usernames(res);
+setup_main_player(res);
 
-    let cur_card = res.cur_card;
-    let played_card = document.getElementById("played-card-id");
-    cur_card.name = "7";
-    played_card.src = `/images/uno_deck/${cur_card.color}_${cur_card.name}.png`;
+player_turn = res.player_turn; 
+main_player = res.main_player; 
 
-    display_usernames(res);
-    setup_main_player(res);
+})(); 
 
-    console.log(player_map);
-
-    let top_player_deck = document.getElementById("top_player_deck");
-    let back_card = document.createElement("li");
-    back_card.className = "user-card";
-
-    let card_img = document.createElement("img");
-    card_img.src = `/images/uno_deck/card_back.png`;
-
-    back_card.append(card_img);
-    top_player_deck.append(back_card);
-  }
-);
+// socket.emit(
+//   "game-board-cb",
+//   {
+//     op: "get_main",
+//     user_id: getCookie("user_id"),
+//   },
+//   (res) => {
+    
+//   }
+// );
 
 socket.on("card-played", (card) => {
   let played_card = document.getElementById("played-card-id");
   played_card.src = `/images/uno_deck/${cur_card.color}_${cur_card.name}.png`;
-});
-
-socket.on(`GAME_STATE_UPDATED`, (state) => {
-  console.log("state received:", state);
 });
 
 // var url_string = window.location.href;

@@ -2,6 +2,7 @@
 let game_stage = require('./services/game_stage');
 let { handle_socket } = require('./services/game_board'); 
 
+let Games = require('./models/games'); 
 
 module.exports = async (io) => {
     io.on('connection', (socket) => {
@@ -25,6 +26,18 @@ module.exports = async (io) => {
             console.log('game-stage', msg);
             await game_stage(msg, socket, io);
         });
+
+        socket.on('join-game-room', async (msg, cb) => {
+            console.log('join-game-room', msg); 
+            let game_id = await Games.get_game_id(msg.user_id);
+            let room_id = 'game-room-' + game_id;
+            console.log('room id', room_id);
+
+            socket.join(room_id);
+
+            cb('added user to game room id ' + room_id); 
+        }); 
+
 
         // socket.on('deal', (msg, callback) => {
         //     console.log(msg);
