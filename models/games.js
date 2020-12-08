@@ -175,7 +175,20 @@ let get_starting_card = async (game_id) => {
     return cur_card;
 }
 
+let get_players_in_game = async (game_id) => {
+
+    const GET_PLAYERS = `SELECT players.user_id, players.player_tag, 
+                            users.username, users.avatar 
+                            FROM players INNER JOIN users 
+                            ON users.user_id=players.user_id
+                            WHERE game_id=($1)    
+                        `;
+    let player_map = await db.manyOrNone(GET_PLAYERS, game_id); 
+    return player_map; 
+}
+
 module.exports = {
+    get_players_in_game, 
     create_game,
     get_game_id,
     get_player_count,

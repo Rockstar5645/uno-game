@@ -25,7 +25,7 @@ function createNewGame(userIds) {
     let user_id = getCookie('user_id');
     console.log(">> Creating new game. Adding userId:", user_id);
 
-    fetch(`http://localhost:3000/lobby`, {
+    fetch(`/lobby`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
