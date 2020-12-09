@@ -1,6 +1,4 @@
-const { errors } = require('pg-promise');
 const db = require('../db');
-
 
 const insertCards = async (deck, gameId) => {
     //console.log(">>>Inserting shuffled cards into game deck...");

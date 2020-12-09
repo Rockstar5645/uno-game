@@ -4,25 +4,27 @@ head
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
   link(rel='stylesheet' href='/stylesheets/game_board.css')
   script(src='/socket.io/socket.io.min.js')
-  script(defer, type='module', src='/javascripts/util.js')
-  script(defer, type='module', src='/javascripts/game_board.js')
-  title UNO Game Board
+  script(type='module', src='/javascripts/util.js')
+  script(type='module', src='/javascripts/board_update.js')
+  script(type='module', src='/javascripts/game_board.js')
+  title UNO Game Board 
 
 body
-  input#gameId(type='hidden', value=game_id)
   .grid
 
     // first row
 
-    .left-player-container
+    #left-player-container
       .name#left_player_name
+      #left-player-avatar-container
     .buffer
 
-    .top-player.horizontal-hand
+    #top-player.horizontal-hand
       ul.user-cards#top_player_deck
 
     .top-player-container
       .name#top_player_name
+      .avatar#top-player-avatar
     .menu-btn
       img(src='/images/menu_icon.png' alt='')
 
@@ -41,6 +43,11 @@ body
     .played-stack
       span.helper
       img.played-card#played-card-id
+      #color-chooser
+        button#choose-red
+        button#choose-blue
+        button#choose-yellow
+        button#choose-green
       //- img.played-card(src=`/images/uno_deck/${cur_card.color}_${cur_card.name}.png` alt='')
 
     .btn-container
@@ -50,12 +57,15 @@ body
 
     // third row
     .buffer
-    .bottom-player-container
+    #bottom-player-container
       .name#main_player_name
+      #bottom-player-avatar-container
 
     .bottom-player.horizontal-hand
-      ul.user-cards#main_cards
+      ul.user-cards#main_player_deck
 
     .buffer
-    .right-player-container
+    #right-player-container
       .name#right_player_name
+      .avatar#right-player-avatar
+

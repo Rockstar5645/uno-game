@@ -1,7 +1,6 @@
-let { create_game, insert_into_session } = require('../models/games.js'); 
-let add_user = require('../services/gq'); 
-
 const db = require('../db');
+
+const add_user = require('../services/gq'); 
 
 let create_game_test = async () => {
     
@@ -14,7 +13,7 @@ let create_game_test = async () => {
 let delete_game_test = async (game_id) => {
     const DELETE_GAME = `DELETE FROM games WHERE 1=1`; 
     await db.none(DELETE_GAME);
-    console.log('deleted game with id anything'); 
+    // console.log('deleted game with id anything'); 
 }
 
 module.exports = {

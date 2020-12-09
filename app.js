@@ -12,7 +12,6 @@ let sessions = require('client-sessions');
 
 let indexRouter = require("./routes/index");
 let usersRouter = require("./routes/users");
-let testRouter = require("./routes/test");
 let loginRouter = require("./routes/login");
 let signupRouter = require("./routes/signup");
 const deckRouter = require("./routes/deck");
@@ -38,10 +37,6 @@ app.use(sessions({
   duration: 6000 * 1000, // how long the session will stay valid in ms
 }));
 */
-
-if (process.env.NODE_ENV === 'development') {
-  app.use('/test', testRouter); 
-}
 
 // unauthenticated routes 
 app.use('/', indexRouter);

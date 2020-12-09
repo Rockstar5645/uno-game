@@ -98,7 +98,7 @@ ul {
 }
 /* horizontal overlap */
 .horizontal-hand .user-card:not(:first-child) {
-  margin-left: -40px;
+  margin-left: -20px;
 }
 
 /*** Player A's Hand ***/
@@ -198,11 +198,11 @@ ul {
 }
 
 /* Names */
-.left-player-container {
+#left-player-container {
   position: relative;
   padding: 1em;
 }
-.left-player-container .name {
+#left-player-container .name {
   position: absolute;
   bottom: 0px;
 }
@@ -211,8 +211,65 @@ ul {
   color: white;
   text-shadow: 2px 2px 2px black;
 }
-.top-player-container {
+#top-player-container {
   padding: 1em;
 }
-.top-player-container .name {
+#top-player-container .name {
+}
+
+
+#bottom-player-avatar-container, #left-player-avatar-container {
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+.avatar {
+  height: inherit;
+  width: auto;
+  object-fit: contain;
+  position: relative;
+}
+
+#color-chooser {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  /* vertical-align: bottom; */
+  left: 30%;
+  top: 80%;
+  height: 50px;
+  width: 200px;
+  /* background-color: purple; */
+  z-index: 2;
+}
+
+#choose-red {
+  border-radius: 1em;
+  background-color: red;
+  z-index: 3;
+flex-grow: 1;
+}
+#choose-blue {
+  border-radius: 1em;
+
+  background-color: blue;
+  z-index: 3;
+flex-grow: 1;
+}
+#choose-green {
+  border-radius: 1em;
+
+  background-color: green;
+  z-index: 3;
+  flex-grow: 1;
+
+}
+#choose-yellow {
+  border-radius: 1em;
+
+  background-color: yellow;
+  z-index: 3;
+  flex-grow: 1;
+
 }

@@ -52,19 +52,22 @@ router.get("/:game_id", async (req, res) => {
   res.render("game_board");
 });
 
-router.get("/test/:game_id", async (req, res) => {
-  let { game_id } = req.params;
+router.get("/test", async (req, res) => {
 
-  res.render("game_board", { game_id });
+  res.render("game_board");
 });
 
 router.post("/play-card", async(req, res) => {
-  const { card, player_tag } = req.body;
+  const { card, main_player } = req.body;
+  
+  console.log('card', card);
+  console.log('player_tag', main_player); 
+
   const { user_id } = req.cookies;
 
   const card_id = card.id; 
   let next_player = await serviceCards.play_card(card_id); 
-  console.log('next_player', next_player); 
+  // console.log('next_player', next_player); 
 
   let played_card = await Cards.played_card(card_id); 
 
@@ -73,9 +76,20 @@ router.post("/play-card", async(req, res) => {
 
   let game_id = await Game.get_game_id(user_id);
   let room_id = 'game-room-' + game_id;
-  console.log('emitting new state to room', room_id); 
+  // console.log('emitting new state to room', room_id); 
   
-  io.to(room_id).emit("game-update", { player_tag, next_player, played_card });
+  let player_tag = main_player; 
+  let socket_broadcast = {
+    player_tag, 
+    next_player, 
+    played_card,
+    // cur_color,
+  }; 
+
+  console.log('player-tag broadcast', player_tag); 
+  console.log('broadcast', socket_broadcast); 
+
+  io.to(room_id).emit("game-update", socket_broadcast);
 });
 
 module.exports = router;

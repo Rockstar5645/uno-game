@@ -1,5 +1,5 @@
-const Game = ('../models/games'); 
-const Cards = ('../models/cards'); 
+const Game = require('../models/games'); 
+const Cards = require('../models/cards'); 
 
 let get_cards = async (user_id) => {
 
@@ -73,7 +73,7 @@ let deal_cards = async (game_id) => {
 let play_card = async (card_id) => {
 
     await Cards.change_card_location_to_played(card_id);
-    let game_id = await get_gid_from_card(card_id);
+    let game_id = await Cards.get_gid_from_card(card_id);
 
     await Game.update_current_card(game_id, card_id);
 

@@ -1,5 +1,4 @@
 const db = require('../db');
-const Game = require('./games');
 
 let change_card_location = async (order, game_id, player) => {
 
@@ -41,14 +40,11 @@ let played_card = async (card_id) => {
     return played_card; 
 }; 
 
-const get_card_id = async (order, game_id) => { 
+let get_card_id = async (order, game_id) => { 
     
-    console.log('function getting called');
     const GET_CARD_ID = `SELECT id FROM game_deck WHERE game_id=($1) AND "order"=($2)`; 
-    
-    let card_id = await db.one(GET_CARD_ID, [game_id, order]); 
-
-    return card_id; 
+    let res = await db.one(GET_CARD_ID, [game_id, order]); 
+    return res.id; 
 }; 
 
 module.exports = {

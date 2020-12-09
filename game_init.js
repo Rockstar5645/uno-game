@@ -1,10 +1,10 @@
 require("dotenv").config();
 
-let { create_game_test, delete_game_test } = require('./test/games.js'); 
+let GameTest = require('./test/games.js'); 
 
 (async () => {
 
-    await delete_game_test(); 
-    await create_game_test(); 
+    await GameTest.delete_game_test(); 
+    await GameTest.create_game_test(); 
 
 })(); 
