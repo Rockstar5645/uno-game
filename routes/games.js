@@ -37,7 +37,7 @@ router.get('/game-state', async (req, res) => {
 
   let player_turn = await Game.get_player_turn(game_id); 
 
-  game_state.cur_card = cur_card; 
+  game_state.curr_card = cur_card; 
   game_state.player_turn = player_turn; 
  
   console.log('game_state', game_state); 

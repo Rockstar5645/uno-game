@@ -1,4 +1,4 @@
-
+import state from './state.js'; 
 
 let played_card_update = (cur_card, player_tag, main_player, deck_map) => {
     let played_card = document.getElementById("played-card-id"); 
@@ -37,27 +37,14 @@ let play_card = async (event, main_player) => {
     console.log(res);
 }; 
 
-let get_next = (player_tag) => {
-    switch (player_tag) {
-      case "A":
-        return "B";
-      case "B":
-        return "C";
-      case "C":
-        return "D";
-      case "D":
-        return "A";
-    }
-}; 
 
-let change = (obj) => {
-    obj.something = '5'; 
-}; 
+let change_played_card = () => {
 
+  let curr_card = state.curr_card; 
+  let played_card = document.getElementById("played-card-id"); 
+  played_card.src = `/images/uno_deck/${curr_card.color}_${curr_card.name}.png`;
+  played_card.dataset.color = cur_card.color;
+  played_card.dataset.name = cur_card.name;
+}
 
-export default {
-    played_card_update, 
-    play_card, 
-    get_next,
-    change, 
-}; 
+state.subscribe('curr_card_change', change_played_card);
