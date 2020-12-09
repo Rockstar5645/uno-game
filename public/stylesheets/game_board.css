@@ -66,7 +66,7 @@ ul {
   height: 100%;
   vertical-align: middle;
 }
-.player-a .user-card img:hover {
+.bottom-player .user-card img:hover {
   position: relative;
   z-index: 2;
 }
@@ -98,17 +98,17 @@ ul {
 }
 /* horizontal overlap */
 .horizontal-hand .user-card:not(:first-child) {
-  margin-left: -40px;
+  margin-left: -20px;
 }
 
 /*** Player A's Hand ***/
 
-.player-a .user-cards {
+.bottom-player .user-cards {
   padding-top: 1em;
 }
 
 /* Player C's Hand */
-.player-c .user-cards {
+.top-player .user-cards {
   padding-top: 2em;
   transform: rotate(180deg);
   overflow-y: visible;
@@ -139,7 +139,7 @@ ul {
 }
 
 /* Player D */
-.player-d .user-cards {
+.right-player .user-cards {
   transform: rotate(180deg);
 }
 
@@ -198,11 +198,11 @@ ul {
 }
 
 /* Names */
-.player-b-container {
+#left-player-container {
   position: relative;
   padding: 1em;
 }
-.player-b-container .name {
+#left-player-container .name {
   position: absolute;
   bottom: 0px;
 }
@@ -211,8 +211,65 @@ ul {
   color: white;
   text-shadow: 2px 2px 2px black;
 }
-.player-c-container {
+#top-player-container {
   padding: 1em;
 }
-.player-c-container .name {
+#top-player-container .name {
+}
+
+
+#bottom-player-avatar-container, #left-player-avatar-container {
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+.avatar {
+  height: inherit;
+  width: auto;
+  object-fit: contain;
+  position: relative;
+}
+
+#color-chooser {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  /* vertical-align: bottom; */
+  left: 30%;
+  top: 80%;
+  height: 50px;
+  width: 200px;
+  /* background-color: purple; */
+  z-index: 2;
+}
+
+#choose-red {
+  border-radius: 1em;
+  background-color: red;
+  z-index: 3;
+flex-grow: 1;
+}
+#choose-blue {
+  border-radius: 1em;
+
+  background-color: blue;
+  z-index: 3;
+flex-grow: 1;
+}
+#choose-green {
+  border-radius: 1em;
+
+  background-color: green;
+  z-index: 3;
+  flex-grow: 1;
+
+}
+#choose-yellow {
+  border-radius: 1em;
+
+  background-color: yellow;
+  z-index: 3;
+  flex-grow: 1;
+
 }

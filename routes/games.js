@@ -1,38 +1,95 @@
+const { response } = require("express");
 const express = require("express");
 const router = express.Router();
 
-// /games  - endpoint 
+const Game = require('../models/games'); 
+const Cards = require('../models/cards');
+const serviceCards = require('../services/cards');
 
-// simple route to test the game_board.pug
-router.get("/", (request, response) => {
-  // const { id: gameId } = request.params;
-  response.render("game_board", {});
+let { game_board_init } = require("../services/game_board");
+
+// /games  - endpoint
+
+// queue staging area
+router.get("/stage", (req, res) => {
+  res.render("game_stage", {});
 });
 
-router.get('/stage', (req, res) => {
+router.get('/game-state', async (req, res) => {
 
-  res.render('game_stage', {}); 
+  let user_id = req.cookies.user_id; 
+  let game_id = await Game.get_game_id(user_id); 
+
+  let players = await Game.get_players_in_game(game_id); 
+  let game_state = {}; 
+
+  players.forEach((player) => {
+    game_state[player.player_tag] = player;
+  }); 
+
+  let main_player_tag = await Game.get_player_tag(user_id, game_id);
+  game_state.main_player = main_player_tag;
+
+  game_state[main_player_tag].cards = 
+                await Cards.get_cards_for_players(main_player_tag, game_id);
+
+  let cur_card = await Game.get_current_card(game_id);
+
+  let player_turn = await Game.get_player_turn(game_id); 
+
+  game_state.cur_card = cur_card; 
+  game_state.player_turn = player_turn; 
+ 
+  console.log('game_state', game_state); 
+  res.send(game_state); 
+  // return that state 
 }); 
 
-// router.get("/:id", (request, response) => {
-//   const { id: gameId } = request.params;
+router.get("/:game_id", async (req, res) => {
+  let { game_id } = req.params;
+  let { user_id } = req.cookies;
 
-//   Game.getGameInfo(gameId)
-//     .then(({ id, createdAt, users, deck }) => {
-//       response.render("games", { id, createdAt, users, deck });
-//     })
-//     .catch((error) => {
-//       response.json({ error });
-//     });
-// });
+  res.render("game_board");
+});
 
+router.get("/test", async (req, res) => {
 
-router.get("/join/:id", (request, response) => {
-  const { id: gameId } = request.params;
+  res.render("game_board");
+});
 
-  Game.addUser(gameId, 36).then((_) => {
-    response.redirect(`/games/${gameId}`);
-  });
+router.post("/play-card", async(req, res) => {
+  const { card, main_player } = req.body;
+  
+  console.log('card', card);
+  console.log('player_tag', main_player); 
+
+  const { user_id } = req.cookies;
+
+  const card_id = card.id; 
+  let next_player = await serviceCards.play_card(card_id); 
+  // console.log('next_player', next_player); 
+
+  let played_card = await Cards.played_card(card_id); 
+
+  const io = req.app.get("io");
+  res.json({ ok: true });
+
+  let game_id = await Game.get_game_id(user_id);
+  let room_id = 'game-room-' + game_id;
+  // console.log('emitting new state to room', room_id); 
+  
+  let player_tag = main_player; 
+  let socket_broadcast = {
+    player_tag, 
+    next_player, 
+    played_card,
+    // cur_color,
+  }; 
+
+  console.log('player-tag broadcast', player_tag); 
+  console.log('broadcast', socket_broadcast); 
+
+  io.to(room_id).emit("game-update", socket_broadcast);
 });
 
 module.exports = router;

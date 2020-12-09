@@ -6,5 +6,12 @@ function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
+function changeVal() {
+    window.something = 12; 
+}
 
-export {getCookie}; 
+
+export default {
+    getCookie,
+    changeVal
+}; 
