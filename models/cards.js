@@ -1,5 +1,4 @@
 const db = require('../db');
-const Game = require('./games');
 
 let change_card_location = async (order, game_id, player) => {
 
@@ -10,9 +9,9 @@ let change_card_location = async (order, game_id, player) => {
 let get_cards_for_players = async (player_tag, game_id) => {
 
     const GET_CARDS = `SELECT * FROM game_deck WHERE location=($1) AND game_id=($2)`;
-    let res = await db.many(GET_CARDS, [player_tag, game_id]);
+    let res = await db.manyOrNone(GET_CARDS, [player_tag, game_id]);
     return res;
-}
+}; 
 
 let get_card_with_order = async (order, game_id) => {
 
@@ -31,8 +30,22 @@ let get_gid_from_card = async (card_id) => {
     const GGFC = `SELECT game_id FROM game_deck WHERE id=($1)`;
     let res = await db.one(GGFC, card_id);
     return res.game_id;
-}
+}; 
 
+let played_card = async (card_id) => {
+
+    const GET_CARD = `SELECT * FROM game_deck WHERE id=($1)`; 
+    let played_card = db.one(GET_CARD, card_id); 
+
+    return played_card; 
+}; 
+
+let get_card_id = async (order, game_id) => { 
+    
+    const GET_CARD_ID = `SELECT id FROM game_deck WHERE game_id=($1) AND "order"=($2)`; 
+    let res = await db.one(GET_CARD_ID, [game_id, order]); 
+    return res.id; 
+}; 
 
 module.exports = {
     change_card_location,
@@ -40,4 +53,6 @@ module.exports = {
     get_cards_for_players,
     get_card_with_order,
     get_gid_from_card,
+    played_card, 
+    get_card_id, 
 }; 

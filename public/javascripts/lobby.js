@@ -1,5 +1,5 @@
 
-import { getCookie } from './util.js';
+import Util from './util.js';
 
 const newGameBtn = document.getElementById("new-game-btn");
 // dummy userIds
@@ -12,7 +12,7 @@ const userIds = {
 
 let socket = io();
 socket.emit('chat message', {
-    user_id: getCookie('user_id')
+    user_id: Util.getCookie('user_id')
 });
 
 // socket.emit("deal", {
@@ -25,7 +25,7 @@ function createNewGame(userIds) {
     let user_id = getCookie('user_id');
     console.log(">> Creating new game. Adding userId:", user_id);
 
-    fetch(`http://localhost:3000/lobby`, {
+    fetch(`/lobby`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

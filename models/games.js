@@ -1,6 +1,4 @@
-const { errors } = require('pg-promise');
 const db = require('../db');
-
 
 const insertCards = async (deck, gameId) => {
     //console.log(">>>Inserting shuffled cards into game deck...");
@@ -140,12 +138,6 @@ let get_top = async (game_id) => {
 };
 
 
-let update_current_card = async (game_id, card_id) => {
-
-    const UCC = `UPDATE games SET current_card=($1) WHERE id=($2)`;
-    await db.none(UCC, [card_id, game_id]);
-};
-
 let get_turn_direction = async (game_id) => {
     const GTD = `SELECT turn_direction FROM games WHERE id=($1)`;
     let res = await db.one(GTD, game_id);
@@ -166,16 +158,47 @@ let get_player_turn = async (game_id) => {
 let set_player_turn = async (game_id, next_player) => {
     const SPT = `UPDATE games SET player_turn=($1) WHERE id=($2)`;
     await db.none(SPT, [next_player, game_id]);
-}
+}; 
 
-let get_starting_card = async (game_id) => {
+let get_current_card = async (game_id) => {
     // only works if called when initializing the game. it's useless afterwards
-    const GET_STARTING_CARD = `SELECT * FROM game_deck WHERE location=$1 and game_id=$2`;
-    var cur_card = await db.one(GET_STARTING_CARD, ['played', game_id]);
+    const GET_CURRENT_CARD_ID = `SELECT current_card from games WHERE id=($1)`;
+    let res = await db.one(GET_CURRENT_CARD_ID, game_id); 
+    
+    const GET_STARTING_CARD = `SELECT * FROM game_deck WHERE id=($1)`;
+    var cur_card = await db.one(GET_STARTING_CARD, res.current_card);
     return cur_card;
+}; 
+
+let update_current_card = async (game_id, card_id) => {
+
+    const UCC = `UPDATE games SET current_card=($1) WHERE id=($2)`;
+    await db.none(UCC, [card_id, game_id]);
+};
+
+let get_players_in_game = async (game_id) => {
+
+    const GET_PLAYERS = `SELECT players.user_id, players.player_tag, 
+                            users.username, users.avatar 
+                            FROM players INNER JOIN users 
+                            ON users.user_id=players.user_id
+                            WHERE game_id=($1)    
+                        `;
+
+    let player_map = await db.manyOrNone(GET_PLAYERS, game_id); 
+
+    for (let i = 0; i < player_map.length; i++) {
+        const GET_CARD_COUNT = `SELECT COUNT(*) FROM game_deck WHERE location=($1) AND game_id=($2)`;
+        let res = await db.one(GET_CARD_COUNT, [player_map[i].player_tag, game_id]);
+        // console.log(res); 
+        player_map[i].card_count = parseInt(res.count, 10); 
+    }
+
+    return player_map; 
 }
 
 module.exports = {
+    get_players_in_game, 
     create_game,
     get_game_id,
     get_player_count,
@@ -191,7 +214,7 @@ module.exports = {
     get_player_turn,
     set_player_turn,
     get_player_info,
-    get_starting_card
+    get_current_card, 
 
     // addUser,
     // getGameInfo,
