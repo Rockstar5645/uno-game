@@ -1,50 +1,83 @@
 import state from './state.js'; 
 
-let played_card_update = (cur_card, player_tag, main_player, deck_map) => {
+let change_played_card = () => {
+    // console.log('changing played card to ', state.curr_card); 
+    let curr_card = state.curr_card; 
     let played_card = document.getElementById("played-card-id"); 
-    played_card.src = `/images/uno_deck/${cur_card.color}_${cur_card.name}.png`;
+    played_card.src = `/images/uno_deck/${curr_card.color}_${curr_card.name}.png`;
+    played_card.dataset.color = curr_card.color;
+    played_card.dataset.name = curr_card.name;
+}; 
+state.subscribe('curr_card_change', change_played_card);
 
-    if (player_tag !== main_player) {
-        // we'll remove the back card from their set 
-        console.log('removing back card for player_tag', player_tag); 
-        let container_selector = deck_map[player_tag]; 
-    
-        let player_container = document.getElementById(container_selector); 
-        let backCard = player_container.firstChild; 
-        backCard.remove(); 
-    } else {
-        console.log('on the main player now no need to remove anything'); 
+
+let change_player_hand_count = () => {
+    let hands_counts = state.other_players_hand_count; 
+
+    for (let player_tag in hands_counts) {
+        let card_count = hands_counts[player_tag]; 
+        let deck_id = state.deck_map[player_tag]; 
+        let deck_select = document.getElementById(deck_id); 
+
+        while (deck_select.firstChild) {
+            deck_select.removeChild(deck_select.lastChild);
+        }
+
+        for (let i = 0; i < card_count; i++) {
+            let back_card = document.createElement("li");
+            back_card.className = "user-card";
+
+            let card_img = document.createElement("img");
+            card_img.src = `/images/uno_deck/card_back.png`;
+
+            back_card.append(card_img); 
+            deck_select.append(back_card); 
+        }
     }
 }; 
+state.subscribe('players_hand_count_change', change_player_hand_count); 
 
-let play_card = async (event, main_player) => {
-    
-    const card = event.target.dataset;
-    console.log("playing card:", card); 
-    // console.log("testing to see if I have access to the cur_card global variable in game_board:", cur_card);
-    
 
-    event.target.parentNode.remove(); 
+let change_player_username = () => {
 
-    let res_head = await fetch(`/games/play-card`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ card, main_player }),
-      }); 
+    let usernames = state.other_players_usernames; 
+    for (let player_tag in usernames) {
+        let username = usernames[player_tag]; 
+        let username_id = state.player_map[player_tag]; 
+        let username_select = document.getElementById(username_id); 
 
-    let res = await res_head.json(); 
-    console.log(res);
+        username_select.innerHTML = username; 
+    }
 }; 
+state.subscribe('players_usernames_change', change_player_username);
 
 
-let change_played_card = () => {
+let change_main_player_hand = () => {
 
-  let curr_card = state.curr_card; 
-  let played_card = document.getElementById("played-card-id"); 
-  played_card.src = `/images/uno_deck/${curr_card.color}_${curr_card.name}.png`;
-  played_card.dataset.color = cur_card.color;
-  played_card.dataset.name = cur_card.name;
-}
+    let main_cards = document.getElementById("main_player_deck");
 
-state.subscribe('curr_card_change', change_played_card);
+    while (main_cards.firstChild) {
+        main_cards.removeChild(main_cards.lastChild);
+    }
+
+    let player_hand = state.main_player_hand; 
+
+    for (let card_id in player_hand) {
+        let card = player_hand[card_id]; 
+
+        let card_item = document.createElement("li");
+        card_item.className = "user-card";
+
+        let card_img = document.createElement("img");
+        card_img.src = `/images/uno_deck/${card.color}_${card.name}.png`;
+        card_img.dataset.id = card.id; 
+        card_img.dataset.color = card.color;
+        card_img.dataset.name = card.name;
+
+        card_item.append(card_img);
+        main_cards.append(card_item);
+    }
+}; 
+state.subscribe('main_player_hand_change', change_main_player_hand); 
+
+export default {}; 
