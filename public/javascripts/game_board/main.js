@@ -21,6 +21,7 @@ import events from './events.js';
   initialize_player_positions(res);
   initialize_main_player(res);
   
+  state.to_draw = res.draw_count; 
   state.player_turn = res.player_turn; 
   state.main_player = res.main_player; 
   

@@ -13,6 +13,7 @@ class State {
         this.main_player_hand = {}              // maps the card_id to the card object
         this.other_players_hand_count = {};     // maps the player_tag to the number of cards in hand 
         this.other_players_usernames = {}; 
+        this.to_draw = 0;       // the number of cards the player must draw before they can play 
     }
 
     set_main_player_hand (cards) {

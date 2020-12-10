@@ -5,6 +5,7 @@ const router = express.Router();
 const Game = require('../models/games'); 
 const Cards = require('../models/cards');
 const serviceCards = require('../services/cards');
+const Players = require('../models/players'); 
 
 let { game_board_init } = require("../services/game_board");
 
@@ -63,7 +64,9 @@ router.get('/game-state', async (req, res) => {
   let cur_card = await Game.get_current_card(game_id);
 
   let player_turn = await Game.get_player_turn(game_id); 
+  let draw_count = await Players.get_draw_count(main_player_tag, game_id);
 
+  game_state.draw_count = draw_count; 
   game_state.curr_card = cur_card; 
   game_state.player_turn = player_turn; 
  
@@ -90,33 +93,39 @@ router.post("/play-card", async(req, res) => {
   // console.log('card', card);
   // console.log('player_tag', main_player); 
 
-  const { user_id } = req.cookies;
+  const { user_id } = req.cookies; 
 
-  const card_id = card.id; 
-  let next_player = await serviceCards.play_card(card_id); 
-  // console.log('next_player', next_player); 
+  if (await serviceCards.allowed_to_play(user_id, main_player)) {
 
-  let played_card = await Cards.played_card(card_id); 
+    const card_id = card.id; 
+    let next_player = await serviceCards.play_card(card_id); 
+    // console.log('next_player', next_player); 
 
-  const io = req.app.get("io");
-  res.json({ ok: true });
+    let played_card = await Cards.played_card(card_id); 
 
-  let game_id = await Game.get_game_id(user_id);
-  let room_id = 'game-room-' + game_id;
-  // console.log('emitting new state to room', room_id); 
-  
-  let player_tag = main_player; 
-  let socket_broadcast = {
-    player_tag, 
-    next_player, 
-    played_card,
-    // cur_color,
-  }; 
+    const io = req.app.get("io");
+    res.json({ status: 'good-to-go' });
 
-  // console.log('player-tag broadcast', player_tag); 
-  // console.log('broadcast', socket_broadcast); 
+    let game_id = await Game.get_game_id(user_id);
+    let room_id = 'game-room-' + game_id;
+    // console.log('emitting new state to room', room_id); 
+    
+    let player_tag = main_player; 
+    let socket_broadcast = {
+      player_tag, 
+      next_player, 
+      played_card,
+      // cur_color,
+    }; 
 
-  io.to(room_id).emit("game-update", socket_broadcast);
+    // console.log('player-tag broadcast', player_tag); 
+    // console.log('broadcast', socket_broadcast); 
+
+    io.to(room_id).emit("game-update", socket_broadcast);
+  } else {
+
+    res.json({ status: 'not_allowed' });
+  }
 });
 
 module.exports = router;

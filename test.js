@@ -2,7 +2,9 @@ require("dotenv").config();
 
 const GameTest = require('./tests/games'); 
 const Cards = require('./models/cards'); 
+const serviceCards = require('./services/cards'); 
 const Games = require('./models/games'); 
+const Players = require('./models/players'); 
 
 const play_card = require('./tests/play_card'); 
 
@@ -11,7 +13,6 @@ const play_card = require('./tests/play_card');
     if (process.argv.length > 2) {
         
         let arg = process.argv[2]; 
-
         switch (arg) {
             case 'cg':
                 console.log('creating game'); 
@@ -26,6 +27,9 @@ const play_card = require('./tests/play_card');
                 break; 
         }
     }
+
+    let res = await serviceCards.allowed_to_play(6, 'D'); 
+    console.log(res); 
 
     // let res = await Cards.get_card_id(28, 25); 
     // console.log(res); 

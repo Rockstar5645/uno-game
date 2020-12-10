@@ -29,9 +29,12 @@ let event_listeners = () => {
             nums = 4; 
           }
 
+          state.to_draw = nums; 
+
           console.log('drawing ', nums, ' times'); 
           for (let i = 0; i < nums; i++) {
             await draw_from_deck();
+            state.to_draw--; 
           }
         }
 
@@ -110,19 +113,23 @@ let event_listeners = () => {
             console.log("Illegal move. You can't play that card.");
             console.log("Card must be either of same color, or name, or a wild card.");
             valid = false; 
+          } else if (state.to_draw > 0) {
+            console.log('ILLEGAL MOVE: still have to draw some cards');
+            // alert('draw a card first dumbass'); 
+            valid = false; 
           } else {
             console.log('LEGAL MOVE, go ahead'); 
           }
-      
-          if(card.color === 'any'){
-            alert('choose color');
-            // pop up 4 different colored buttons
-            
-            // user click on button. the button has a dataset with color data
-            // set cur_color to button.dataset.color
-          }
           
           if (valid) {
+
+            if(card.color === 'any'){
+              alert('choose color');
+              // pop up 4 different colored buttons
+              
+              // user click on button. the button has a dataset with color data
+              // set cur_color to button.dataset.color
+            }
             state.player_turn = 'Z'; 
             const card = event.target.dataset;
             console.log("playing card:", card); 
