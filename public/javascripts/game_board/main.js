@@ -106,5 +106,8 @@ let initialize_main_player = (res) => {
 };
 
 
-// initialize the events listeners 
+// initialize the events listeners for sockets and document elements 
 events(); 
+
+
+// initialize the event listeners for state changes 

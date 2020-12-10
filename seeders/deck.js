@@ -30,7 +30,7 @@ module.exports = async function () {
             await Deck.insert_card(ACTION_MAP[i], COLORS[ci], i);
         }
 
-        await Deck.insert_card("wild_draw_4", "any", 13);
+        await Deck.insert_card("draw_4", "any", 13);
         await Deck.insert_card("wild", "any", 14);
     }
 }

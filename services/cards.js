@@ -37,7 +37,7 @@ let draw_cards = async (user_id, n_cards) => {
         top_order++;
     }
 
-    await set_top(top_order, game_id);
+    await Game.set_top(top_order, game_id);
 
     return cards;
 };

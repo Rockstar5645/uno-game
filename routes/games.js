@@ -15,6 +15,33 @@ router.get("/stage", (req, res) => {
   res.render("game_stage", {});
 });
 
+
+router.post('/draw-card', async (req, res) => {
+
+    let { main_player } = req.body; 
+    let user_id = req.cookies.user_id; 
+    let cards = await serviceCards.draw_cards(user_id, 1);
+    console.log('drew cards', cards); 
+    res.json({ 
+      cards, 
+      status: 'ok' 
+    }); 
+
+    console.log('sending socket update for draw cards'); 
+    let game_id = await Game.get_game_id(user_id);
+    let room_id = 'game-room-' + game_id;
+
+    let cards_update = {
+      main_player, 
+      card_increase: 1
+    }; 
+
+    const io = req.app.get("io");
+    
+    console.log('sending cards update to ', room_id, ' with payload ', cards_update); 
+    io.to(room_id).emit('cards-update', cards_update);
+}); 
+
 router.get('/game-state', async (req, res) => {
 
   let user_id = req.cookies.user_id; 
@@ -40,7 +67,7 @@ router.get('/game-state', async (req, res) => {
   game_state.curr_card = cur_card; 
   game_state.player_turn = player_turn; 
  
-  console.log('game_state', game_state); 
+  // console.log('game_state', game_state); 
   res.send(game_state); 
   // return that state 
 }); 
@@ -60,8 +87,8 @@ router.get("/test", async (req, res) => {
 router.post("/play-card", async(req, res) => {
   const { card, main_player } = req.body;
   
-  console.log('card', card);
-  console.log('player_tag', main_player); 
+  // console.log('card', card);
+  // console.log('player_tag', main_player); 
 
   const { user_id } = req.cookies;
 
@@ -86,8 +113,8 @@ router.post("/play-card", async(req, res) => {
     // cur_color,
   }; 
 
-  console.log('player-tag broadcast', player_tag); 
-  console.log('broadcast', socket_broadcast); 
+  // console.log('player-tag broadcast', player_tag); 
+  // console.log('broadcast', socket_broadcast); 
 
   io.to(room_id).emit("game-update", socket_broadcast);
 });

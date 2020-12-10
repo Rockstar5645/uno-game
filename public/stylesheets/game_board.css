@@ -50,13 +50,13 @@ ul {
 .deck {
   white-space: nowrap;
 }
-#deck {
+#draw_deck {
   max-width: 90%;
   max-height: auto;
   vertical-align: middle;
   filter: drop-shadow(5px 3px 3px black);
 }
-#deck:hover {
+#draw_deck:hover {
   filter: drop-shadow(0 0 5px yellow);
 }
 
