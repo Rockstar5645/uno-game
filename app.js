@@ -43,7 +43,7 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
 
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   if (req.cookies.user_id) {
     next();
   } else {
