@@ -1,10 +1,10 @@
-import { getCookie } from './util.js';
+import Util from './util.js';
 
 const socket = io();
 
 socket.emit('game-stage', {
     // goes to services/game_stage.js
-    user_id: getCookie('user_id'),
+    user_id: Util.getCookie('user_id'),
     op: 'join'
 });
 

@@ -103,6 +103,20 @@ class User {
         let avatar = AVATAR_PATH + avatars[Math.floor(Math.random() * avatars.length)];
         return avatar
     }
-}; 
+
+    static async check_game(user_id) {
+        const CG = `SELECT COUNT(*) FROM players WHERE user_id=($1)`;
+        let res = await db.one(CG, user_id);
+        // console.log('check_game ', res);
+        const count = parseInt(res.count, 10);
+        if (count === 1) {
+            const GG_ID = `SELECT game_id FROM players WHERE user_id=($1)`;
+            let res = await db.one(GG_ID, user_id);
+            return res.game_id;
+        } else {
+            return -1;
+        }
+    }
+};
 
 module.exports = User; 

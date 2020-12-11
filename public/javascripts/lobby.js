@@ -1,7 +1,8 @@
 
 import Util from './util.js';
+// const Util = require('./util.js');
+const joinGameBtn = document.getElementById("join-game-btn");
 
-const newGameBtn = document.getElementById("new-game-btn");
 // dummy userIds
 const userIds = {
     userA: 1,
@@ -21,8 +22,8 @@ socket.emit('chat message', {
 //     console.log(res);
 // });
 
-function createNewGame(userIds) {
-    let user_id = getCookie('user_id');
+function joinGame(userIds) {
+    let user_id = Util.getCookie('user_id');
     console.log(">> Creating new game. Adding userId:", user_id);
 
     fetch(`/lobby`, {
@@ -42,9 +43,9 @@ function createNewGame(userIds) {
                 window.location.href = "games/stage";
             }
         })
-        .catch(e => console.log("Error creating a new game.", e));
+        .catch(e => console.log("Error joining a game.", e));
 }
 
-newGameBtn.addEventListener('click', (userIds) => {
-    createNewGame(userIds);
+joinGameBtn.addEventListener('click', (userIds) => {
+    joinGame(userIds);
 });

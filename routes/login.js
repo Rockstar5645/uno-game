@@ -1,18 +1,27 @@
 let express = require('express');
 let router = express.Router();
 
-let authenticate_user = require('../services/authenticate_user.js'); 
+let authenticate_user = require('../services/authenticate_user.js');
+let userService = require('../services/users');
 
 // localhost/login/
-router.get('/', function (req, res, next) {
+router.get('/', async function (req, res, next) {
     if (req.cookies.user_id) {
-        res.redirect('/lobby'); 
+
+        let game_status = await userService.check_if_in_game(req.cookies.user_id);
+        if (game_status.in_game === true) {
+            let redirection = '/games/' + game_status.game_id;
+            console.log('redirecting to:', redirection);
+            res.redirect(redirection);
+            return;
+        }
+        res.redirect('/lobby');
     } else {
         res.render('login', { title: 'UNO' });
     }
 });
 
-router.post('/', function(req, res, next) {
+router.post('/', function (req, res, next) {
 
     authenticate_user(req).then((result) => {
         if (result.status == 'success') {
@@ -27,10 +36,10 @@ router.post('/', function(req, res, next) {
             res.cookie('avatar', result.avatar);
             res.redirect('/lobby');
         } else {
-            result.title = 'UNO'; 
-            res.render('login', result); 
+            result.title = 'UNO';
+            res.render('login', result);
         }
-    }); 
+    });
 });
 
 module.exports = router;

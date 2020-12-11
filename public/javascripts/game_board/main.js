@@ -22,7 +22,7 @@ import events from './events.js';
   initialize_main_player(res);
 
   state.to_draw = res.draw_count;
-  state.player_turn = res.player_turn;
+  state.set_player_turn(res.player_turn);
   state.main_player = res.main_player;
 
 })(); // end of game-state function
