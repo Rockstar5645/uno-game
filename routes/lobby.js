@@ -7,6 +7,7 @@ let userService = require('../services/users');
 
 // /lobby  - endpoint 
 let Lobby = require("../models/lobby");
+
 router.get("/", async (req, res) => {
 
   if (req.cookies.user_id) {
