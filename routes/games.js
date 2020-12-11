@@ -66,11 +66,13 @@ router.get('/game-state', async (req, res) => {
 
   let player_turn = await Game.get_player_turn(game_id);
   let draw_count = await Players.get_draw_count(main_player_tag, game_id);
+  let turn_direction = await Game.get_turn_direction(game_id);
 
   game_state.draw_count = draw_count;
   game_state.curr_card = curr_card;
   game_state.curr_color = curr_color;
   game_state.player_turn = player_turn;
+  game_state.turn_direction = turn_direction; 
 
   // console.log('game_state', game_state); 
   res.send(game_state);
@@ -116,12 +118,15 @@ router.post("/play-card", async (req, res) => {
     let room_id = 'game-room-' + game_id;
     // console.log('emitting new state to room', room_id); 
 
+    let turn_direction = await Game.get_turn_direction(game_id); 
+
     let player_tag = main_player;
     let socket_broadcast = {
       player_tag,
       next_player,
       played_card,
       current_color: chosen_color,
+      turn_direction, 
     };
 
     // console.log('player-tag broadcast', player_tag); 

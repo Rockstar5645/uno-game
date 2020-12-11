@@ -24,7 +24,7 @@ import events from './events.js';
   state.to_draw = res.draw_count;
   state.set_player_turn(res.player_turn);
   state.main_player = res.main_player;
-
+  state.set_turn_direction(res.turn_direction); 
 })(); // end of game-state function
 
 let get_next = (player_tag) => {

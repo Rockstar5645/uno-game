@@ -29,6 +29,10 @@ let event_listeners = () => {
     state.set_curr_card(res.played_card);
     state.set_curr_color(res.current_color);
 
+    if (res.turn_direction !== state.turn_direction) {
+      state.set_turn_direction(res.turn_direction); 
+    }
+
     console.log('checking if we need to draw');
     if (state.player_turn === state.main_player) {
 
@@ -41,7 +45,6 @@ let event_listeners = () => {
       } else if (state.curr_card.name === "draw_4") {
         nums = 4;
       }
-
       state.to_draw = nums;
 
       console.log('drawing ', nums, ' times');
