@@ -29,7 +29,8 @@ class User {
                     user_id: result.user_id,
                     games_won: result.wins,
                     games_lost: result.losses,
-                    score: result.scores
+                    score: result.scores,
+                    avatar: result.avatar
                 };
             }
 

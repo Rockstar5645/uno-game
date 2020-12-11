@@ -1,6 +1,7 @@
 
 let game_stage = require('./services/game_stage');
 let { handle_socket } = require('./services/game_board'); 
+let { lobbySendMessage } = require("./models/lobby");
 
 let Games = require('./models/games'); 
 
@@ -10,6 +11,14 @@ module.exports = async (io) => {
         socket.on('player_added', async (msg) => {
             await add_player(msg, socket, io); // where is add_player coming from????
         });
+        
+        // Listen for lobby chat message
+        socket.on("lobby-send-chat-message", async (data) => {
+            // console.log(data);
+            socket.broadcast.emit("lobby-chat-message", data);
+            // update database
+            await lobbySendMessage(data.user_id, data.message);
+        })
 
         socket.on('chat message', (msg) => {
             // console.log('message', msg);

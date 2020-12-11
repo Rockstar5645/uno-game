@@ -6,6 +6,7 @@ module.exports = async (db) => {
                 `CREATE TABLE lobby_messages (
                 id SERIAL PRIMARY KEY, 
                 message VARCHAR (500), 
+                created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT (NOW() AT TIME ZONE 'UTC'),
                 user_id INT REFERENCES users)
             `
             )

@@ -82,9 +82,11 @@
           flex-grow: 1;
   height: 60vh;
   overflow: scroll;
+  background: #f6f8f8;
+  border-radius: 5px;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li {
+.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -92,14 +94,95 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  border-radius: 5px;
-  margin-bottom: 0.5rem;
   padding: 0.5rem;
-  background: #ffcf54;
+  margin-bottom: 0.5rem;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li .message-display-user {
-  margin: 0 0.5rem 0 0;
+.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-avatar {
+  float: left;
+  height: 2rem;
+  width: 2rem;
+  min-width: 2rem;
+  min-height: 2rem;
+}
+
+.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-avatar img.message-display-user-avatar-img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  margin: 0 0.5rem;
+}
+
+.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-name {
+  font-size: 1rem;
+  font-weight: bolder;
+  margin: 0 0 0.2rem 0;
+}
+
+.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-name.message-user-name-right {
+  text-align: right;
+}
+
+.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block.message-user-message-block-right {
+  margin-left: auto;
+}
+
+.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block .message-display-user-message {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  margin: 0;
+  position: relative;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 5px;
+  background: #ffcf54;
+  padding: 0.5rem;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block .message-display-user-message:after,
+.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block .message-display-user-message ::after {
+  position: absolute;
+  top: 5px;
+  content: '';
+  width: 0;
+  height: 0;
+  border-bottom: solid 10px transparent;
+}
+
+.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block .message-display-user-message.message-user-message-right {
+  margin-left: 2rem;
+}
+
+.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block .message-display-user-message.message-user-message-right:after,
+.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block .message-display-user-message.message-user-message-right ::after {
+  right: -5px;
+  border-left: solid 5px #FEC93E;
+}
+
+.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block .message-display-user-message.message-user-message-left {
+  margin-right: 2rem;
+}
+
+.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block .message-display-user-message.message-user-message-left:after,
+.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block .message-display-user-message.message-user-message-left ::after {
+  left: -5px;
+  border-right: solid 5px #FEC93E;
 }
 
 .container .lobby-section-block.side-block .side-block-box#message-block #message-send-block {
