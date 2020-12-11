@@ -49,7 +49,9 @@ module.exports = async function(req) {
         if(match) {
             return {
                 status: 'success',
-                user_id: db_result.user_id
+                user_id: db_result.user_id,
+                username: db_result.username,
+                avatar: db_result.avatar
             }; 
         } else {
             return prepare_response_template({
