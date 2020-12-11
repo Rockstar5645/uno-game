@@ -32,14 +32,6 @@ let get_gid_from_card = async (card_id) => {
     return res.game_id;
 }; 
 
-let played_card = async (card_id) => {
-
-    const GET_CARD = `SELECT * FROM game_deck WHERE id=($1)`; 
-    let played_card = db.one(GET_CARD, card_id); 
-
-    return played_card; 
-}; 
-
 let get_card_id = async (order, game_id) => { 
     
     const GET_CARD_ID = `SELECT id FROM game_deck WHERE game_id=($1) AND "order"=($2)`; 
@@ -47,12 +39,19 @@ let get_card_id = async (order, game_id) => {
     return res.id; 
 }; 
 
+let get_card_by_id = async (card_id) => {
+
+    const GCBI = `SELECT * FROM game_deck WHERE id=($1)`; 
+    let res = await db.one(GCBI, card_id);
+    return res;
+}
+
 module.exports = {
     change_card_location,
     change_card_location_to_played,
     get_cards_for_players,
     get_card_with_order,
     get_gid_from_card,
-    played_card, 
     get_card_id, 
+    get_card_by_id, 
 }; 

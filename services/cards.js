@@ -1,6 +1,7 @@
 const Game = require('../models/games'); 
 const Cards = require('../models/cards'); 
 const Players = require('../models/players'); 
+const serviceGame = require('./games'); 
 
 let get_cards = async (user_id) => {
 
@@ -66,7 +67,9 @@ let deal_cards = async (game_id) => {
     await Cards.change_card_location(28, game_id, "played");
 
     let card_id = await Cards.get_card_id(28, game_id); 
+    let card = await Cards.get_card_by_id(card_id);
     await Game.update_current_card(game_id, card_id);
+    await Game.set_current_color(card.color, game_id);
     await Game.set_top(29, game_id);
 };
 
@@ -74,60 +77,71 @@ let deal_cards = async (game_id) => {
  * updates card 'location' from player 'X' to played
  * updates current_card being played on
  * updates who's turn it is after playing card
+ * updates the current color
  * @param   {Number}    card_id         
  * @return  {String}    next_player     Who's turn it is now
  */
-let play_card = async (card_id) => {
+let play_card = async (card_id, chosen_color) => {
+
+    let game_id = await Cards.get_gid_from_card(card_id);
+    let card = await Cards.get_card_by_id(card_id); 
+    console.log('card played:', card);
+    if (card.name === 'reverse') {
+        console.log('we received a reverse card'); 
+        await serviceGame.reverse_direction(game_id); 
+    }
 
     await Cards.change_card_location_to_played(card_id);
-    let game_id = await Cards.get_gid_from_card(card_id);
-
     await Game.update_current_card(game_id, card_id);
+    await Game.set_current_color(chosen_color, game_id);
 
     let turn_direction = await Game.get_turn_direction(game_id);
     let current_player = await Game.get_player_turn(game_id);
     let next_player;
 
-    if (turn_direction === 'F') {
-        switch (current_player) {
-            case 'A':
-                next_player = 'B';
-                break;
-            case 'B':
-                next_player = 'C';
-                break;
-            case 'C':
-                next_player = 'D';
-                break;
-            case 'D':
-                next_player = 'A';
-                break;
+    if (card.name === 'skip') {
+        next_player = await serviceGame.skip_turn(game_id); 
+    } else {
+        // clockwise
+        if (turn_direction === 'F') {
+            switch (current_player) {
+                case 'A':
+                    next_player = 'B';
+                    break;
+                case 'B':
+                    next_player = 'C';
+                    break;
+                case 'C':
+                    next_player = 'D';
+                    break;
+                case 'D':
+                    next_player = 'A';
+                    break;
+            }
+        // counter clockwise
+        } else if (turn_direction === 'R') {
+            switch (current_player) {
+                case 'A':
+                    next_player = 'D';
+                    break;
+                case 'B':
+                    next_player = 'A';
+                    break;
+                case 'C':
+                    next_player = 'B';
+                    break;
+                case 'D':
+                    next_player = 'C';
+                    break;
+            }
         }
-
-    } else if (turn_direction === 'R') {
-        switch (current_player) {
-            case 'A':
-                next_player = 'D';
-                break;
-            case 'B':
-                next_player = 'A';
-                break;
-            case 'C':
-                next_player = 'B';
-                break;
-            case 'D':
-                next_player = 'C';
-                break;
-        }
+        await Game.set_player_turn(game_id, next_player);
     }
-
-    await Game.set_player_turn(game_id, next_player);
-    let card = await Cards.played_card(card_id); 
     
     let num = 0; 
-    if (card.name = 'draw_4') {
+    if (card.name === 'draw_4') {
         num = 4; 
-    } else if (card.name = 'draw_2') {
+    } else if (card.name === 'draw_2') {
         num = 2; 
     }
 
@@ -155,5 +169,5 @@ module.exports = {
     deal_cards,
     draw_cards,
     play_card,
-    allowed_to_play, 
+    allowed_to_play,
 }

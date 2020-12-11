@@ -30,6 +30,7 @@ let skip_turn = async (game_id) => {
     }
 
     await Games.set_player_turn(game_id, next_turn); 
+    return next_turn; 
 }
 
 module.exports = {

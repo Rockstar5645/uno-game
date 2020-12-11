@@ -123,6 +123,17 @@ let set_top = async (top, game_id) => {
     await db.none(SET_TOP, [top, game_id]);
 };
 
+let set_current_color = async (color_chosen, game_id) => {
+    const SET_CURR_COLOR = `UPDATE games SET current_color=($1) WHERE id=($2)`;
+    await db.none(SET_CURR_COLOR, [color_chosen, game_id]);
+};
+
+let get_current_color = async (game_id) => {
+    const GET_CURR_COLOR = `SELECT current_color FROM games WHERE id=($1)`;
+    let res = await db.one(GET_CURR_COLOR, game_id); 
+    return res.current_color; 
+}
+
 let get_player_tag = async (user_id, game_id) => {
 
     const GET_TAG = `SELECT player_tag FROM players WHERE user_id=($1) AND game_id=($2)`;
@@ -214,9 +225,7 @@ module.exports = {
     get_player_turn,
     set_player_turn,
     get_player_info,
-    get_current_card, 
-
-    // addUser,
-    // getGameInfo,
-    // getLobbyListing,
+    get_current_card,
+    set_current_color,
+    get_current_color,
 };

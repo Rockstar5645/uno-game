@@ -232,7 +232,8 @@ ul {
 }
 
 #color-chooser {
-  display: flex;
+
+  visibility: hidden;
   flex-wrap: wrap;
   position: absolute;
   /* vertical-align: bottom; */
@@ -247,6 +248,8 @@ ul {
 #choose-red {
   border-radius: 1em;
   background-color: red;
+  height: 100%;
+  width: 25%;
   z-index: 3;
 flex-grow: 1;
 }
@@ -254,6 +257,8 @@ flex-grow: 1;
   border-radius: 1em;
 
   background-color: blue;
+  height: 100%;
+  width: 25%;
   z-index: 3;
 flex-grow: 1;
 }
@@ -261,6 +266,8 @@ flex-grow: 1;
   border-radius: 1em;
 
   background-color: green;
+  height: 100%;
+  width: 25%;
   z-index: 3;
   flex-grow: 1;
 
@@ -269,6 +276,8 @@ flex-grow: 1;
   border-radius: 1em;
 
   background-color: yellow;
+  height: 100%;
+  width: 25%;
   z-index: 3;
   flex-grow: 1;
 

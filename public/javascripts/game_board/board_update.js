@@ -11,6 +11,17 @@ let change_played_card = () => {
 state.subscribe('curr_card_change', change_played_card);
 
 
+let change_color = () => {
+    let curr_color = state.curr_color; 
+    let curr_card = state.curr_card; 
+    if (state.player_turn === state.main_player && curr_card.color === 'any') {
+        console.log('You have to player a ', curr_color, ' card'); 
+        alert('You have to play a ' + curr_color + ' card'); 
+    } 
+}
+state.subscribe('curr_color_change', change_color); 
+
+
 let change_player_hand_count = () => {
     let hands_counts = state.other_players_hand_count; 
 

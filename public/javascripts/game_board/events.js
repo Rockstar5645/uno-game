@@ -10,11 +10,18 @@ let event_listeners = () => {
         // console.log('response from join room', res); 
     }); 
 
-    // called after every move
+    // called after every move 
+    /** res = let socket_broadcast = {
+      player_tag, 
+      next_player, 
+      played_card,
+      current_color: chosen_color,
+    }; */
     socket.on(`game-update`, async (res) => {
         console.log("state received:", res);
         state.player_turn = res.next_player; 
         state.set_curr_card(res.played_card); 
+        state.set_curr_color(res.current_color); 
 
         console.log('checking if we need to draw'); 
         if (state.player_turn === state.main_player) {
@@ -25,7 +32,7 @@ let event_listeners = () => {
           // if it's draw 2, 
           if(state.curr_card.name === "draw_2") {
             nums = 2; 
-          } else if (state.curr_card.name === "draw_4"){
+          } else if (state.curr_card.name === "draw_4") {
             nums = 4; 
           }
 
@@ -34,7 +41,6 @@ let event_listeners = () => {
           console.log('drawing ', nums, ' times'); 
           for (let i = 0; i < nums; i++) {
             await draw_from_deck();
-            state.to_draw--; 
           }
         }
 
@@ -86,7 +92,7 @@ let event_listeners = () => {
         } 
         
         state.set_main_player_hand(main_player_hand); 
-      
+        state.to_draw--; 
 
       } else {
         console.log('not your turn!!'); 
@@ -97,7 +103,17 @@ let event_listeners = () => {
         draw_from_deck();
     }); 
     
-      
+
+    // let click_handler = (e) => {
+    //   return new Promise
+    //   console.log("event:", e);
+    //   console.log('color', e.target.dataset.color); 
+    //   resolve(e.target.dataset.color); 
+ 
+    // }
+
+    // document.getElementById('color-chooser').addEventListener('click', click_handler); 
+
     document.getElementById("main_player_deck").addEventListener("click", async (event) => {
   
         if (state.main_player === state.player_turn) {
@@ -109,32 +125,53 @@ let event_listeners = () => {
           const card = event.target.dataset;
       
           // validate card
-          if(card.color !== "any" && (card.color !== state.curr_card.color && card.name !== state.curr_card.name)) {
-            console.log("Illegal move. You can't play that card.");
-            console.log("Card must be either of same color, or name, or a wild card.");
+          // NEXT STEP: change card.color to state.color
+
+          if(card.color !== "any" && (card.color !== state.curr_color && card.name !== state.curr_card.name)) {
+            alert("Illegal move. You can't play that card.\nCard must be either of same color, or name, or a wild card.");
             valid = false; 
           } else if (state.to_draw > 0) {
-            console.log('ILLEGAL MOVE: still have to draw some cards');
+            alert('ILLEGAL MOVE: still have to draw some cards');
             // alert('draw a card first dumbass'); 
             valid = false; 
           } else {
             console.log('LEGAL MOVE, go ahead'); 
           }
           
+          let chosen_color = card.color; 
           if (valid) {
 
-            if(card.color === 'any'){
-              alert('choose color');
+            state.player_turn = 'Z'; 
+            const card = event.target.dataset;
+            if(card.color === 'any') {
+
+              document.getElementById('color-chooser').style.visibility = "visible"; // display color-chooser
+              
+              let color_pick = async () => {
+                return new Promise(function(resolve, reject) {
+
+                  let click_handler = (e) => {
+                    console.log("event:", e);
+                    console.log('color', e.target.dataset.color); 
+                    document.getElementById('color-chooser').removeEventListener('click', click_handler); 
+                    resolve(e.target.dataset.color); 
+                  }; 
+
+                  document.getElementById('color-chooser').addEventListener('click', click_handler); 
+                }); 
+              }
+              
+              chosen_color = await color_pick();
+              document.getElementById('color-chooser').style.visibility = "hidden"; // hide color-chooser
+              console.log('chosen color is ', chosen_color); 
+
               // pop up 4 different colored buttons
               
               // user click on button. the button has a dataset with color data
               // set cur_color to button.dataset.color
             }
-            state.player_turn = 'Z'; 
-            const card = event.target.dataset;
             console.log("playing card:", card); 
             // console.log("testing to see if I have access to the cur_card global variable in game_board:", cur_card);
-
             let main_player_hand = state.main_player_hand; 
             delete main_player_hand[card.id]; 
             state.set_main_player_hand(main_player_hand); 
@@ -146,11 +183,12 @@ let event_listeners = () => {
                 body: JSON.stringify({ 
                   card, 
                   main_player: state.main_player, 
+                  chosen_color
                 }),
               }); 
 
             let res = await res_head.json(); 
-            // console.log(res);
+            console.log(res);
           }
         } else {
           console.log('not your turn!!!');

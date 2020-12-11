@@ -42,10 +42,10 @@ body
       span.helper
       img.played-card#played-card-id
       #color-chooser
-        button#choose-red
-        button#choose-blue
-        button#choose-yellow
-        button#choose-green
+        button#choose-red(data-color='red')
+        button#choose-blue(data-color='blue')
+        button#choose-yellow(data-color='yellow')
+        button#choose-green(data-color='green')
       //- img.played-card(src=`/images/uno_deck/${cur_card.color}_${cur_card.name}.png` alt='')
 
     .btn-container

@@ -15,8 +15,7 @@ import events from './events.js';
 
   state.set_curr_card(res.curr_card);
   // console.log('setting current card from main ', ); 
-  state.set_curr_color(res.curr_card.color);
-  
+  state.set_curr_color(res.curr_color);
   
   initialize_player_positions(res);
   initialize_main_player(res);

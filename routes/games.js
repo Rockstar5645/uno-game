@@ -61,13 +61,15 @@ router.get('/game-state', async (req, res) => {
   game_state[main_player_tag].cards = 
                 await Cards.get_cards_for_players(main_player_tag, game_id);
 
-  let cur_card = await Game.get_current_card(game_id);
+  let curr_card = await Game.get_current_card(game_id);
+  let curr_color = await Game.get_current_color(game_id); 
 
   let player_turn = await Game.get_player_turn(game_id); 
   let draw_count = await Players.get_draw_count(main_player_tag, game_id);
 
   game_state.draw_count = draw_count; 
-  game_state.curr_card = cur_card; 
+  game_state.curr_card = curr_card; 
+  game_state.curr_color = curr_color; 
   game_state.player_turn = player_turn; 
  
   // console.log('game_state', game_state); 
@@ -87,8 +89,9 @@ router.get("/test", async (req, res) => {
   res.render("game_board");
 });
 
+
 router.post("/play-card", async(req, res) => {
-  const { card, main_player } = req.body;
+  const { card, main_player, chosen_color } = req.body;
   
   // console.log('card', card);
   // console.log('player_tag', main_player); 
@@ -98,24 +101,24 @@ router.post("/play-card", async(req, res) => {
   if (await serviceCards.allowed_to_play(user_id, main_player)) {
 
     const card_id = card.id; 
-    let next_player = await serviceCards.play_card(card_id); 
+    let next_player = await serviceCards.play_card(card_id, chosen_color); 
     // console.log('next_player', next_player); 
 
-    let played_card = await Cards.played_card(card_id); 
-
+    let played_card = await Cards.get_card_by_id(card_id); 
+    
     const io = req.app.get("io");
     res.json({ status: 'good-to-go' });
-
+    
     let game_id = await Game.get_game_id(user_id);
     let room_id = 'game-room-' + game_id;
     // console.log('emitting new state to room', room_id); 
-    
+
     let player_tag = main_player; 
     let socket_broadcast = {
       player_tag, 
       next_player, 
       played_card,
-      // cur_color,
+      current_color: chosen_color,
     }; 
 
     // console.log('player-tag broadcast', player_tag); 
