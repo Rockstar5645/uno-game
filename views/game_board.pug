@@ -50,7 +50,7 @@ body
       //- img.played-card(src=`/images/uno_deck/${cur_card.color}_${cur_card.name}.png` alt='')
 
     .btn-container
-      .uno-btn UNO
+      .uno-btn#uno-btn UNO
     .right-player.vertical-hand
       ul.user-cards#right_player_deck
 
@@ -63,7 +63,10 @@ body
     .bottom-player.horizontal-hand
       ul.user-cards#main_player_deck
 
-    .buffer
+    .callout-container
+      .helper
+      .callout-btn#callout-btn Callout Player
+    //- .buffer
     #right-player-container
       .name#right_player_name
       .avatar#right-player-avatar

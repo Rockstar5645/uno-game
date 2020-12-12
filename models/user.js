@@ -117,6 +117,12 @@ class User {
             return -1;
         }
     }
+
+    static async get_username(user_id) {
+        const GET_USERNAME = `SELECT username FROM users WHERE user_id=($1)`;
+        let res = await db.one(GET_USERNAME, user_id);
+        return res.username;
+    }
 };
 
 module.exports = User; 

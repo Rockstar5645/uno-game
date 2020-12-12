@@ -14,7 +14,8 @@ module.exports = async (db) => {
             current_color VARCHAR (10),
             top_card INT,
             turn_timer INT,
-            status VARCHAR(20)
+            status VARCHAR(20), 
+            prev_player VARCHAR(1) DEFAULT 'M'
         )`);
 
         console.log('created games table');

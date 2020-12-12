@@ -5,6 +5,7 @@ class State {
     constructor() {
         this.player_turn = 'A';
         this.main_player = 'A';
+        this.turn_direction = 'F';
         this.curr_card = {};
         this.curr_color = 'blue';
         this.player_map = {};       // maps the player tag to the username element id
@@ -14,6 +15,13 @@ class State {
         this.other_players_hand_count = {};     // maps the player_tag to the number of cards in hand 
         this.other_players_usernames = {};
         this.to_draw = 0;       // the number of cards the player must draw before they can play 
+    }
+
+    set_turn_direction(td) {
+        if (td !== this.turn_direction) {
+            this.turn_direction = td;
+            this.publish('turn_direction_change');
+        }
     }
 
     set_main_player_hand(cards) {
