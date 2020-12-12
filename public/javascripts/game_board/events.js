@@ -10,6 +10,15 @@ let event_listeners = () => {
     // console.log('response from join room', res); 
   });
 
+  socket.on('game-over', (end_game) => {
+
+    // end_game = {
+    //   player_won: username,
+    //   player_won_tag: main_player,
+    // }
+
+  });
+
   // called after every move 
   /** res = let socket_broadcast = {
     player_tag, 
@@ -17,6 +26,13 @@ let event_listeners = () => {
     played_card,
     current_color: chosen_color,
   }; */
+
+  socket.on('empty-draw-stack', () => {
+    console.log("draw stack is empty");
+    document.getElementById('draw_deck').style.visibility = 'hidden';
+  });
+
+
   socket.on(`game-update`, async (res) => {
     // remove the previous player's name's background color
     // state.player_map[player_display[0].player_tag] = 'left_player_name';
@@ -90,24 +106,44 @@ let event_listeners = () => {
       });
 
       let res = await res_head.json();
-      console.log(res);
+      console.log("response from draw-card:", res);
 
-      let cards = res.cards;
-      let main_player_hand = state.main_player_hand;
-      for (let i = 0; i < cards.length; i++) {
-        main_player_hand[cards[i].id] = cards[i];
+      if (res.status === 'ok') {
+        let cards = res.cards;
+        let main_player_hand = state.main_player_hand;
+        for (let i = 0; i < cards.length; i++) {
+          main_player_hand[cards[i].id] = cards[i];
+        }
+
+        state.set_main_player_hand(main_player_hand);
+        state.to_draw--;
+      } else {
+        console.log('there are NO MORE CARDS TO DRAW FROM THE DECK!!!!');
+        document.getElementById('draw_deck').style.visibility = 'hidden';
+
+        res_head = await fetch(`/games/empty_draw_stack`, {
+          method: 'GET',
+          headers: { "Accept": "application/json" },
+          credentials: 'include',
+        });
+
+        console.log('response head', res_head);
+        res = await res_head.json();
+        console.log(res);
       }
-
-      state.set_main_player_hand(main_player_hand);
-      state.to_draw--;
 
     } else {
       console.log('not your turn!!');
     }
   };
 
-  document.getElementById('draw_deck').addEventListener('click', (event) => {
-    draw_from_deck();
+  document.getElementById('draw_deck').addEventListener('click', async (event) => {
+    try {
+      await draw_from_deck();
+    } catch (e) {
+      console.log('draw deck error', e);
+    }
+
   });
 
 

@@ -1,9 +1,10 @@
 import state from './state.js';
 import something from './board_update.js';
 import events from './events.js';
+import events2 from './events2.js';
 
-// document.getElementById('turn-direction').style.transform = 'scaleX(-1)';
-// get game-state function called once on game init
+
+// get game-state function called when game board is rendered
 (async () => {
 
   let res = await fetch(`/games/game-state`, {
@@ -24,7 +25,7 @@ import events from './events.js';
   state.to_draw = res.draw_count;
   state.set_player_turn(res.player_turn);
   state.main_player = res.main_player;
-  state.set_turn_direction(res.turn_direction); 
+  state.set_turn_direction(res.turn_direction);
 })(); // end of game-state function
 
 let get_next = (player_tag) => {
@@ -106,9 +107,7 @@ let initialize_main_player = (res) => {
   // main_player_avatar_container.append(avatar_img);
 };
 
-
 // initialize the events listeners for sockets and document elements 
 events();
-
 
 // initialize the event listeners for state changes 

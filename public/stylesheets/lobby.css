@@ -5,7 +5,7 @@
   display: grid;
   padding: 1rem;
   -ms-grid-columns: 3fr 5fr 3fr;
-      grid-template-columns: 3fr 5fr 3fr;
+  grid-template-columns: 3fr 5fr 3fr;
   grid-gap: 2rem;
   max-width: 100%;
   min-width: 0;
@@ -25,8 +25,8 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   padding: 4rem 1rem 1rem 1rem;
 }
 
@@ -38,7 +38,7 @@
   width: auto;
   left: 50%;
   -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+  transform: translateX(-50%);
 }
 
 .container .lobby-section-block.side-block .side-block-box {
@@ -47,16 +47,16 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
   border-radius: 10px;
   padding: 4rem 1rem 1rem 1rem;
   background: white;
   -webkit-box-shadow: 10px 10px 5px grey;
-          box-shadow: 10px 10px 5px grey;
+  box-shadow: 10px 10px 5px grey;
 }
 
 .container .lobby-section-block.side-block .side-block-box#message-block {
@@ -65,40 +65,52 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #ul-message-display-block {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
   height: 60vh;
   overflow: scroll;
   background: #f6f8f8;
   border-radius: 5px;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #ul-message-display-block
+  li.li-message-display-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-avatar {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #ul-message-display-block
+  li.li-message-display-item
+  .message-display-user-avatar {
   float: left;
   height: 2rem;
   width: 2rem;
@@ -106,43 +118,79 @@
   min-height: 2rem;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-avatar img.message-display-user-avatar-img {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #ul-message-display-block
+  li.li-message-display-item
+  .message-display-user-avatar
+  img.message-display-user-avatar-img {
   max-width: 100%;
   max-height: 100%;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #ul-message-display-block
+  li.li-message-display-item
+  .message-display-user-name-message {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
   margin: 0 0.5rem;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-name {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #ul-message-display-block
+  li.li-message-display-item
+  .message-display-user-name-message
+  .message-display-user-name {
   font-size: 1rem;
   font-weight: bolder;
   margin: 0 0 0.2rem 0;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-name.message-user-name-right {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #ul-message-display-block
+  li.li-message-display-item
+  .message-display-user-name-message
+  .message-display-user-name.message-user-name-right {
   text-align: right;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block.message-user-message-block-right {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #ul-message-display-block
+  li.li-message-display-item
+  .message-display-user-name-message
+  .message-display-user-message-block.message-user-message-block-right {
   margin-left: auto;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block .message-display-user-message {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #ul-message-display-block
+  li.li-message-display-item
+  .message-display-user-name-message
+  .message-display-user-message-block
+  .message-display-user-message {
   -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
   margin: 0;
   position: relative;
   width: -webkit-fit-content;
@@ -155,114 +203,207 @@
   word-break: break-all;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block .message-display-user-message:after,
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block .message-display-user-message ::after {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #ul-message-display-block
+  li.li-message-display-item
+  .message-display-user-name-message
+  .message-display-user-message-block
+  .message-display-user-message:after,
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #ul-message-display-block
+  li.li-message-display-item
+  .message-display-user-name-message
+  .message-display-user-message-block
+  .message-display-user-message
+  ::after {
   position: absolute;
   top: 5px;
-  content: '';
+  content: "";
   width: 0;
   height: 0;
   border-bottom: solid 10px transparent;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block .message-display-user-message.message-user-message-right {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #ul-message-display-block
+  li.li-message-display-item
+  .message-display-user-name-message
+  .message-display-user-message-block
+  .message-display-user-message.message-user-message-right {
   margin-left: 2rem;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block .message-display-user-message.message-user-message-right:after,
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block .message-display-user-message.message-user-message-right ::after {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #ul-message-display-block
+  li.li-message-display-item
+  .message-display-user-name-message
+  .message-display-user-message-block
+  .message-display-user-message.message-user-message-right:after,
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #ul-message-display-block
+  li.li-message-display-item
+  .message-display-user-name-message
+  .message-display-user-message-block
+  .message-display-user-message.message-user-message-right
+  ::after {
   right: -5px;
-  border-left: solid 5px #FEC93E;
+  border-left: solid 5px #fec93e;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block .message-display-user-message.message-user-message-left {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #ul-message-display-block
+  li.li-message-display-item
+  .message-display-user-name-message
+  .message-display-user-message-block
+  .message-display-user-message.message-user-message-left {
   margin-right: 2rem;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block .message-display-user-message.message-user-message-left:after,
-.container .lobby-section-block.side-block .side-block-box#message-block #ul-message-display-block li.li-message-display-item .message-display-user-name-message .message-display-user-message-block .message-display-user-message.message-user-message-left ::after {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #ul-message-display-block
+  li.li-message-display-item
+  .message-display-user-name-message
+  .message-display-user-message-block
+  .message-display-user-message.message-user-message-left:after,
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #ul-message-display-block
+  li.li-message-display-item
+  .message-display-user-name-message
+  .message-display-user-message-block
+  .message-display-user-message.message-user-message-left
+  ::after {
   left: -5px;
-  border-right: solid 5px #FEC93E;
+  border-right: solid 5px #fec93e;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #message-send-block {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #message-send-block {
   background: #f6f8f8;
   margin: 1rem 0;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #message-send-block #message-send-block-form {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #message-send-block
+  #message-send-block-form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   background: lightgray;
   padding: 0.5rem;
   border-radius: 5px;
   height: 100%;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #message-send-block #message-send-block-form input[type=textarea]#input-message-send-textarea {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #message-send-block
+  #message-send-block-form
+  input[type="textarea"]#input-message-send-textarea {
   -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
   margin-right: 0.5rem;
   border-radius: 5px;
   padding: 0.5rem;
   border: none;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #message-send-block #message-send-block-form input[type=submit]#input-message-send-submit {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #message-send-block
+  #message-send-block-form
+  input[type="submit"]#input-message-send-submit {
   color: white;
   border: none;
-  background: #FEC93E;
+  background: #fec93e;
   border-radius: 5px;
   padding: 0.5rem 1rem;
   outline: none;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
-.container .lobby-section-block.side-block .side-block-box#message-block #message-send-block #message-send-block-form input[type=submit]#input-message-send-submit:hover {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#message-block
+  #message-send-block
+  #message-send-block-form
+  input[type="submit"]#input-message-send-submit:hover {
   cursor: pointer;
   -webkit-filter: brightness(90%);
-          filter: brightness(90%);
+  filter: brightness(90%);
 }
 
-.container .lobby-section-block.side-block .side-block-box#ranking-main-block #ul-ranking-users {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#ranking-main-block
+  #ul-ranking-users {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   height: 100%;
 }
 
-.container .lobby-section-block.side-block .side-block-box#ranking-main-block #ul-ranking-users li {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#ranking-main-block
+  #ul-ranking-users
+  li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   background: #f6f8f8;
   padding: 0.5rem;
   height: 2.5rem;
   border-radius: 5px;
 }
 
-.container .lobby-section-block.side-block .side-block-box#ranking-main-block #ul-ranking-users li .ranking-user-rank {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#ranking-main-block
+  #ul-ranking-users
+  li
+  .ranking-user-rank {
   float: left;
   margin: 0;
   border-radius: 50%;
@@ -272,48 +413,76 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
-.container .lobby-section-block.side-block .side-block-box#ranking-main-block #ul-ranking-users li .ranking-user-rank img {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#ranking-main-block
+  #ul-ranking-users
+  li
+  .ranking-user-rank
+  img {
   max-width: 100%;
   max-height: 100%;
 }
 
-.container .lobby-section-block.side-block .side-block-box#ranking-main-block #ul-ranking-users li .ranking-user-name-avatar {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#ranking-main-block
+  #ul-ranking-users
+  li
+  .ranking-user-name-avatar {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   margin: 0 0.5rem;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   height: 100%;
   -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
-.container .lobby-section-block.side-block .side-block-box#ranking-main-block #ul-ranking-users li .ranking-user-name-avatar img.ranking-user-avatar {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#ranking-main-block
+  #ul-ranking-users
+  li
+  .ranking-user-name-avatar
+  img.ranking-user-avatar {
   margin: 0 0.5rem;
   max-height: 100%;
   max-width: 100%;
 }
 
-.container .lobby-section-block.side-block .side-block-box#ranking-main-block #ul-ranking-users li .ranking-user-name-avatar p.ranking-user-name {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#ranking-main-block
+  #ul-ranking-users
+  li
+  .ranking-user-name-avatar
+  p.ranking-user-name {
   margin: 0;
   font-size: 1.5rem;
 }
 
-.container .lobby-section-block.side-block .side-block-box#ranking-main-block #ul-ranking-users li .ranking-user-record {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#ranking-main-block
+  #ul-ranking-users
+  li
+  .ranking-user-record {
   float: right;
   margin: 0;
   height: 100%;
@@ -322,19 +491,31 @@
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
-.container .lobby-section-block.side-block .side-block-box#ranking-main-block #ul-ranking-users li .ranking-user-record p {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#ranking-main-block
+  #ul-ranking-users
+  li
+  .ranking-user-record
+  p {
   font-size: 1.5rem;
   margin: 0 0.5rem 0 0;
 }
 
-.container .lobby-section-block.side-block .side-block-box#ranking-main-block #ul-ranking-users li .ranking-user-record img {
+.container
+  .lobby-section-block.side-block
+  .side-block-box#ranking-main-block
+  #ul-ranking-users
+  li
+  .ranking-user-record
+  img {
   height: 1.5rem;
   width: auto;
 }
@@ -345,11 +526,11 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .container .lobby-section-block#center-block #center-icon {
@@ -358,14 +539,14 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   max-width: 100%;
   height: auto;
   margin-bottom: 2rem;
@@ -388,7 +569,7 @@
   opacity: 50%;
   text-align: center;
   -webkit-filter: brightness(90%);
-          filter: brightness(90%);
+  filter: brightness(90%);
 }
 
 .container .lobby-section-block#center-block .center-game-btn {
@@ -402,19 +583,19 @@
   font-size: 2rem;
   outline: none;
   border: none;
-  background: #FEC93E;
+  background: #fec93e;
   cursor: pointer;
   color: white;
-  -webkit-box-shadow: 0 5px 2px #F7A738;
-          box-shadow: 0 5px 2px #F7A738;
-  -webkit-transition: .2s;
-  transition: .2s;
+  -webkit-box-shadow: 0 5px 2px #f7a738;
+  box-shadow: 0 5px 2px #f7a738;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
   margin: 1rem;
 }
 
 .container .lobby-section-block#center-block .center-game-btn:hover {
   background-position: right;
   -webkit-transform: scale(1.2);
-          transform: scale(1.2);
+  transform: scale(1.2);
 }
 /*# sourceMappingURL=lobby.css.map */
