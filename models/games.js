@@ -106,6 +106,18 @@ let get_players = async (game_id) => {
     return res;
 };
 
+// Get players info with game id only
+const get_players_info = async (game_id) => {
+    const GET_PLAYERS_INFO = `SELECT players.id, users.user_id, users.username, users.avatar 
+                        FROM players 
+                        LEFT JOIN users 
+                        ON users.user_id=players.user_id 
+                        WHERE game_id=$1
+                        ORDER BY players.id`;
+    let res = await db.manyOrNone(GET_PLAYERS_INFO, game_id);
+    return res;
+};
+
 const get_player_info = async (player_tag, game_id) => {
     const GET_PLAYER_INFO = `SELECT players.*, users.username, users.avatar 
                         FROM players 
@@ -225,6 +237,7 @@ module.exports = {
     get_player_turn,
     set_player_turn,
     get_player_info,
+    get_players_info,
     get_current_card,
     set_current_color,
     get_current_color,

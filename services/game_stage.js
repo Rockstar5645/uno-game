@@ -1,6 +1,7 @@
 
 let { get_game_id } = require('../models/games.js');
 let { get_player_count } = require('../models/games.js');
+let { get_players_info } = require('../models/games.js');
 
 module.exports = async (msg, socket, io) => {
 
@@ -17,13 +18,17 @@ module.exports = async (msg, socket, io) => {
             let player_count = await get_player_count(game_id);
             console.log('player count', player_count);
 
+            // players info: user_id, username, avatars
+            let players = await get_players_info(game_id);
+
             socket.join(room_id);
             console.log(socket.rooms);
             // responds to call in javascripts/game_stage.js
             io.to(room_id).emit('room-joined', {
                 player_count: player_count,
                 game_id: game_id,
-                user_id: user_id
+                players: players,
+                user_id: user_id,
             });
             break;
 
