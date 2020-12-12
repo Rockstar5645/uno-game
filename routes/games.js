@@ -26,6 +26,8 @@ router.post('/draw-card', async (req, res) => {
   try {
     let cards = await serviceCards.draw_cards(user_id, 1);
     // console.log('drew cards', cards);
+
+    await Players.update_uno_status('unavailable', user_id);
     res.json({
       cards,
       status: 'ok'
@@ -100,7 +102,9 @@ router.post("/play-card", async (req, res) => {
 
   const { user_id } = req.cookies;
 
-  if (await serviceCards.allowed_to_play(user_id, main_player)) {
+  let allowed = await serviceCards.allowed_to_play(user_id, main_player, card);
+
+  if (allowed.status) {
 
     const card_id = card.id;
     let next_player = await serviceCards.play_card(card_id, chosen_color);
@@ -146,7 +150,10 @@ router.post("/play-card", async (req, res) => {
     }
   } else {
 
-    res.json({ status: 'not_allowed' });
+    res.json({
+      status: 'not_allowed',
+      reason: allowed.msg,
+    });
   }
 });
 
@@ -155,6 +162,7 @@ router.post('/call-uno', async (req, res) => {
   const { user_id } = req.cookies;
   const { main_player } = req.body;
 
+  console.log(main_player, 'called uno');
   let game_id = await Game.get_game_id(user_id);
 
   let card_count = await Cards.get_num_cards_left(main_player, game_id);
@@ -163,10 +171,16 @@ router.post('/call-uno', async (req, res) => {
 
   if (card_count === 2) {
 
+    console.log('card count is 2, gtg');
     await Players.update_uno_status('called', user_id);
     res.json({
       status: 'okay'
     });
+
+    const io = req.app.get("io");
+    let room_id = 'game-room-' + game_id;
+    console.log('emitting called-uno to', room_id, 'with user_id', user_id);
+    io.to(room_id).emit("called-uno", user_id);
 
   } else {
     res.json({
@@ -179,6 +193,7 @@ router.post('/callout', async (req, res) => {
 
   let { user_id } = req.cookies;
 
+  console.log(user_id, 'attempting to callout');
   let game_id = await Game.get_game_id(user_id);
   console.log('game_id', game_id);
 
@@ -186,13 +201,11 @@ router.post('/callout', async (req, res) => {
   console.log('prev_player', prev_player);
 
   let uno_status = await Players.get_uno_status(prev_player, game_id);
+  let num_cards_left = await Cards.get_num_cards_left(prev_player, game_id);
+
   console.log('uno_status', uno_status);
 
-  if (uno_status !== 'available') {
-    res.json({
-      status: 'invalid-callout',
-    });
-  } else {
+  if (num_cards_left === 1 && uno_status !== 'called') {
 
     let draw_count = await Players.get_draw_count(prev_player, game_id);
     console.log('draw_count', draw_count);
@@ -204,8 +217,15 @@ router.post('/callout', async (req, res) => {
 
     await Players.update_uno_status('unavailable', prev_user_id);
 
+    console.log('valid callout');
     res.json({
       status: 'valid-callout',
+    });
+
+  } else {
+    console.log('invalid callout');
+    res.json({
+      status: 'invalid-callout',
     });
   }
 });

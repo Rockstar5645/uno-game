@@ -34,7 +34,7 @@ const serviceUser = require('./services/users');
         }
 
     } else {
-        let res = await Players.get_id_from_player_tag('A', 1);
+        let res = await Cards.in_hand('A', 115);
         console.log(res);
     }
 })();

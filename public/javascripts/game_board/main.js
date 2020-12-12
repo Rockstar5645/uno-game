@@ -1,6 +1,5 @@
 import state from './state.js';
-import something from './board_update.js';
-import events from './events.js';
+import board_update from './board_update.js';
 import events2 from './events2.js';
 
 
@@ -21,6 +20,11 @@ import events2 from './events2.js';
 
   initialize_player_positions(res);
   initialize_main_player(res);
+
+  state.user_id_map[res['A'].user_id] = res['A'].username;
+  state.user_id_map[res['B'].user_id] = res['B'].username;
+  state.user_id_map[res['C'].user_id] = res['C'].username;
+  state.user_id_map[res['D'].user_id] = res['D'].username;
 
   state.to_draw = res.draw_count;
   state.set_player_turn(res.player_turn);
@@ -108,6 +112,5 @@ let initialize_main_player = (res) => {
 };
 
 // initialize the events listeners for sockets and document elements 
-events();
 
 // initialize the event listeners for state changes 
