@@ -5,7 +5,7 @@ class State {
     constructor() {
         this.player_turn = 'A';
         this.main_player = 'A';
-        this.turn_direction = 'F'; 
+        this.turn_direction = 'F';
         this.curr_card = {};
         this.curr_color = 'blue';
         this.player_map = {};       // maps the player tag to the username element id
@@ -18,8 +18,10 @@ class State {
     }
 
     set_turn_direction(td) {
-        this.turn_direction = td; 
-        this.publish('turn_direction_change'); 
+        if (td !== this.turn_direction) {
+            this.turn_direction = td;
+            this.publish('turn_direction_change');
+        }
     }
 
     set_main_player_hand(cards) {

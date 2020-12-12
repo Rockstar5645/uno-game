@@ -42,6 +42,16 @@ const createGameDeck = async (game_id) => {
     const LOOKUP_CARDS = `SELECT * FROM deck`;
     let cards = await db.any(LOOKUP_CARDS);
     let deck = shuffleCards(cards);
+    let fcn = deck[28].name; // first card name 
+
+    while (fcn === 'wild' || fcn === 'draw_2' || fcn === 'draw_4'
+        || fcn === 'skip' || fcn === 'reverse') {
+        // make sure the first card isn't a special card 
+        console.log('we got a special card', deck[28], 'reshuffling');
+        deck = shuffleCards(cards);
+        fcn = deck[28].name;
+    }
+
     await insertCards(deck, game_id);
     return;
 };
@@ -130,8 +140,8 @@ let set_current_color = async (color_chosen, game_id) => {
 
 let get_current_color = async (game_id) => {
     const GET_CURR_COLOR = `SELECT current_color FROM games WHERE id=($1)`;
-    let res = await db.one(GET_CURR_COLOR, game_id); 
-    return res.current_color; 
+    let res = await db.one(GET_CURR_COLOR, game_id);
+    return res.current_color;
 }
 
 let get_player_tag = async (user_id, game_id) => {
@@ -169,17 +179,17 @@ let get_player_turn = async (game_id) => {
 let set_player_turn = async (game_id, next_player) => {
     const SPT = `UPDATE games SET player_turn=($1) WHERE id=($2)`;
     await db.none(SPT, [next_player, game_id]);
-}; 
+};
 
 let get_current_card = async (game_id) => {
     // only works if called when initializing the game. it's useless afterwards
     const GET_CURRENT_CARD_ID = `SELECT current_card from games WHERE id=($1)`;
-    let res = await db.one(GET_CURRENT_CARD_ID, game_id); 
-    
+    let res = await db.one(GET_CURRENT_CARD_ID, game_id);
+
     const GET_STARTING_CARD = `SELECT * FROM game_deck WHERE id=($1)`;
     var cur_card = await db.one(GET_STARTING_CARD, res.current_card);
     return cur_card;
-}; 
+};
 
 let update_current_card = async (game_id, card_id) => {
 
@@ -196,20 +206,20 @@ let get_players_in_game = async (game_id) => {
                             WHERE game_id=($1)    
                         `;
 
-    let player_map = await db.manyOrNone(GET_PLAYERS, game_id); 
+    let player_map = await db.manyOrNone(GET_PLAYERS, game_id);
 
     for (let i = 0; i < player_map.length; i++) {
         const GET_CARD_COUNT = `SELECT COUNT(*) FROM game_deck WHERE location=($1) AND game_id=($2)`;
         let res = await db.one(GET_CARD_COUNT, [player_map[i].player_tag, game_id]);
         // console.log(res); 
-        player_map[i].card_count = parseInt(res.count, 10); 
+        player_map[i].card_count = parseInt(res.count, 10);
     }
 
-    return player_map; 
+    return player_map;
 }
 
 module.exports = {
-    get_players_in_game, 
+    get_players_in_game,
     create_game,
     get_game_id,
     get_player_count,

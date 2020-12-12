@@ -18,7 +18,7 @@ const serviceUser = require('./services/users');
                 console.log('creating game');
                 await GameTest.delete_game_test();
                 await GameTest.create_game_test();
-            // break; 
+                break;
 
             case 'ch':
                 // console.log('making A all draw 2'); 
