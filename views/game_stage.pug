@@ -1,13 +1,27 @@
 extends layout
 
 block content
+    link(rel="stylesheet", href="/stylesheets/game_stage.css")
     script(src="/socket.io/socket.io.min.js")
     script(defer, type='module', src="/javascripts/util.js")
     script(defer, type='module', src="/javascripts/game_stage.js")
-    div(class="mdl-grid")
+    div(class="mdl-grid" id="bg-container")
         div(class="mdl-cell mdl-cell--4-col")
         div(class="mdl-cell mdl-cell--4-col")
             div(id='p2', class='mdl-progress mdl-js-progress mdl-progress__indeterminate')
             h3(id='status').
                 Finding other players
         div(class="mdl-cell mdl-cell--4-col")
+
+        //- Players Info
+        ul(id="ul-players-block")
+            - for (let i = 0; i < 4; ++i) {
+                - let player_avatar = `player-avatar-${i}`
+                - let player_name = `player-name-${i}`
+
+                li(class="li-player-block" id=player)
+                    div(class="player-block-avatar")
+                        img(class="img-player-block-avatar" id=player_avatar src="/images/avatars/default_avatar.png" data-player="None")
+                    div(class="player-block-name")
+                        p(class="p-player-block-name" id=player_name) Player
+            - }

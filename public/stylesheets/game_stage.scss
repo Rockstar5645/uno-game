@@ -1,0 +1,58 @@
+$bgColorLeft: #267871;
+$bgColorRight: #136a8a;
+
+
+#bg-container {
+    background: linear-gradient(to right, $bgColorLeft, $bgColorRight);
+    min-height: 100vh;
+
+    // Players info
+    #ul-players-block {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 0 10%;
+        width: 100%;
+        .li-player-block {
+            list-style-type: none;
+            min-width: 15vw;
+            max-width: 20vw;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .player-block-avatar {
+                border-radius: 50%;
+                width: 15vw;
+                height: 15vw;
+                border: 2px black solid;
+                // padding: 2rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: lightblue;
+                img {
+                    max-width: 70%;
+                    max-height: 70%;
+                }
+            }
+            .player-block-name {
+                display: flex;
+                margin: 1rem 0;
+                min-width: 100%;
+                min-height: 3rem;
+                align-items: center;
+                justify-content: center;
+                border-radius: 2rem;
+                border: 2px solid lightblue;
+                p {
+                    text-align: center;
+                    font-size: 2rem;
+                    margin: 0;
+                    color: white;
+                    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+                }
+            }
+        }
+    }
+}
