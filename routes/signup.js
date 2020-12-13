@@ -25,6 +25,8 @@ router.post('/', function (req, res, next) {
     create_user(req).then((result) => {
         if (result.status === 'success') {
             res.cookie('user_id', result.user_id);
+            res.cookie('username', result.username);
+            res.cookie('avatar', result.avatar);
             res.redirect('/lobby');
         } else {
             result.title = 'UNO';

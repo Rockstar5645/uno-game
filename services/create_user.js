@@ -112,7 +112,9 @@ module.exports = async function(req) {
         // user was created successfully in the database
         return {
             status: 'success', 
-            user_id: result.user_id
+            user_id: result.user_id,
+            username: result.username,
+            avatar: result.avatar
         }; 
     } else {
         // there was a problem registering the user 

@@ -56,7 +56,9 @@ class User {
             return {
                 status: 'success',
                 msg: 'user_created',
-                user_id: result.user_id
+                user_id: result.user_id,
+                username: username,
+                avatar: avatar
             };
 
         } catch (e) {
