@@ -61,9 +61,11 @@ $colorGameBtn: #F7A738;
                     display: flex;
                     flex-direction: row;
                     justify-content: space-between;
+                    position: relative;
                     flex-grow: 1;
                     margin: 0;
                     padding: 0 0.5rem;
+                    
                     // #game-over-player-title-score{
                     //     &::before {
                     //         content: url("../images/lobby/ranking_star.png");
@@ -96,26 +98,35 @@ $colorGameBtn: #F7A738;
                     flex-grow: 1;
                     flex-direction: row;
                     border: white 1px solid;
-                    border-radius: 5px;
+                    border-radius: 10px;
                     align-items: center;
-                    &.first-player {
-                        border: $colorMajor 1px solid;
-                    }
-                    // justify-content: center;
-                    
-                    .game-over-player-avatar {
-                        width: 3rem;
-                        height: 3rem;
-                        img {
-                            max-width: 100%;
-                            max-height: 100%;
-                        }
-                    }
+                    box-shadow: 0 4px 2px white;
                     p {
                         color: white;
                         
                         // text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
                     }
+                    // First Player
+                    &.first-player {
+                        border: $colorMajor 1px solid;
+                        // background: $colorMajor;
+                        // opacity: 0.8;
+                        box-shadow: 0 4px 2px $colorGameBtn;
+                        p {
+                            color: $colorMajor;
+                        }
+                    }
+                    // justify-content: center;
+                    
+                    // .game-over-player-avatar {
+                    //     width: 3rem;
+                    //     height: 3rem;
+                    //     img {
+                    //         max-width: 100%;
+                    //         max-height: 100%;
+                    //     }
+                    // }
+                    
                 }
                 // First line Title
                 &#game-over-title {

@@ -93,6 +93,7 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  position: relative;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
@@ -133,28 +134,26 @@
       -ms-flex-direction: row;
           flex-direction: row;
   border: white 1px solid;
-  border-radius: 5px;
+  border-radius: 10px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-}
-
-#game-over #game-over-content ul#game-over-players li.game-over-player .game-over-player-info.first-player {
-  border: #FEC93E 1px solid;
-}
-
-#game-over #game-over-content ul#game-over-players li.game-over-player .game-over-player-info .game-over-player-avatar {
-  width: 3rem;
-  height: 3rem;
-}
-
-#game-over #game-over-content ul#game-over-players li.game-over-player .game-over-player-info .game-over-player-avatar img {
-  max-width: 100%;
-  max-height: 100%;
+  -webkit-box-shadow: 0 4px 2px white;
+          box-shadow: 0 4px 2px white;
 }
 
 #game-over #game-over-content ul#game-over-players li.game-over-player .game-over-player-info p {
   color: white;
+}
+
+#game-over #game-over-content ul#game-over-players li.game-over-player .game-over-player-info.first-player {
+  border: #FEC93E 1px solid;
+  -webkit-box-shadow: 0 4px 2px #F7A738;
+          box-shadow: 0 4px 2px #F7A738;
+}
+
+#game-over #game-over-content ul#game-over-players li.game-over-player .game-over-player-info.first-player p {
+  color: #FEC93E;
 }
 
 #game-over #game-over-content ul#game-over-players li.game-over-player#game-over-title {
