@@ -8,6 +8,7 @@ const Players = require('./models/players');
 const serviceGames = require('./services/games');
 const User = require('./models/user');
 const serviceUser = require('./services/users');
+const EndGame = require('./services/end_game');
 
 (async () => {
 
@@ -34,7 +35,8 @@ const serviceUser = require('./services/users');
         }
 
     } else {
-        let res = await Cards.in_hand('A', 115);
+
+        let res = await EndGame.calculate_finals(3);
         console.log(res);
     }
 })();
