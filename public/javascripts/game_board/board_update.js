@@ -1,5 +1,18 @@
 import state from './state.js';
 
+
+let change_turn_direction = () => {
+
+    // redraw the turn image here
+    console.log('reacing here, attempting to reverse turn direction image');
+    if (state.turn_direction === 'F') {
+        document.getElementById('turn-direction').style.transform = 'scaleX(1)';
+    } else {
+        document.getElementById('turn-direction').style.transform = 'scaleX(-1)';
+    }
+}
+state.subscribe('turn_direction_change', change_turn_direction);
+
 let change_played_card = () => {
     // console.log('changing played card to ', state.curr_card); 
     let curr_card = state.curr_card;

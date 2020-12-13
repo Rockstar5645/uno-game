@@ -18,7 +18,7 @@ const serviceUser = require('./services/users');
                 console.log('creating game');
                 await GameTest.delete_game_test();
                 await GameTest.create_game_test();
-            // break; 
+                break;
 
             case 'ch':
                 // console.log('making A all draw 2'); 
@@ -34,7 +34,7 @@ const serviceUser = require('./services/users');
         }
 
     } else {
-        let res = await User.check_game(3);
+        let res = await Cards.in_hand('A', 115);
         console.log(res);
     }
-})(); 
+})();

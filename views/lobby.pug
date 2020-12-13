@@ -49,10 +49,12 @@ block content
             //- p(id="center-title") WITH FRIENDS
             //- TODO 
             //- ADD user authentication
-            //- a(href="#" id="new-game-btn" class="center-game-btn") NEW GAME
             //- TODO 
             //- ADD user authentication
             a(href="#" id="join-game-btn" class="center-game-btn") JOIN GAME
+            form(method='GET', action='/lobby/logout')
+                button(type='submit' class='center-game-btn') LOGOUT
+            //a(href="#" id="logout-btn" class="center-game-btn") LOGOUT
 
             
         //- Right Section Ranking
