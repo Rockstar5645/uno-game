@@ -5,10 +5,10 @@ $colorBg: #f6f8f8;
 $colorGameBtn: #F7A738;
 
 #game-over {
+    display: none;
     position: absolute;
     top: -3rem;
     left: 0;
-    display: flex;
     width: 100vw;
     height: 110vh;
     background: black;
@@ -56,12 +56,14 @@ $colorGameBtn: #F7A738;
                 margin: 0.2rem 0;
                 padding: 0.1rem 2rem;
 
+
                 .game-over-player-name-score {
                     display: flex;
                     flex-direction: row;
                     justify-content: space-between;
                     flex-grow: 1;
                     margin: 0;
+                    padding: 0 0.5rem;
                     // #game-over-player-title-score{
                     //     &::before {
                     //         content: url("../images/lobby/ranking_star.png");
@@ -77,26 +79,28 @@ $colorGameBtn: #F7A738;
                     height: 100%;
                     display: flex;
                     flex-direction: row;
-                    border: white 1px solid;
-                    border-radius: 5px;
+                    // border: white 1px solid;
+                    // border-radius: 5px;
                     align-items: center;
                     margin-right: 0.5rem;
                     img {
-                        display: block;
-                        max-width: 100%;
+                        max-width: 3rem;
                         max-height: 3rem;
                     }
-                    p {
-
-                    }
+                    
                 }
+
                 .game-over-player-info {
+                    // padding: 0.5rem;
                     display: flex;
                     flex-grow: 1;
                     flex-direction: row;
                     border: white 1px solid;
                     border-radius: 5px;
                     align-items: center;
+                    &.first-player {
+                        border: $colorMajor 1px solid;
+                    }
                     // justify-content: center;
                     
                     .game-over-player-avatar {
@@ -109,6 +113,7 @@ $colorGameBtn: #F7A738;
                     }
                     p {
                         color: white;
+                        
                         // text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
                     }
                 }
@@ -119,6 +124,8 @@ $colorGameBtn: #F7A738;
 
                         border: none;
                         border-radius: none;
+                        margin-right: 0.5rem;
+                        
                     }
                     .game-over-player-avatar {
                         width: 3rem;
@@ -139,7 +146,8 @@ $colorGameBtn: #F7A738;
             display: flex;
             flex-direction: row;
             align-items: center;
-            justify-content: space-between;
+            // justify-content: space-between;
+            justify-content: center;
             .game-over-btn {
                 display: none;
                 width: 10rem;
@@ -158,6 +166,8 @@ $colorGameBtn: #F7A738;
                 transition: .2s;
                 margin: 1rem;
                 text-decoration: none;
+                text-shadow: -1px 0 brown, 0 1px brown, 1px 0 brown, 0 -1px brown;
+
                 &:hover {
                     background-position: right;
                     transform: scale(1.2);

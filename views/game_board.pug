@@ -6,6 +6,8 @@ head
   link(rel='stylesheet' href='/stylesheets/game_board-game_over.css')
   script(src='/socket.io/socket.io.min.js')
   script(type='module', src='/javascripts/game_board/main.js')
+  //- script(defer, type='module', src="/javascripts/util.js")
+  //- script(defer, type='module', src="/javascripts/lobby.js")
   title UNO Game Board 
 
 body
@@ -81,27 +83,38 @@ body
       ul#game-over-players
         li.game-over-player#game-over-title
           p.game-over-player-ranks Ranks
-          .game-over-player-avatar
+          //- .game-over-player-avatar
           .game-over-player-name-score
             p.game-over-player-name Player
-            p.game-over-player-score#game-over-player-title-score Score
+            p.game-over-player-score#game-over-player-title-score Points
+      
         //- Player results
         - for (let i = 1; i < 5; ++i) {
-          - let rankingImgPath = `/images/lobby/ranking_number_${i+1}.png`
+          - let rankingImgPath = `../images/lobby/ranking_number_${i}.png`
+          - let playerScore = `player-score-${i}`
+          - let playerName = `player-name-${i}`
+          - let infoClassName = ""
           console.log(rankingImgPath)
           li.game-over-player
             .game-over-player-ranks
-              img.game-over-player-ranks-img(scr=rankingImgPath)
-            .game-over-player-info
-              .game-over-player-avatar
-                img.game-over-player-avatar-img(src="../images/avatars/default_avatar.png")
+              img(src=rankingImgPath)
+            
+            //- First player
+            if i == 1
+              - infoClassName = "game-over-player-info first-player"
+            else
+              - infoClassName = "game-over-player-info"
+
+            div(class=infoClassName)
+              //- .game-over-player-avatar
+              //-   img.game-over-player-avatar-img(src="../images/avatars/default_avatar.png")
               .game-over-player-name-score
-                p.game-over-player-name Player
-                p.game-over-player-score Score
+                p.game-over-player-name#player-name Player
+                p.game-over-player-score#player-point 123
         - }
       #game-over-buttons
-        a.game-over-btn(href="#" id="join-game-btn" class="game-over-btn") Play again
-        a.game-over-btn(href="#" id="return-lobby-btn" class="game-over-btn") Return lobby
+        //- a.game-over-btn(href="#" id="join-game-btn" class="game-over-btn") Play again
+        a.game-over-btn(href="/lobby" id="return-lobby-btn" class="game-over-btn") Return to lobby
       
 
 

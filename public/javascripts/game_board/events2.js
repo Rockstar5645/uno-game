@@ -8,8 +8,15 @@ const callout_btn = document.getElementById('callout-btn');
 let user_id = Util.getCookie('user_id');
 
 socket.on('game-over', (end_game) => {
-
-    alert('Game over, noodle heads!\n\nThe winner is: ' + end_game[0].username + "!");
+    const players_names = document.querySelectorAll("#player-name");
+    const players_points = document.querySelectorAll("#player-point");
+    const result_board = document.querySelector("#game-over");
+    for (let i = 0; i < end_game.length; ++i) {
+        players_names[i].innerHTML = end_game[i].username;
+        players_points[i].innerHTML = end_game[i].total_points;
+    }
+    result_board.style.display = "flex";
+    // alert('Game over, noodle heads!\n\nThe winner is: ' + end_game[0].username + "!");
     console.log('End game status:', end_game);
     // end_game = {
     //   player_won: username,

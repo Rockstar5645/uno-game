@@ -1,10 +1,8 @@
 #game-over {
+  display: none;
   position: absolute;
   top: -3rem;
   left: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   width: 100vw;
   height: 110vh;
   background: black;
@@ -99,6 +97,7 @@
       -ms-flex-positive: 1;
           flex-grow: 1;
   margin: 0;
+  padding: 0 0.5rem;
 }
 
 #game-over #game-over-content ul#game-over-players li.game-over-player .game-over-player-ranks {
@@ -111,8 +110,6 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  border: white 1px solid;
-  border-radius: 5px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -120,8 +117,7 @@
 }
 
 #game-over #game-over-content ul#game-over-players li.game-over-player .game-over-player-ranks img {
-  display: block;
-  max-width: 100%;
+  max-width: 3rem;
   max-height: 3rem;
 }
 
@@ -141,6 +137,10 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+#game-over #game-over-content ul#game-over-players li.game-over-player .game-over-player-info.first-player {
+  border: #FEC93E 1px solid;
 }
 
 #game-over #game-over-content ul#game-over-players li.game-over-player .game-over-player-info .game-over-player-avatar {
@@ -164,6 +164,7 @@
 #game-over #game-over-content ul#game-over-players li.game-over-player#game-over-title .game-over-player-ranks {
   border: none;
   border-radius: none;
+  margin-right: 0.5rem;
 }
 
 #game-over #game-over-content ul#game-over-players li.game-over-player#game-over-title .game-over-player-avatar {
@@ -186,9 +187,9 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 #game-over #game-over-content #game-over-buttons .game-over-btn {
@@ -211,6 +212,7 @@
   transition: .2s;
   margin: 1rem;
   text-decoration: none;
+  text-shadow: -1px 0 brown, 0 1px brown, 1px 0 brown, 0 -1px brown;
 }
 
 #game-over #game-over-content #game-over-buttons .game-over-btn:hover {
