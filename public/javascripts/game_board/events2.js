@@ -7,6 +7,16 @@ const callout_btn = document.getElementById('callout-btn');
 
 let user_id = Util.getCookie('user_id');
 
+socket.on('game-over', (end_game) => {
+
+    alert('Game over, noodle heads!\n\nThe winner is: ' + end_game[0].username + "!");
+    console.log('End game status:', end_game);
+    // end_game = {
+    //   player_won: username,
+    //   player_won_tag: main_player,
+    // }
+
+});
 
 socket.on('called-uno', (caller_id) => {
     console.log('got a called uno even');

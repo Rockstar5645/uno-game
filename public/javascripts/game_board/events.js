@@ -10,15 +10,6 @@ socket.emit('join-game-room', { user_id }, (res) => {
   // console.log('response from join room', res); 
 });
 
-socket.on('game-over', (end_game) => {
-
-  // end_game = {
-  //   player_won: username,
-  //   player_won_tag: main_player,
-  // }
-
-});
-
 // called after every move 
 /** res = let socket_broadcast = {
   player_tag, 

@@ -7,17 +7,33 @@ const Cards = require('../models/cards');
 const serviceCards = require('../services/cards');
 const Players = require('../models/players');
 const User = require('../models/user');
+const EndGame = require('../services/end_game.js');
 
 let { game_board_init } = require("../services/game_board");
 
 // /games  - endpoint
 // CAUTION: the order of these routes matter
 
+// make sure they're in a valid game if they're trying to access these routes 
+router.use(async (req, res, next) => {
+
+  console.log('check if user is allowed here');
+  let { user_id } = req.cookies;
+  let in_game = await Players.is_in_game(user_id);
+  console.log(user_id, 'in game ', in_game);
+  if (in_game) {
+    console.log('good to go');
+    next();
+  } else {
+    console.log('going to lobby');
+    res.redirect('/lobby');
+  }
+});
+
 // queue staging area
 router.get("/stage", (req, res) => {
   res.render("game_stage", {});
 });
-
 
 router.post('/draw-card', async (req, res) => {
 
@@ -119,13 +135,11 @@ router.post("/play-card", async (req, res) => {
 
     if (num_cards_left === 0) {
 
-      let username = User.get_username(user_id);
-      res.json({ status: 'game_won' });
-      io.to(room_id).emit('game-over', {
-        player_won: username,
-        player_won_tag: main_player,
-      });
-      await Game.delete_game(game_id);
+      res.json({ status: 'game-over' });
+
+      // sort the player total array by total point
+      let player_totals = await EndGame.calculate_finals(user_id);
+      io.to(room_id).emit('game-over', player_totals);
 
     } else {
 
@@ -230,16 +244,23 @@ router.post('/callout', async (req, res) => {
   }
 });
 
+
+// empty draw stack = game over!!!
 router.get('/empty_draw_stack', async (req, res) => {
   const { user_id } = req.cookies;
+
   console.log('trying to broadcast empty_draw_stack message');
+  console.log('Trying to broadcast GAME-OVER message');
 
   const io = req.app.get("io");
-  res.json({ status: 'good-to-go' });
-
+  res.json({ status: 'game-over' });
   let game_id = await Game.get_game_id(user_id);
   let room_id = 'game-room-' + game_id;
-  io.to(room_id).emit("empty-draw-stack");
+
+  // sort the player total array by total point
+  let player_totals = await EndGame.calculate_finals(user_id);
+
+  io.to(room_id).emit('game-over', player_totals);
 
 });
 
