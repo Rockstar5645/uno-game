@@ -230,12 +230,24 @@ router.post('/callout', async (req, res) => {
   }
 });
 
+// empty draw stack = game over!!!
 router.get('/empty_draw_stack', async (req, res) => {
   const { user_id } = req.cookies;
+
   console.log('trying to broadcast empty_draw_stack message');
+  console.log('Trying to broadcast GAME-OVER message');
 
   const io = req.app.get("io");
-  res.json({ status: 'good-to-go' });
+  res.json({ status: 'game-over' });
+
+  let game_id = await Game.get_game_id(user_id);
+
+  let player_A_hand = await Cards.get_cards_for_players('A', game_id);
+  let player_B_hand = await Cards.get_cards_for_players('A', game_id);
+  let player_C_hand = await Cards.get_cards_for_players('A', game_id);
+  let player_D_hand = await Cards.get_cards_for_players('D', game_id);
+
+
 
   let game_id = await Game.get_game_id(user_id);
   let room_id = 'game-room-' + game_id;

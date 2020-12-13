@@ -31,20 +31,20 @@ let draw_cards = async (user_id, n_cards) => {
     let cards = [];
 
     for (let i = 0; i < n_cards; i++) {
+
         let card = await Cards.get_card_with_order(top_order, game_id);
         await Cards.change_card_location(top_order, game_id, player_tag);
 
         cards.push(card);
         top_order++;
-    }
 
+        let draw_count = await Players.get_draw_count(player_tag, game_id);
+        draw_count = draw_count - 1;
+        if (draw_count >= 0) {
+            await Players.set_draw_count(draw_count, player_tag, game_id);
+        }
+    }
     await Game.set_top(top_order, game_id);
-
-    let draw_count = await Players.get_draw_count(player_tag, game_id);
-    draw_count = draw_count - 1;
-    if (draw_count >= 0) {
-        await Players.set_draw_count(draw_count, player_tag, game_id);
-    }
 
     return cards;
 };
