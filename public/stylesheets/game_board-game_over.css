@@ -1,0 +1,221 @@
+#game-over {
+  position: absolute;
+  top: -3rem;
+  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100vw;
+  height: 110vh;
+  background: black;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+#game-over #game-over-background {
+  width: 100%;
+  height: 100%;
+  background-image: url("../images/game-over-bg.jpeg");
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  -webkit-filter: brightness(40%);
+          filter: brightness(40%);
+}
+
+#game-over #game-over-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+#game-over #game-over-content #game-over-banner {
+  height: 10rem;
+  width: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#game-over #game-over-content #game-over-banner img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#game-over #game-over-content ul#game-over-players {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#game-over #game-over-content ul#game-over-players li.game-over-player {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 100%;
+  height: 3rem;
+  margin: 0.2rem 0;
+  padding: 0.1rem 2rem;
+}
+
+#game-over #game-over-content ul#game-over-players li.game-over-player .game-over-player-name-score {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  margin: 0;
+}
+
+#game-over #game-over-content ul#game-over-players li.game-over-player .game-over-player-ranks {
+  width: 3rem;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  border: white 1px solid;
+  border-radius: 5px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-right: 0.5rem;
+}
+
+#game-over #game-over-content ul#game-over-players li.game-over-player .game-over-player-ranks img {
+  display: block;
+  max-width: 100%;
+  max-height: 3rem;
+}
+
+#game-over #game-over-content ul#game-over-players li.game-over-player .game-over-player-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  border: white 1px solid;
+  border-radius: 5px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#game-over #game-over-content ul#game-over-players li.game-over-player .game-over-player-info .game-over-player-avatar {
+  width: 3rem;
+  height: 3rem;
+}
+
+#game-over #game-over-content ul#game-over-players li.game-over-player .game-over-player-info .game-over-player-avatar img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#game-over #game-over-content ul#game-over-players li.game-over-player .game-over-player-info p {
+  color: white;
+}
+
+#game-over #game-over-content ul#game-over-players li.game-over-player#game-over-title {
+  height: 1rem;
+}
+
+#game-over #game-over-content ul#game-over-players li.game-over-player#game-over-title .game-over-player-ranks {
+  border: none;
+  border-radius: none;
+}
+
+#game-over #game-over-content ul#game-over-players li.game-over-player#game-over-title .game-over-player-avatar {
+  width: 3rem;
+}
+
+#game-over #game-over-content ul#game-over-players li.game-over-player#game-over-title p {
+  color: #FEC93E;
+  margin: 0;
+}
+
+#game-over #game-over-content #game-over-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#game-over #game-over-content #game-over-buttons .game-over-btn {
+  display: none;
+  width: 10rem;
+  line-height: 1.5rem;
+  display: block;
+  text-align: center;
+  border-radius: 1.5rem;
+  margin: 1rem 0;
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  background: #FEC93E;
+  cursor: pointer;
+  color: white;
+  -webkit-box-shadow: 0 5px 2px #F7A738;
+          box-shadow: 0 5px 2px #F7A738;
+  -webkit-transition: .2s;
+  transition: .2s;
+  margin: 1rem;
+  text-decoration: none;
+}
+
+#game-over #game-over-content #game-over-buttons .game-over-btn:hover {
+  background-position: right;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+/*# sourceMappingURL=game_board-game_over.css.map */

@@ -3,6 +3,7 @@ head
   meta(charset='UTF-8')
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
   link(rel='stylesheet' href='/stylesheets/game_board.css')
+  link(rel='stylesheet' href='/stylesheets/game_board-game_over.css')
   script(src='/socket.io/socket.io.min.js')
   script(type='module', src='/javascripts/game_board/main.js')
   title UNO Game Board 
@@ -70,4 +71,38 @@ body
     #right-player-container
       .name#right_player_name
       .avatar#right-player-avatar
+
+  
+  #game-over
+    #game-over-background
+    #game-over-content
+      #game-over-banner
+        img(src="../images/game-over-banner.png")
+      ul#game-over-players
+        li.game-over-player#game-over-title
+          p.game-over-player-ranks Ranks
+          .game-over-player-avatar
+          .game-over-player-name-score
+            p.game-over-player-name Player
+            p.game-over-player-score#game-over-player-title-score Score
+        //- Player results
+        - for (let i = 1; i < 5; ++i) {
+          - let rankingImgPath = `/images/lobby/ranking_number_${i+1}.png`
+          console.log(rankingImgPath)
+          li.game-over-player
+            .game-over-player-ranks
+              img.game-over-player-ranks-img(scr=rankingImgPath)
+            .game-over-player-info
+              .game-over-player-avatar
+                img.game-over-player-avatar-img(src="../images/avatars/default_avatar.png")
+              .game-over-player-name-score
+                p.game-over-player-name Player
+                p.game-over-player-score Score
+        - }
+      #game-over-buttons
+        a.game-over-btn(href="#" id="join-game-btn" class="game-over-btn") Play again
+        a.game-over-btn(href="#" id="return-lobby-btn" class="game-over-btn") Return lobby
+      
+
+
 
