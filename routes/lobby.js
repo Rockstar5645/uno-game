@@ -8,6 +8,14 @@ let userService = require('../services/users');
 // /lobby  - endpoint 
 let Lobby = require("../models/lobby");
 
+router.get("/logout", (req, res) => {
+  console.log('got request for logout');
+  res.clearCookie('user_id');
+  res.clearCookie('avatar');
+  res.clearCookie('username');
+  res.redirect('/login');
+});
+
 router.get("/", async (req, res) => {
 
   if (req.cookies.user_id) {
@@ -49,7 +57,6 @@ router.post("/", async (req, res) => {
       status: 'error'
     });
   }
-
   // if (q_status.status === 'added') {
 
   //   console.log('added player to queue');     

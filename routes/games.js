@@ -7,17 +7,33 @@ const Cards = require('../models/cards');
 const serviceCards = require('../services/cards');
 const Players = require('../models/players');
 const User = require('../models/user');
+const EndGame = require('../services/end_game.js');
 
 let { game_board_init } = require("../services/game_board");
 
 // /games  - endpoint
 // CAUTION: the order of these routes matter
 
+// make sure they're in a valid game if they're trying to access these routes 
+router.use(async (req, res, next) => {
+
+  console.log('check if user is allowed here');
+  let { user_id } = req.cookies;
+  let in_game = await Players.is_in_game(user_id);
+  console.log(user_id, 'in game ', in_game);
+  if (in_game) {
+    console.log('good to go');
+    next();
+  } else {
+    console.log('going to lobby');
+    res.redirect('/lobby');
+  }
+});
+
 // queue staging area
 router.get("/stage", (req, res) => {
   res.render("game_stage", {});
 });
-
 
 router.post('/draw-card', async (req, res) => {
 
@@ -26,6 +42,8 @@ router.post('/draw-card', async (req, res) => {
   try {
     let cards = await serviceCards.draw_cards(user_id, 1);
     // console.log('drew cards', cards);
+
+    await Players.update_uno_status('unavailable', user_id);
     res.json({
       cards,
       status: 'ok'
@@ -100,7 +118,9 @@ router.post("/play-card", async (req, res) => {
 
   const { user_id } = req.cookies;
 
-  if (await serviceCards.allowed_to_play(user_id, main_player)) {
+  let allowed = await serviceCards.allowed_to_play(user_id, main_player, card);
+
+  if (allowed.status) {
 
     const card_id = card.id;
     let next_player = await serviceCards.play_card(card_id, chosen_color);
@@ -115,13 +135,11 @@ router.post("/play-card", async (req, res) => {
 
     if (num_cards_left === 0) {
 
-      let username = User.get_username(user_id);
-      res.json({ status: 'game_won' });
-      io.to(room_id).emit('game-over', {
-        player_won: username,
-        player_won_tag: main_player,
-      });
-      await Game.delete_game(game_id);
+      res.json({ status: 'game-over' });
+
+      // sort the player total array by total point
+      let player_totals = await EndGame.calculate_finals(user_id);
+      io.to(room_id).emit('game-over', player_totals);
 
     } else {
 
@@ -146,7 +164,10 @@ router.post("/play-card", async (req, res) => {
     }
   } else {
 
-    res.json({ status: 'not_allowed' });
+    res.json({
+      status: 'not_allowed',
+      reason: allowed.msg,
+    });
   }
 });
 
@@ -155,6 +176,7 @@ router.post('/call-uno', async (req, res) => {
   const { user_id } = req.cookies;
   const { main_player } = req.body;
 
+  console.log(main_player, 'called uno');
   let game_id = await Game.get_game_id(user_id);
 
   let card_count = await Cards.get_num_cards_left(main_player, game_id);
@@ -163,10 +185,16 @@ router.post('/call-uno', async (req, res) => {
 
   if (card_count === 2) {
 
+    console.log('card count is 2, gtg');
     await Players.update_uno_status('called', user_id);
     res.json({
       status: 'okay'
     });
+
+    const io = req.app.get("io");
+    let room_id = 'game-room-' + game_id;
+    console.log('emitting called-uno to', room_id, 'with user_id', user_id);
+    io.to(room_id).emit("called-uno", user_id);
 
   } else {
     res.json({
@@ -179,6 +207,7 @@ router.post('/callout', async (req, res) => {
 
   let { user_id } = req.cookies;
 
+  console.log(user_id, 'attempting to callout');
   let game_id = await Game.get_game_id(user_id);
   console.log('game_id', game_id);
 
@@ -186,13 +215,11 @@ router.post('/callout', async (req, res) => {
   console.log('prev_player', prev_player);
 
   let uno_status = await Players.get_uno_status(prev_player, game_id);
+  let num_cards_left = await Cards.get_num_cards_left(prev_player, game_id);
+
   console.log('uno_status', uno_status);
 
-  if (uno_status !== 'available') {
-    res.json({
-      status: 'invalid-callout',
-    });
-  } else {
+  if (num_cards_left === 1 && uno_status !== 'called') {
 
     let draw_count = await Players.get_draw_count(prev_player, game_id);
     console.log('draw_count', draw_count);
@@ -204,22 +231,36 @@ router.post('/callout', async (req, res) => {
 
     await Players.update_uno_status('unavailable', prev_user_id);
 
+    console.log('valid callout');
     res.json({
       status: 'valid-callout',
+    });
+
+  } else {
+    console.log('invalid callout');
+    res.json({
+      status: 'invalid-callout',
     });
   }
 });
 
+
+// empty draw stack = game over!!!
 router.get('/empty_draw_stack', async (req, res) => {
   const { user_id } = req.cookies;
+
   console.log('trying to broadcast empty_draw_stack message');
+  console.log('Trying to broadcast GAME-OVER message');
 
   const io = req.app.get("io");
-  res.json({ status: 'good-to-go' });
-
+  res.json({ status: 'game-over' });
   let game_id = await Game.get_game_id(user_id);
   let room_id = 'game-room-' + game_id;
-  io.to(room_id).emit("empty-draw-stack");
+
+  // sort the player total array by total point
+  let player_totals = await EndGame.calculate_finals(user_id);
+
+  io.to(room_id).emit('game-over', player_totals);
 
 });
 

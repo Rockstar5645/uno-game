@@ -31,20 +31,20 @@ let draw_cards = async (user_id, n_cards) => {
     let cards = [];
 
     for (let i = 0; i < n_cards; i++) {
+
         let card = await Cards.get_card_with_order(top_order, game_id);
         await Cards.change_card_location(top_order, game_id, player_tag);
 
         cards.push(card);
         top_order++;
-    }
 
+        let draw_count = await Players.get_draw_count(player_tag, game_id);
+        draw_count = draw_count - 1;
+        if (draw_count >= 0) {
+            await Players.set_draw_count(draw_count, player_tag, game_id);
+        }
+    }
     await Game.set_top(top_order, game_id);
-
-    let draw_count = await Players.get_draw_count(player_tag, game_id);
-    draw_count = draw_count - 1;
-    if (draw_count >= 0) {
-        await Players.set_draw_count(draw_count, player_tag, game_id);
-    }
 
     return cards;
 };
@@ -154,15 +154,37 @@ let play_card = async (card_id, chosen_color) => {
     return next_player;
 };
 
-let allowed_to_play = async (user_id, player_tag) => {
 
+let allowed_to_play = async (user_id, player_tag, card) => {
+
+    let allowed = true;
     let game_id = await Game.get_game_id(user_id);
     let to_draw = await Players.get_draw_count(player_tag, game_id);
 
+    let msg;
     if (to_draw > 0) {
-        return false;
+        allowed = false;
+        msg = 'You need to draw more cards';
+    }
+
+    const card_id = card.id;
+
+    let in_hand = await Cards.in_hand(player_tag, card_id);
+
+    if (in_hand === false) {
+        allowed = false;
+        msg = 'This card is not in your hand, please refresh the page';
+    }
+
+    if (allowed) {
+        return {
+            status: true,
+        }
     } else {
-        return true;
+        return {
+            status: false,
+            msg,
+        }
     }
 };
 

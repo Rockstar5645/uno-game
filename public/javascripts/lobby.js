@@ -2,6 +2,8 @@
 import Util from './util.js';
 // const Util = require('./util.js');
 const joinGameBtn = document.getElementById("join-game-btn");
+const logoutBtn = document.getElementById('logout-btn');
+
 
 // dummy userIds
 const userIds = {
@@ -45,6 +47,7 @@ function joinGame(userIds) {
         })
         .catch(e => console.log("Error joining a game.", e));
 }
+
 
 joinGameBtn.addEventListener('click', (userIds) => {
     joinGame(userIds);

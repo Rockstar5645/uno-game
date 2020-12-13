@@ -8,6 +8,7 @@ class State {
         this.turn_direction = 'F';
         this.curr_card = {};
         this.curr_color = 'blue';
+        this.user_id_map = {};      // maps the user_id to username 
         this.player_map = {};       // maps the player tag to the username element id
         this.deck_map = {};         // maps the player tag to the deck id 
         this.events = {};

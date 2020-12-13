@@ -31,7 +31,28 @@ let get_id_from_player_tag = async (player_tag, game_id) => {
     const GIFPT = `SELECT user_id FROM players WHERE player_tag=($1) AND game_id=($2)`;
     let res = await db.one(GIFPT, [player_tag, game_id]);
     return res.user_id;
-}
+};
+
+let is_in_game = async (user_id) => {
+
+    const IIG = `SELECT COUNT(*) FROM players WHERE user_id=($1)`;
+    let res = await db.one(IIG, user_id);
+    let count = parseInt(res.count, 10);
+    console.log(user_id, count);
+
+    return (count === 0) ? false : true;
+};
+
+let get_username_from_player_tag = async (player_tag, game_id) => {
+
+    const GET_PLAYER_INFO = `SELECT users.username 
+                            FROM players 
+                            INNER JOIN users 
+                            ON users.user_id=players.user_id 
+                            WHERE player_tag=$1 and game_id=$2`;
+    let res = await db.one(GET_PLAYER_INFO, [player_tag, game_id]);
+    return res.username;
+};
 
 module.exports = {
     get_draw_count,
@@ -39,4 +60,6 @@ module.exports = {
     update_uno_status,
     get_uno_status,
     get_id_from_player_tag,
-}
+    is_in_game,
+    get_username_from_player_tag,
+}; 
